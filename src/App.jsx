@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
 import './App.css';
+// Assure-toi que ta vidéo est dans le dossier src/assets/ ou à la racine de src
+// Si elle est dans public/, utilise simplement src="/ta-video.mp4"
+import backgroundVideo from './assets/votre-video.mp4'; 
 
 function App() {
   return (
     <div className="app-container">
+      {/* VIDÉO D'ARRIÈRE-PLAN */}
+      <div className="video-background-container">
+        <video autoPlay loop muted playsInline className="background-video">
+          <source src={backgroundVideo} type="video/mp4" />
+          Votre navigateur ne supporte pas les vidéos.
+        </video>
+        {/* L'overlay permet de flouter et d'assombrir pour le contraste */}
+        <div className="video-overlay"></div>
+      </div>
+
       {/* SECTION HERO */}
       <header className="hero">
         <div className="hero-content">
