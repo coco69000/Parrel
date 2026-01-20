@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-// Assure-toi que ta vidéo est dans le dossier src/assets/ ou à la racine de src
-// Si elle est dans public/, utilise simplement src="/ta-video.mp4"
+
+// IMPORTATION DYNAMIQUE (Option 2)
+// Vite va gérer le renommage automatique pour Vercel (le fameux hash 4940d772)
 import backgroundVideo from './assets/background1.mp4'; 
 
 function App() {
@@ -9,7 +10,17 @@ function App() {
     <div className="app-container">
       {/* VIDÉO D'ARRIÈRE-PLAN */}
       <div className="video-background-container">
-        <video autoPlay loop muted playsInline className="background-video">
+        {/* IMPORTANT : 
+          1. src={backgroundVideo} utilise la variable importée plus haut.
+          2. 'muted' est ajouté pour autoriser l'autoPlay sur tous les navigateurs.
+        */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="background-video"
+        >
           <source src={backgroundVideo} type="video/mp4" />
           Votre navigateur ne supporte pas les vidéos.
         </video>
