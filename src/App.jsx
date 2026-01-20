@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 // Assure-toi que ta vidéo est dans le dossier src/assets/ ou à la racine de src
 // Si elle est dans public/, utilise simplement src="/ta-video.mp4"
-import backgroundVideo from './assets/background.mp4'; 
+import backgroundVideo from './assets/background1.mp4'; 
 
 function App() {
   return (
