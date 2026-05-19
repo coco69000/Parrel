@@ -23,7 +23,7 @@ function Home() {
         <div className="video-overlay"></div>
       </div>
 
-      {/* SECTION HERO */}
+      {/* SECTION HERO (Le robot est supprimé) */}
       <header className="hero">
         <div className="hero-content">
           <span className="badge">🚀 Studio de développement innovant</span>
@@ -33,7 +33,7 @@ function Home() {
           </p>
           <div className="hero-btns">
             <a href="#applications" className="cta-button">Découvrir nos applications</a>
-            <a href="#investir" className="cta-button secondary">Investir dans Parrel</a>
+            <a href="#investir" className="cta-button secondary">Soutenir Parrel</a>
           </div>
           <div className="hero-stats">
             <div className="stat-item"><strong>6+</strong><span>Applications</span></div>
@@ -58,13 +58,13 @@ function Home() {
         </div>
       </section>
 
-      {/* SECTION APPLICATIONS (Devenue la section principale) */}
+      {/* SECTION APPLICATIONS (C'est ici que sont affichés WalkMoney et tes autres apps) */}
       <section id="applications" className="apps-section">
         <h2>Nos Applications & Écosystème IA</h2>
         <p>Découvrez les projets qui transforment notre vision en réalité.</p>
         
         <div className="apps-grid">
-          {/* CARTE WALKMONEY PRO MISE EN AVANT */}
+          {/* CARTE WALKMONEY PRO */}
           <div className="app-card" style={{ border: '2px solid #00bcd4', transform: 'scale(1.05)', zIndex: 10 }}>
             <h3 style={{ color: '#00bcd4' }}>WalkMoney - Espace Pro</h3>
             <span className="tag" style={{ backgroundColor: '#00bcd4' }}>Portail Commerçant</span>
@@ -102,7 +102,7 @@ function Home() {
           <div className="app-card">
             <h3>QuizAI / Évaluations</h3>
             <span className="tag">En développement</span>
-            <p>Plateforme permettant aux utilisateurs de créer leurs propres questions personnalisées pour un contrôle absolu sur leurs quiz.</p>
+            <p>Plateforme permettant aux utilisateurs de créer leurs propres questions personnalisées pour un contrôle absolu.</p>
           </div>
           <div className="app-card">
             <h3>EcoMove</h3>
@@ -116,10 +116,10 @@ function Home() {
       <section id="investir" className="invest">
         <div className="invest-content">
           <h2>Propulsez l'écosystème Parrel</h2>
-          <p>Rejoignez-nous pour accélérer le développement de nos applications et acquérir nos premiers millions d'utilisateurs.</p>
+          <p>Rejoignez-nous pour accélérer le développement de nos applications et acquérir nos premiers utilisateurs.</p>
           <div className="invest-grid">
             <div className="invest-item"><h4>Acquisition</h4><p>Déploiement marketing pour WalkMoney et Playfun.</p></div>
-            <div className="invest-item"><h4>R&D IA</h4><p>Intégration de modèles de langage locaux dans nos apps.</p></div>
+            <div className="invest-item"><h4>R&D IA</h4><p>Intégration de modèles de langage dans nos apps.</p></div>
             <div className="invest-item"><h4>Expansion</h4><p>Développement de nouvelles fonctionnalités communautaires.</p></div>
           </div>
           <button className="cta-button">Nous contacter</button>
@@ -148,12 +148,6 @@ function WalkMoneyPro() {
 
   const handleRegisterStore = async (e) => {
     e.preventDefault();
-    
-    // Logique à intégrer plus tard : 
-    // 1. Inscription via Firebase Auth (createUserWithEmailAndPassword)
-    // 2. Paiement via Stripe
-    // 3. Ajout du document dans la collection 'stores' de Firestore avec l'owner_id
-
     alert(`Les informations pour le magasin "${storeName}" en ${country} ont été soumises. (Logique Firebase/Stripe à connecter)`);
   };
 
@@ -169,7 +163,7 @@ function WalkMoneyPro() {
 
         <h1 style={{ color: '#00bcd4', marginBottom: '10px' }}>WalkMoney Pro</h1>
         <p style={{ color: '#94a3b8', marginBottom: '30px', lineHeight: '1.5' }}>
-          Créez votre compte commerçant pour offrir du cashback. Une fois inscrit, votre magasin sera visible instantanément par les utilisateurs de l'application mobile.
+          Créez votre compte commerçant. Une fois inscrit, ces informations seront synchronisées instantanément sur votre application mobile.
         </p>
         
         <form onSubmit={handleRegisterStore} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
