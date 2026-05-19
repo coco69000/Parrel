@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate, useParams, Outlet, useLocation } from 'react-router-dom';
 import './App.css';
-import backgroundVideo from './assets/background1.mp4'; 
 
 // --- IMPORTATIONS FIREBASE ---
 import { initializeApp } from "firebase/app";
@@ -55,14 +54,7 @@ const stripePromise = loadStripe("pk_test_51Sf3KIJmX9VkIHA6dTDUanwaG5w8v6wwdqryF
 // ==========================================
 // 🧭 BARRE DE NAVIGATION (HEADER)
 // ==========================================
-function Navbar({ user }) {
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    await signOut(auth);
-    navigate('/');
-  };
-
+function Navbar() {
   return (
     <nav style={navbarStyle}>
       <div style={navBrandStyle}>
@@ -70,20 +62,7 @@ function Navbar({ user }) {
           Parrel <span style={{ color: '#00bcd4' }}>Studio</span>
         </Link>
       </div>
-      <div style={navLinksStyle}>
-        {user ? (
-          <>
-            <span style={{ color: '#94a3b8', marginRight: '15px', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              👤 Connecté : {user.email}
-            </span>
-            <Link to="/pro/dashboard" style={btnOutlineStyle}>Mes Magasins</Link>
-            <Link to="/pro/create-store" style={btnPrimaryStyle}>+ Créer un magasin</Link>
-            <button onClick={handleLogout} style={btnDangerStyle}>Se déconnecter</button>
-          </>
-        ) : (
-          <Link to="/pro/auth" style={btnPrimaryStyle}>Espace Commerçant (Connexion)</Link>
-        )}
-      </div>
+      <div style={{ color: '#94a3b8', fontSize: '13px' }}>Applications créatives</div>
     </nav>
   );
 }
@@ -92,25 +71,8 @@ function Navbar({ user }) {
 // 🏠 PAGE D'ACCUEIL
 // ==========================================
 function Home({ user }) {
-  const navigate = useNavigate();
-
-  const handleProClick = () => {
-    if (user) {
-      navigate('/pro/dashboard');
-    } else {
-      navigate('/pro/auth');
-    }
-  };
-
   return (
     <div className="app-container">
-      <div className="video-background-container">
-        <video autoPlay loop muted playsInline className="background-video">
-          <source src={backgroundVideo} type="video/mp4" />
-        </video>
-        <div className="video-overlay"></div>
-      </div>
-
       <header className="hero" style={{ paddingTop: '80px' }}>
         <div className="hero-content">
           <span className="badge">🚀 Studio de développement innovant</span>
@@ -125,15 +87,31 @@ function Home({ user }) {
         <h2>Nos Applications & Écosystème IA</h2>
         <div className="apps-grid">
           
-          <div className="app-card" style={{ border: '2px solid #00bcd4', transform: 'scale(1.05)', zIndex: 10, cursor: 'pointer' }} onClick={handleProClick}>
+          <div className="app-card" style={{ border: '2px solid #00bcd4', transform: 'scale(1.03)', zIndex: 10 }}>
             <h3 style={{ color: '#00bcd4' }}>WalkMoney - Espace Pro</h3>
             <span className="tag" style={{ backgroundColor: '#00bcd4', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Portail Commerçant</span>
             <p style={{ marginTop: '15px', marginBottom: '20px' }}>
-              Créez votre magasin, gérez vos offres de cashback et suivez vos statistiques. Tout est synchronisé en temps réel avec l'application de vos clients.
+              Créez votre magasin, gérez vos offres de cashback et suivez vos statistiques. Les boutons de connexion et de création sont maintenant dans l'espace WalkMoney.
             </p>
-            <div style={{...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box'}}>
-              {user ? "Accéder à mon tableau de bord" : "Connexion / Inscription Commerçant"}
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <Link to="/walkmoney" style={{...btnPrimaryStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '180px' }}>
+                Ouvrir WalkMoney
+              </Link>
+              <Link to={user ? "/walkmoney/dashboard" : "/walkmoney/auth"} style={{...btnOutlineStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '180px' }}>
+                {user ? "Mes magasins" : "Se connecter"}
+              </Link>
             </div>
+          </div>
+
+          <div className="app-card" style={{ border: '1px solid #f472b6' }}>
+            <h3 style={{ color: '#f472b6' }}>Daytalia</h3>
+            <span className="tag" style={{ backgroundColor: '#f472b6', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Journal personnel</span>
+            <p style={{ marginTop: '15px', marginBottom: '20px' }}>
+              Une application pour raconter vos journées, garder vos souvenirs et retrouver vos moments importants.
+            </p>
+            <Link to="/daytalia" style={{...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#f472b6' }}>
+              Ouvrir Daytalia
+            </Link>
           </div>
 
           <div className="app-card">
@@ -151,6 +129,311 @@ function Home({ user }) {
 }
 
 // ==========================================
+// 💼 LAYOUT WALKMONEY
+// ==========================================
+function WalkMoneyLayout({ user }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate('/');
+  };
+
+  const isActive = (path) => location.pathname === path || location.pathname.startsWith(path + '/');
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ backgroundColor: '#1e293b', padding: '28px', borderRadius: '18px', border: '1px solid #334155', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
+            <div>
+              <span className="badge" style={{ marginBottom: '12px' }}>💼 WalkMoney</span>
+              <h1 style={{ color: 'white', marginBottom: '8px' }}>Espace commerçant</h1>
+              <p style={{ color: '#94a3b8', margin: 0 }}>La barre de navigation pro est maintenant intégrée à WalkMoney.</p>
+            </div>
+            {user && <div style={{ color: '#94a3b8', fontSize: '14px' }}>Connecté : {user.email}</div>}
+          </div>
+
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '22px' }}>
+            <button onClick={() => navigate('/walkmoney')} style={{ ...(isActive('/walkmoney') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: isActive('/walkmoney') ? '#00bcd4' : 'transparent' }}>
+              Accueil
+            </button>
+            <button onClick={() => navigate(user ? '/walkmoney/dashboard' : '/walkmoney/auth')} style={{ ...(isActive('/walkmoney/auth') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: isActive('/walkmoney/auth') ? '#00bcd4' : 'transparent' }}>
+              Connexion
+            </button>
+            <button onClick={() => navigate('/walkmoney/dashboard')} style={{ ...(isActive('/walkmoney/dashboard') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: isActive('/walkmoney/dashboard') ? '#00bcd4' : 'transparent' }}>
+              Mes magasins
+            </button>
+            <button onClick={() => navigate('/walkmoney/create-store')} style={{ ...(isActive('/walkmoney/create-store') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: isActive('/walkmoney/create-store') ? '#00bcd4' : 'transparent' }}>
+              + Créer un magasin
+            </button>
+            {user && (
+              <button onClick={handleLogout} style={{ ...btnDangerStyle, marginLeft: 'auto' }}>
+                Se déconnecter
+              </button>
+            )}
+          </div>
+        </div>
+
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 🏁 ACCUEIL WALKMONEY
+// ==========================================
+function WalkMoneyLanding({ user }) {
+  const navigate = useNavigate();
+
+  return (
+    <div style={{ display: 'grid', gap: '20px' }}>
+      <div className="app-card" style={{ backgroundColor: '#1e293b' }}>
+        <h2 style={{ color: '#00bcd4', marginBottom: '12px' }}>Bienvenue dans WalkMoney</h2>
+        <p style={{ color: '#cbd5e1', marginBottom: '18px' }}>
+          Ici se trouvent la connexion, la liste des magasins et la création d'un nouveau magasin.
+        </p>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <button onClick={() => navigate(user ? '/walkmoney/dashboard' : '/walkmoney/auth')} style={btnPrimaryStyle}>
+            {user ? 'Accéder à mes magasins' : 'Se connecter'}
+          </button>
+          <button onClick={() => navigate('/walkmoney/create-store')} style={btnOutlineStyle}>
+            + Créer un magasin
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 📔 DAYTALIA
+// ==========================================
+function DaytaliaPage() {
+  const storageKey = 'daytalia-entries';
+  const [entries, setEntries] = useState([]);
+  const [title, setTitle] = useState('');
+  const [mood, setMood] = useState('Calme');
+  const [dayText, setDayText] = useState('');
+  const [memory, setMemory] = useState('');
+
+  useEffect(() => {
+    try {
+      const savedEntries = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      setEntries(Array.isArray(savedEntries) ? savedEntries : []);
+    } catch {
+      setEntries([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(entries));
+  }, [entries]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!dayText.trim() && !memory.trim()) return;
+
+    const newEntry = {
+      id: Date.now(),
+      title: title.trim() || `Journal du ${new Date().toLocaleDateString('fr-FR')}`,
+      mood,
+      dayText,
+      memory,
+      createdAt: new Date().toISOString(),
+    };
+
+    setEntries([newEntry, ...entries]);
+    setTitle('');
+    setMood('Calme');
+    setDayText('');
+    setMemory('');
+  };
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        <div style={{ marginBottom: '24px' }}>
+          <span className="badge" style={{ backgroundColor: '#f472b6', color: 'white' }}>📔 Daytalia</span>
+          <h1 style={{ color: 'white', marginTop: '14px', marginBottom: '10px' }}>Racontez vos journées et gardez vos souvenirs</h1>
+          <p style={{ color: '#94a3b8', maxWidth: '720px' }}>
+            Notez ce que vous avez vécu, ce que vous avez ressenti et les moments que vous voulez conserver.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gap: '24px' }}>
+          <form onSubmit={handleSubmit} style={{ backgroundColor: '#1e293b', padding: '24px', borderRadius: '16px', border: '1px solid #334155' }}>
+            <div style={{ display: 'grid', gap: '14px' }}>
+              <input type="text" placeholder="Titre de la journée" value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} />
+              <select value={mood} onChange={(e) => setMood(e.target.value)} style={inputStyle}>
+                <option>Calme</option>
+                <option>Heureux</option>
+                <option>Fatigué</option>
+                <option>Inspiré</option>
+                <option>Triste</option>
+              </select>
+              <textarea placeholder="Décrivez votre journée" value={dayText} onChange={(e) => setDayText(e.target.value)} style={{ ...inputStyle, height: '120px', resize: 'vertical' }} />
+              <textarea placeholder="Un souvenir à garder" value={memory} onChange={(e) => setMemory(e.target.value)} style={{ ...inputStyle, height: '100px', resize: 'vertical' }} />
+              <button type="submit" style={btnPrimaryStyle}>Sauvegarder l'entrée</button>
+            </div>
+          </form>
+
+          <div style={{ display: 'grid', gap: '16px' }}>
+            {entries.length === 0 ? (
+              <div className="app-card" style={{ backgroundColor: '#1e293b' }}>
+                <p style={{ color: '#94a3b8', margin: 0 }}>Aucune histoire enregistrée pour le moment.</p>
+              </div>
+            ) : (
+              entries.map((entry) => (
+                <article key={entry.id} className="app-card" style={{ backgroundColor: '#1e293b' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', marginBottom: '12px' }}>
+                    <h3 style={{ color: '#f472b6', margin: 0 }}>{entry.title}</h3>
+                    <span style={{ color: '#cbd5e1', fontSize: '13px' }}>{new Date(entry.createdAt).toLocaleString('fr-FR')}</span>
+                  </div>
+                  <div style={{ color: '#22c55e', fontWeight: 'bold', marginBottom: '12px' }}>Humeur : {entry.mood}</div>
+                  <p style={{ color: '#e2e8f0', marginTop: 0, whiteSpace: 'pre-wrap' }}>{entry.dayText}</p>
+                  {entry.memory && (
+                    <div style={{ marginTop: '16px', padding: '14px', borderRadius: '12px', backgroundColor: '#0f172a', border: '1px solid #334155' }}>
+                      <div style={{ color: '#f472b6', fontSize: '12px', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Souvenir</div>
+                      <p style={{ color: '#cbd5e1', margin: 0, whiteSpace: 'pre-wrap' }}>{entry.memory}</p>
+                    </div>
+                  )}
+                </article>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 📄 PAGES LÉGALES PAR APPLICATION
+// ==========================================
+const legalApps = {
+  walkmoney: {
+    name: 'WalkMoney',
+    label: 'WalkMoney - Espace Pro',
+    color: '#00bcd4'
+  },
+  daytalia: {
+    name: 'Daytalia',
+    label: 'Daytalia',
+    color: '#f472b6'
+  },
+  projetcalo: {
+    name: 'ProjetCalo',
+    label: 'ProjetCalo',
+    color: '#38bdf8'
+  },
+  playfun: {
+    name: 'Playfun',
+    label: 'Playfun',
+    color: '#f59e0b'
+  },
+};
+
+function LegalPage({ type }) {
+  const { appSlug } = useParams();
+  const appInfo = legalApps[appSlug] || legalApps.walkmoney;
+  const isPrivacy = type === 'privacy';
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ backgroundColor: '#1e293b', padding: '28px', borderRadius: '18px', border: '1px solid #334155' }}>
+          <span className="badge" style={{ backgroundColor: appInfo.color, color: 'white' }}>{appInfo.name}</span>
+          <h1 style={{ color: 'white', marginTop: '16px', marginBottom: '10px' }}>
+            {isPrivacy ? 'Politique de confidentialité' : 'Conditions d’utilisation'}
+          </h1>
+          <p style={{ color: '#94a3b8', marginBottom: '24px' }}>
+            Version dédiée à {appInfo.label}.
+          </p>
+
+          <div style={{ display: 'grid', gap: '18px', color: '#e2e8f0', lineHeight: 1.7 }}>
+            <section style={cardStyle}>
+              <h2 style={{ color: appInfo.color, marginBottom: '10px' }}>Résumé</h2>
+              <p style={{ margin: 0 }}>
+                {isPrivacy
+                  ? `Cette page explique comment ${appInfo.name} collecte, utilise et protège vos données.`
+                  : `Cette page décrit les règles d'utilisation de ${appInfo.name} et les responsabilités de l'utilisateur.`}
+              </p>
+            </section>
+
+            <section style={cardStyle}>
+              <h2 style={{ color: appInfo.color, marginBottom: '10px' }}>Données et sécurité</h2>
+              <p style={{ marginBottom: 0 }}>
+                {isPrivacy
+                  ? `Nous limitons la collecte aux données nécessaires au fonctionnement de ${appInfo.name}. Les informations ne sont partagées qu'avec les services indispensables au service.`
+                  : `L'accès doit rester conforme aux règles de ${appInfo.name}. L'utilisateur s'engage à utiliser la plateforme de manière légale, respectueuse et sécurisée.`}
+              </p>
+            </section>
+
+            <section style={cardStyle}>
+              <h2 style={{ color: appInfo.color, marginBottom: '10px' }}>Contact</h2>
+              <p style={{ margin: 0 }}>
+                Pour toute question, écrivez à contact@parrelstudio.com.
+              </p>
+            </section>
+          </div>
+
+          <div style={{ marginTop: '24px' }}>
+            <Link to="/" style={btnOutlineStyle}>Retour à l’accueil</Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LegalIndexPage({ type }) {
+  const isPrivacy = type === 'privacy';
+  const title = isPrivacy ? 'Politique de confidentialité' : 'Conditions d’utilisation';
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        <div style={{ backgroundColor: '#1e293b', padding: '28px', borderRadius: '18px', border: '1px solid #334155' }}>
+          <h1 style={{ color: 'white', marginBottom: '10px' }}>{title}</h1>
+          <p style={{ color: '#94a3b8', marginBottom: '24px' }}>
+            Choisissez l'application concernée.
+          </p>
+
+          <div style={{ display: 'grid', gap: '16px' }}>
+            {Object.entries(legalApps).map(([slug, appInfo]) => (
+              <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
+                <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <Link to={`/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>Confidentialité</Link>
+                  <Link to={`/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>Conditions d’utilisation</Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer style={siteFooterStyle}>
+      <div style={siteFooterInnerStyle}>
+        <div style={{ color: '#cbd5e1' }}>© 2026 Parrel Studio</div>
+        <div style={siteFooterLinksStyle}>
+          <Link to="/legal/politique-de-confidentialite" style={siteFooterLinkStyle}>Politique de confidentialité</Link>
+          <Link to="/legal/conditions-dutilisation" style={siteFooterLinkStyle}>Conditions d’utilisation</Link>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ==========================================
 // 🔐 PAGE AUTHENTIFICATION PRO
 // ==========================================
 function AuthPage({ user }) {
@@ -161,7 +444,7 @@ function AuthPage({ user }) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  if (user) return <Navigate to="/pro/dashboard" replace />;
+  if (user) return <Navigate to="/walkmoney/dashboard" replace />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -174,7 +457,7 @@ function AuthPage({ user }) {
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
       }
-      navigate('/pro/dashboard');
+      navigate('/walkmoney/dashboard');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setErrorMsg("Cet email est déjà utilisé. Veuillez vous connecter.");
@@ -304,7 +587,7 @@ function MerchantDashboard({ user }) {
     }
   };
 
-  if (!user) return <Navigate to="/pro/auth" replace />;
+  if (!user) return <Navigate to="/walkmoney/auth" replace />;
   if (loading) return <div style={pageStyle}>Chargement de votre espace...</div>;
 
   return (
@@ -315,7 +598,7 @@ function MerchantDashboard({ user }) {
         {stores.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#1e293b', borderRadius: '12px' }}>
             <h2 style={{ color: 'white', marginBottom: '15px' }}>Vous n'avez pas encore de magasin</h2>
-            <Link to="/pro/create-store" style={btnPrimaryStyle}>+ Créer mon premier magasin</Link>
+            <Link to="/walkmoney/create-store" style={btnPrimaryStyle}>+ Créer mon premier magasin</Link>
           </div>
         ) : (
           stores.map(store => (
@@ -363,8 +646,8 @@ function MerchantDashboard({ user }) {
 
               {/* ACTIONS */}
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                <button onClick={() => navigate(`/pro/edit-store/${store.id}`)} style={{...btnOutlineStyle, flex: 1}}>✏️ Modifier</button>
-                <button onClick={() => navigate(`/pro/stats/${store.id}`)} style={{...btnOutlineStyle, flex: 1}}>📊 Statistiques</button>
+                <button onClick={() => navigate(`/walkmoney/edit-store/${store.id}`)} style={{...btnOutlineStyle, flex: 1}}>✏️ Modifier</button>
+                <button onClick={() => navigate(`/walkmoney/stats/${store.id}`)} style={{...btnOutlineStyle, flex: 1}}>📊 Statistiques</button>
                 <button onClick={() => handleTestSale(store)} style={{...btnOutlineStyle, flex: 1, color: '#fbbf24', borderColor: '#fbbf24'}}>🐛 Simuler Achat</button>
               </div>
             </div>
@@ -569,7 +852,7 @@ function CheckoutForm({ user }) {
       });
 
       alert("🎉 Magasin créé avec succès !");
-      navigate('/pro/dashboard');
+      navigate('/walkmoney/dashboard');
 
     } catch (err) {
       console.error(err);
@@ -654,7 +937,7 @@ function CheckoutForm({ user }) {
 }
 
 function CreateStorePage({ user }) {
-  if (!user) return <Navigate to="/pro/auth" replace />;
+  if (!user) return <Navigate to="/walkmoney/auth" replace />;
 
   return (
     <div style={pageStyle}>
@@ -742,7 +1025,7 @@ function EditStorePage({ user }) {
         current_month_debt: increment(addedCost)
       });
       alert(`Mise à jour réussie. ${addedCost > 0 ? `+${addedCost}€ ajoutés à la facture en cours.` : ''}`);
-      navigate('/pro/dashboard');
+      navigate('/walkmoney/dashboard');
     } catch(err) {
       alert("Erreur: " + err.message);
     }
@@ -753,7 +1036,7 @@ function EditStorePage({ user }) {
   return (
     <div style={pageStyle}>
       <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#1e293b', padding: '30px', borderRadius: '12px' }}>
-        <button onClick={() => navigate('/pro/dashboard')} style={{ background: 'none', color: '#00bcd4', border: 'none', cursor: 'pointer', marginBottom: '20px' }}>&larr; Retour</button>
+        <button onClick={() => navigate('/walkmoney/dashboard')} style={{ background: 'none', color: '#00bcd4', border: 'none', cursor: 'pointer', marginBottom: '20px' }}>&larr; Retour</button>
         <h1 style={{ color: 'white', marginBottom: '20px' }}>Modifier {store.name}</h1>
         
         <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
@@ -835,7 +1118,7 @@ function StoreStatsPage({ user }) {
   return (
     <div style={pageStyle}>
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <button onClick={() => navigate('/pro/dashboard')} style={{ background: 'none', color: '#00bcd4', border: 'none', cursor: 'pointer', marginBottom: '20px' }}>&larr; Retour au Dashboard</button>
+        <button onClick={() => navigate('/walkmoney/dashboard')} style={{ background: 'none', color: '#00bcd4', border: 'none', cursor: 'pointer', marginBottom: '20px' }}>&larr; Retour au Dashboard</button>
         <h1 style={{ color: 'white', marginBottom: '20px' }}>Statistiques : {storeData ? storeData.name : '...'}</h1>
         
         {/* ONGLET NAVIGATION */}
@@ -968,15 +1251,29 @@ function App() {
 
   return (
     <Router>
-      <Navbar user={user} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/pro/auth" element={<AuthPage user={user} />} />
-        <Route path="/pro/dashboard" element={<MerchantDashboard user={user} />} />
-        <Route path="/pro/create-store" element={<CreateStorePage user={user} />} />
-        <Route path="/pro/edit-store/:storeId" element={<EditStorePage user={user} />} />
-        <Route path="/pro/stats/:storeId" element={<StoreStatsPage user={user} />} />
+        <Route path="/walkmoney" element={<WalkMoneyLayout user={user} />}>
+          <Route index element={<WalkMoneyLanding user={user} />} />
+          <Route path="auth" element={<AuthPage user={user} />} />
+          <Route path="dashboard" element={<MerchantDashboard user={user} />} />
+          <Route path="create-store" element={<CreateStorePage user={user} />} />
+          <Route path="edit-store/:storeId" element={<EditStorePage user={user} />} />
+          <Route path="stats/:storeId" element={<StoreStatsPage user={user} />} />
+        </Route>
+        <Route path="/daytalia" element={<DaytaliaPage />} />
+        <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
+        <Route path="/legal/conditions-dutilisation" element={<LegalIndexPage type="terms" />} />
+        <Route path="/pro/auth" element={<Navigate to="/walkmoney/auth" replace />} />
+        <Route path="/pro/dashboard" element={<Navigate to="/walkmoney/dashboard" replace />} />
+        <Route path="/pro/create-store" element={<Navigate to="/walkmoney/create-store" replace />} />
+        <Route path="/pro/edit-store/:storeId" element={<Navigate to="/walkmoney/dashboard" replace />} />
+        <Route path="/pro/stats/:storeId" element={<Navigate to="/walkmoney/dashboard" replace />} />
+        <Route path="/:appSlug/politique-de-confidentialite" element={<LegalPage type="privacy" />} />
+        <Route path="/:appSlug/conditions-dutilisation" element={<LegalPage type="terms" />} />
       </Routes>
+      <SiteFooter />
     </Router>
   );
 }
@@ -999,5 +1296,9 @@ const statCardStyle = { flex: '1', minWidth: '150px', backgroundColor: '#1e293b'
 const statCardTitle = { color: '#94a3b8', fontSize: '12px', marginBottom: '10px', textAlign: 'center' };
 const statCardValue = { fontSize: '24px', fontWeight: 'bold' };
 const cardStyleOptions = { style: { base: { color: '#ffffff', fontFamily: 'Arial, sans-serif', fontSmoothing: 'antialiased', fontSize: '16px', '::placeholder': { color: '#64748b' } }, invalid: { color: '#fa755a', iconColor: '#fa755a' } } };
+const siteFooterStyle = { borderTop: '1px solid #334155', marginTop: '40px', padding: '20px 20px 30px', backgroundColor: '#0f172a' };
+const siteFooterInnerStyle = { maxWidth: '1100px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'space-between', alignItems: 'center' };
+const siteFooterLinksStyle = { display: 'flex', gap: '16px', flexWrap: 'wrap' };
+const siteFooterLinkStyle = { color: '#94a3b8', textDecoration: 'none', fontSize: '14px' };
 
 export default App;
