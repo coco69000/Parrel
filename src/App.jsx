@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 
-// IMPORTATION DYNAMIQUE (Option 2)
-// Vite va gérer le renommage automatique pour Vercel (le fameux hash 4940d772)
 import backgroundVideo from './assets/background1.mp4'; 
 
 // --- COMPOSANT DE LA PAGE D'ACCUEIL ---
@@ -28,20 +26,19 @@ function Home() {
       {/* SECTION HERO */}
       <header className="hero">
         <div className="hero-content">
-          <span className="badge">🚀 Première mondiale en robotique domestique</span>
-          <h1>Créons le robot domestique le plus intelligent au monde</h1>
+          <span className="badge">🚀 Studio de développement innovant</span>
+          <h1>L'innovation logicielle au service de votre quotidien</h1>
           <p className="hero-description">
-            Parrel développe une révolution technologique : un robot domestique doté d'algorithmes d'IA de pointe jamais vus auparavant. 
-            Notre projet phare + applications innovantes.
+            Parrel développe un écosystème d'applications mobiles et d'outils basés sur l'Intelligence Artificielle pour simplifier, divertir et récompenser vos actions.
           </p>
           <div className="hero-btns">
-            <a href="#projets" className="cta-button">Découvrir nos projets</a>
+            <a href="#applications" className="cta-button">Découvrir nos applications</a>
             <a href="#investir" className="cta-button secondary">Investir dans Parrel</a>
           </div>
           <div className="hero-stats">
-            <div className="stat-item"><strong>1ère</strong><span>Mondiale</span></div>
-            <div className="stat-item"><strong>6+</strong><span>Projets innovants</span></div>
-            <div className="stat-item"><strong>AI+</strong><span>Algorithmes avancés</span></div>
+            <div className="stat-item"><strong>6+</strong><span>Applications</span></div>
+            <div className="stat-item"><strong>IA</strong><span>Intégration native</span></div>
+            <div className="stat-item"><strong>100%</strong><span>Personnalisé</span></div>
             <div className="stat-item"><strong>∞</strong><span>Potentiel</span></div>
           </div>
         </div>
@@ -51,61 +48,30 @@ function Home() {
       <section className="about">
         <h2>À propos de Parrel</h2>
         <p>
-          Parrel est une startup technologique ambitieuse dont le projet phare est de créer le robot domestique le plus intelligent jamais conçu. 
-          Grâce à des algorithmes d'IA révolutionnaires et une architecture unique, nous développons une première mondiale qui transformera la robotique domestique.
+          Parrel est une entreprise technologique ambitieuse spécialisée dans la création d'applications mobiles de nouvelle génération. 
+          De la gestion de récompenses géolocalisées à l'analyse nutritionnelle par IA, nous concevons des solutions sur-mesure pour répondre aux besoins de demain.
         </p>
         <div className="values">
-          <div className="value-card"><h3>Innovation</h3><p>Nous repoussons les limites de la technologie pour créer des solutions uniques.</p></div>
-          <div className="value-card"><h3>Vision</h3><p>Rendre la technologie accessible et utile dans la vie de tous les jours.</p></div>
-          <div className="value-card"><h3>Impact</h3><p>Améliorer le quotidien de millions d'utilisateurs à travers le monde.</p></div>
+          <div className="value-card"><h3>Innovation</h3><p>Nous utilisons les dernières technologies pour créer des expériences fluides et uniques.</p></div>
+          <div className="value-card"><h3>Accessibilité</h3><p>Des interfaces pensées pour être intuitives et utiles pour tous, tous les jours.</p></div>
+          <div className="value-card"><h3>Impact</h3><p>Connecter le monde digital aux actions réelles (sport, écologie, commerce local).</p></div>
         </div>
       </section>
 
-      {/* SECTION PROJET PHARE */}
-      <section id="projets" className="main-project">
-        <div className="project-header">
-          <h2>Notre projet phare : Le Robot Domestique</h2>
-          <p className="highlight-text">Une première mondiale qui redéfinit les standards de la robotique domestique.</p>
-        </div>
-        
-        <div className="robot-demo">
-          <div className="robot-info">
-            <h3>Robotique V1 - Démonstration</h3>
-            <p>Découvrez les capacités révolutionnaires : navigation autonome intelligente, manipulation d'objets précise et raisonnement adaptatif en temps réel.</p>
-            <div className="features-grid">
-              <div className="feat"><strong>IA Révolutionnaire</strong><p>Algorithmes propriétaires inégalés</p></div>
-              <div className="feat"><strong>Vision Stéréoscopique</strong><p>Perception 3D avancée via double objectif</p></div>
-              <div className="feat"><strong>Autonomie Totale</strong><p>Navigation et décisions intelligentes</p></div>
-              <div className="feat"><strong>Première Mondiale</strong><p>Technologie jamais vue</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="specs">
-          <h3>Spécifications Techniques</h3>
-          <div className="specs-grid">
-            <div className="spec-item"><strong>Bras robotique</strong> 6 degrés de liberté avec pince de précision</div>
-            <div className="spec-item"><strong>Vision</strong> Caméra stéréoscopique (double-lens) pour perception 3D</div>
-            <div className="spec-item"><strong>Mobilité</strong> Roues Mecanum omnidirectionnelles</div>
-            <div className="spec-item"><strong>IA propriétaire</strong> Algorithmes de raisonnement révolutionnaires</div>
-            <div className="spec-item"><strong>Navigation autonome</strong> Cartographie 3D et mémoire des trajets</div>
-            <div className="spec-item"><strong>Interaction tactile</strong> Capteurs pour manipulation d'objets</div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION APPLICATIONS */}
-      <section className="apps-section">
-        <h2>Nos Applications IA & Mobiles</h2>
-        <p>En complément de notre robot, nous développons des applications innovantes.</p>
+      {/* SECTION APPLICATIONS (Devenue la section principale) */}
+      <section id="applications" className="apps-section">
+        <h2>Nos Applications & Écosystème IA</h2>
+        <p>Découvrez les projets qui transforment notre vision en réalité.</p>
         
         <div className="apps-grid">
-          {/* NOUVELLE CARTE WALKMONEY PRO */}
-          <div className="app-card" style={{ border: '2px solid #00bcd4' }}>
-            <h3>WalkMoney</h3>
-            <span className="tag">Espace Pro</span>
-            <p>Portail dédié pour créer votre magasin et le lier directement à l'application mobile de vos clients.</p>
-            <Link to="/walkmoney/pro" className="cta-button" style={{ display: 'inline-block', marginTop: '15px' }}>
+          {/* CARTE WALKMONEY PRO MISE EN AVANT */}
+          <div className="app-card" style={{ border: '2px solid #00bcd4', transform: 'scale(1.05)', zIndex: 10 }}>
+            <h3 style={{ color: '#00bcd4' }}>WalkMoney - Espace Pro</h3>
+            <span className="tag" style={{ backgroundColor: '#00bcd4' }}>Portail Commerçant</span>
+            <p style={{ marginTop: '15px', marginBottom: '20px' }}>
+              Le portail dédié aux gérants. Créez votre magasin, gérez vos offres de cashback et suivez vos statistiques. Tout est synchronisé en temps réel avec l'application de vos clients.
+            </p>
+            <Link to="/walkmoney/pro" className="cta-button" style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
               Se connecter / S'inscrire
             </Link>
           </div>
@@ -115,7 +81,7 @@ function Home() {
             <span className="date">Sept. 2025 - Aujourd'hui</span>
             <p>Nutrition et fitness personnalisés via IA.</p>
             <ul>
-              <li>Programme 100% personnalisé</li>
+              <li>Programme 100% sur-mesure</li>
               <li>Recommandations IA adaptatives</li>
             </ul>
           </div>
@@ -125,23 +91,23 @@ function Home() {
             <p>+20 jeux de soirée multijoueur.</p>
             <ul>
               <li>Modes en ligne et local</li>
-              <li>Interface sociale</li>
+              <li>Interface sociale dynamique</li>
             </ul>
           </div>
           <div className="app-card">
             <h3>Daytalia</h3>
             <span className="tag">En développement</span>
-            <p>Réseau social d'autobiographie. Les souvenirs restent des blocs intacts, tandis que les journées sont fragmentées pour l'analyse IA.</p>
+            <p>Réseau social d'autobiographie. Vos souvenirs restent intacts, tandis que vos journées sont fragmentées pour l'analyse IA.</p>
           </div>
           <div className="app-card">
             <h3>QuizAI / Évaluations</h3>
             <span className="tag">En développement</span>
-            <p>Plateforme permettant aux utilisateurs de créer leurs propres questions personnalisées pour un contrôle absolu.</p>
+            <p>Plateforme permettant aux utilisateurs de créer leurs propres questions personnalisées pour un contrôle absolu sur leurs quiz.</p>
           </div>
           <div className="app-card">
             <h3>EcoMove</h3>
             <span className="tag">En développement</span>
-            <p>Récompenses pour déplacements durables validées par l'atteinte de coordonnées géographiques spécifiques.</p>
+            <p>Récompenses pour déplacements durables validées par l'atteinte de coordonnées géographiques précises.</p>
           </div>
         </div>
       </section>
@@ -149,12 +115,12 @@ function Home() {
       {/* SECTION INVESTISSEMENT */}
       <section id="investir" className="invest">
         <div className="invest-content">
-          <h2>Investissez dans la première mondiale</h2>
-          <p>Rejoignez-nous pour révolutionner la robotique et créer une technologie qui marquera l'histoire.</p>
+          <h2>Propulsez l'écosystème Parrel</h2>
+          <p>Rejoignez-nous pour accélérer le développement de nos applications et acquérir nos premiers millions d'utilisateurs.</p>
           <div className="invest-grid">
-            <div className="invest-item"><h4>Prototype avancé</h4><p>Finalisation avec composants de pointe.</p></div>
-            <div className="invest-item"><h4>IA révolutionnaire</h4><p>Perfectionnement des algorithmes propriétaires.</p></div>
-            <div className="invest-item"><h4>Lancement mondial</h4><p>Commercialisation internationale.</p></div>
+            <div className="invest-item"><h4>Acquisition</h4><p>Déploiement marketing pour WalkMoney et Playfun.</p></div>
+            <div className="invest-item"><h4>R&D IA</h4><p>Intégration de modèles de langage locaux dans nos apps.</p></div>
+            <div className="invest-item"><h4>Expansion</h4><p>Développement de nouvelles fonctionnalités communautaires.</p></div>
           </div>
           <button className="cta-button">Nous contacter</button>
         </div>
@@ -163,7 +129,7 @@ function Home() {
       <footer className="footer">
         <div className="footer-top">
           <h3>Parrel</h3>
-          <p>Innovons ensemble pour un futur technologique accessible et intelligent.</p>
+          <p>Innovons ensemble pour un écosystème technologique accessible et intelligent.</p>
         </div>
         <div className="footer-bottom">
           <p>© 2026 Parrel. Tous droits réservés.</p>
@@ -197,13 +163,13 @@ function WalkMoneyPro() {
         
         <div style={{ marginBottom: '30px' }}>
           <Link to="/" style={{ color: '#00bcd4', textDecoration: 'none', fontWeight: 'bold' }}>
-            &larr; Retour à l'accueil Parrel
+            &larr; Retour aux applications Parrel
           </Link>
         </div>
 
         <h1 style={{ color: '#00bcd4', marginBottom: '10px' }}>WalkMoney Pro</h1>
         <p style={{ color: '#94a3b8', marginBottom: '30px', lineHeight: '1.5' }}>
-          Créez votre compte commerçant. Une fois inscrit, ces informations seront synchronisées instantanément sur votre application mobile.
+          Créez votre compte commerçant pour offrir du cashback. Une fois inscrit, votre magasin sera visible instantanément par les utilisateurs de l'application mobile.
         </p>
         
         <form onSubmit={handleRegisterStore} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
