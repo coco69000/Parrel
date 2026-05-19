@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 
 // IMPORTATION DYNAMIQUE (Option 2)
 // Vite va gérer le renommage automatique pour Vercel (le fameux hash 4940d772)
 import backgroundVideo from './assets/background1.mp4'; 
 
-function App() {
+// --- COMPOSANT DE LA PAGE D'ACCUEIL ---
+function Home() {
   return (
     <div className="app-container">
       {/* VIDÉO D'ARRIÈRE-PLAN */}
       <div className="video-background-container">
-        {/* IMPORTANT : 
-          1. src={backgroundVideo} utilise la variable importée plus haut.
-          2. 'muted' est ajouté pour autoriser l'autoPlay sur tous les navigateurs.
-        */}
         <video 
           autoPlay 
           loop 
@@ -24,7 +22,6 @@ function App() {
           <source src={backgroundVideo} type="video/mp4" />
           Votre navigateur ne supporte pas les vidéos.
         </video>
-        {/* L'overlay permet de flouter et d'assombrir pour le contraste */}
         <div className="video-overlay"></div>
       </div>
 
@@ -35,7 +32,7 @@ function App() {
           <h1>Créons le robot domestique le plus intelligent au monde</h1>
           <p className="hero-description">
             Parrel développe une révolution technologique : un robot domestique doté d'algorithmes d'IA de pointe jamais vus auparavant. 
-            Notre projet phare + 5 applications innovantes.
+            Notre projet phare + applications innovantes.
           </p>
           <div className="hero-btns">
             <a href="#projets" className="cta-button">Découvrir nos projets</a>
@@ -43,7 +40,7 @@ function App() {
           </div>
           <div className="hero-stats">
             <div className="stat-item"><strong>1ère</strong><span>Mondiale</span></div>
-            <div className="stat-item"><strong>6</strong><span>Projets innovants</span></div>
+            <div className="stat-item"><strong>6+</strong><span>Projets innovants</span></div>
             <div className="stat-item"><strong>AI+</strong><span>Algorithmes avancés</span></div>
             <div className="stat-item"><strong>∞</strong><span>Potentiel</span></div>
           </div>
@@ -77,7 +74,7 @@ function App() {
             <p>Découvrez les capacités révolutionnaires : navigation autonome intelligente, manipulation d'objets précise et raisonnement adaptatif en temps réel.</p>
             <div className="features-grid">
               <div className="feat"><strong>IA Révolutionnaire</strong><p>Algorithmes propriétaires inégalés</p></div>
-              <div className="feat"><strong>Vision Stéréoscopique</strong><p>Perception 3D avancée</p></div>
+              <div className="feat"><strong>Vision Stéréoscopique</strong><p>Perception 3D avancée via double objectif</p></div>
               <div className="feat"><strong>Autonomie Totale</strong><p>Navigation et décisions intelligentes</p></div>
               <div className="feat"><strong>Première Mondiale</strong><p>Technologie jamais vue</p></div>
             </div>
@@ -88,7 +85,7 @@ function App() {
           <h3>Spécifications Techniques</h3>
           <div className="specs-grid">
             <div className="spec-item"><strong>Bras robotique</strong> 6 degrés de liberté avec pince de précision</div>
-            <div className="spec-item"><strong>Vision</strong> Stéréoscopique avancée pour perception 3D</div>
+            <div className="spec-item"><strong>Vision</strong> Caméra stéréoscopique (double-lens) pour perception 3D</div>
             <div className="spec-item"><strong>Mobilité</strong> Roues Mecanum omnidirectionnelles</div>
             <div className="spec-item"><strong>IA propriétaire</strong> Algorithmes de raisonnement révolutionnaires</div>
             <div className="spec-item"><strong>Navigation autonome</strong> Cartographie 3D et mémoire des trajets</div>
@@ -99,10 +96,20 @@ function App() {
 
       {/* SECTION APPLICATIONS */}
       <section className="apps-section">
-        <h2>Nos Applications IA</h2>
-        <p>En complément de notre robot, nous développons 5 applications mobiles innovantes.</p>
+        <h2>Nos Applications IA & Mobiles</h2>
+        <p>En complément de notre robot, nous développons des applications innovantes.</p>
         
         <div className="apps-grid">
+          {/* NOUVELLE CARTE WALKMONEY PRO */}
+          <div className="app-card" style={{ border: '2px solid #00bcd4' }}>
+            <h3>WalkMoney</h3>
+            <span className="tag">Espace Pro</span>
+            <p>Portail dédié pour créer votre magasin et le lier directement à l'application mobile de vos clients.</p>
+            <Link to="/walkmoney/pro" className="cta-button" style={{ display: 'inline-block', marginTop: '15px' }}>
+              Se connecter / S'inscrire
+            </Link>
+          </div>
+
           <div className="app-card">
             <h3>ProjetCalo</h3>
             <span className="date">Sept. 2025 - Aujourd'hui</span>
@@ -124,17 +131,17 @@ function App() {
           <div className="app-card">
             <h3>Daytalia</h3>
             <span className="tag">En développement</span>
-            <p>Réseau social d'autobiographie assistée par IA.</p>
+            <p>Réseau social d'autobiographie. Les souvenirs restent des blocs intacts, tandis que les journées sont fragmentées pour l'analyse IA.</p>
           </div>
           <div className="app-card">
-            <h3>QuizAI</h3>
+            <h3>QuizAI / Évaluations</h3>
             <span className="tag">En développement</span>
-            <p>Génération automatique de quiz adaptatifs.</p>
+            <p>Plateforme permettant aux utilisateurs de créer leurs propres questions personnalisées pour un contrôle absolu.</p>
           </div>
           <div className="app-card">
             <h3>EcoMove</h3>
             <span className="tag">En développement</span>
-            <p>Récompenses pour déplacements durables.</p>
+            <p>Récompenses pour déplacements durables validées par l'atteinte de coordonnées géographiques spécifiques.</p>
           </div>
         </div>
       </section>
@@ -163,6 +170,107 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+// --- COMPOSANT DE L'ESPACE PRO WALKMONEY ---
+function WalkMoneyPro() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [storeName, setStoreName] = useState('');
+  const [country, setCountry] = useState('');
+
+  const handleRegisterStore = async (e) => {
+    e.preventDefault();
+    
+    // Logique à intégrer plus tard : 
+    // 1. Inscription via Firebase Auth (createUserWithEmailAndPassword)
+    // 2. Paiement via Stripe
+    // 3. Ajout du document dans la collection 'stores' de Firestore avec l'owner_id
+
+    alert(`Les informations pour le magasin "${storeName}" en ${country} ont été soumises. (Logique Firebase/Stripe à connecter)`);
+  };
+
+  return (
+    <div style={{ backgroundColor: '#0f172a', color: 'white', minHeight: '100vh', padding: '50px 20px', fontFamily: 'Arial, sans-serif' }}>
+      <div style={{ maxWidth: '500px', margin: '0 auto', backgroundColor: '#1e293b', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }}>
+        
+        <div style={{ marginBottom: '30px' }}>
+          <Link to="/" style={{ color: '#00bcd4', textDecoration: 'none', fontWeight: 'bold' }}>
+            &larr; Retour à l'accueil Parrel
+          </Link>
+        </div>
+
+        <h1 style={{ color: '#00bcd4', marginBottom: '10px' }}>WalkMoney Pro</h1>
+        <p style={{ color: '#94a3b8', marginBottom: '30px', lineHeight: '1.5' }}>
+          Créez votre compte commerçant. Une fois inscrit, ces informations seront synchronisées instantanément sur votre application mobile.
+        </p>
+        
+        <form onSubmit={handleRegisterStore} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <input 
+            type="email" 
+            placeholder="Adresse Email" 
+            value={email} 
+            onChange={e => setEmail(e.target.value)} 
+            required 
+            style={{ padding: '15px', borderRadius: '8px', border: 'none', backgroundColor: '#334155', color: 'white' }}
+          />
+          <input 
+            type="password" 
+            placeholder="Mot de passe" 
+            value={password} 
+            onChange={e => setPassword(e.target.value)} 
+            required 
+            style={{ padding: '15px', borderRadius: '8px', border: 'none', backgroundColor: '#334155', color: 'white' }}
+          />
+          <input 
+            type="text" 
+            placeholder="Nom de votre magasin" 
+            value={storeName} 
+            onChange={e => setStoreName(e.target.value)} 
+            required 
+            style={{ padding: '15px', borderRadius: '8px', border: 'none', backgroundColor: '#334155', color: 'white' }}
+          />
+          <input 
+            type="text" 
+            placeholder="Pays" 
+            value={country} 
+            onChange={e => setCountry(e.target.value)} 
+            required 
+            style={{ padding: '15px', borderRadius: '8px', border: 'none', backgroundColor: '#334155', color: 'white' }}
+          />
+          
+          <button 
+            type="submit" 
+            style={{ 
+              marginTop: '10px', 
+              padding: '15px', 
+              backgroundColor: '#00bcd4', 
+              color: 'white', 
+              fontWeight: 'bold', 
+              border: 'none', 
+              borderRadius: '8px', 
+              cursor: 'pointer',
+              fontSize: '16px'
+            }}
+          >
+            S'inscrire et finaliser sur Stripe
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// --- APP PRINCIPALE AVEC LE ROUTEUR ---
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/walkmoney/pro" element={<WalkMoneyPro />} />
+      </Routes>
+    </Router>
   );
 }
 
