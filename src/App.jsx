@@ -1,12 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate, useParams } from 'react-router-dom';
 import './App.css';
 import backgroundVideo from './assets/background1.mp4'; 
 
 // --- IMPORTATIONS FIREBASE ---
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, addDoc, serverTimestamp, GeoPoint } from "firebase/firestore";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, 
+  onAuthStateChanged 
+} from "firebase/auth";
+import { 
+  getFirestore, 
+  collection, 
+  doc,
+  addDoc, 
+  getDoc,
+  getDocs,
+  updateDoc,
+  query, 
+  where,
+  orderBy,
+  limit,
+  serverTimestamp, 
+  GeoPoint,
+  increment
+} from "firebase/firestore";
 import { getFunctions, httpsCallable } from "firebase/functions";
 
 // --- IMPORTATIONS STRIPE ---
@@ -15,13 +36,12 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 
 // ⚠️ REMPLACE CECI PAR LA CONFIGURATION DE TON PROJET FIREBASE ⚠️
 const firebaseConfig = {
-  apiKey: "AIzaSyAOdjYDtgtyOnf1sZM0wZgJ8_8YkaXgnzU",
-  authDomain: "walkmoney-1cdad.firebaseapp.com",
-  projectId: "walkmoney-1cdad",
-  storageBucket: "walkmoney-1cdad.firebasestorage.app",
-  messagingSenderId: "996207167634",
-  appId: "1:996207167634:web:a34a2bab2c7ea97eb47e4b",
-  measurementId: "G-8LVXXK4T9C"
+  apiKey: "TON_API_KEY",
+  authDomain: "ton-projet.firebaseapp.com",
+  projectId: "ton-projet",
+  storageBucket: "ton-projet.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -39,12 +59,8 @@ function Navbar({ user }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate('/');
-    } catch (error) {
-      console.error("Erreur de déconnexion", error);
-    }
+    await signOut(auth);
+    navigate('/');
   };
 
   return (
@@ -55,16 +71,15 @@ function Navbar({ user }) {
         </Link>
       </div>
       <div style={navLinksStyle}>
-        {user ? (
+        {user && (
           <>
-            <span style={{ color: '#94a3b8', marginRight: '15px', fontSize: '14px' }}>
+            <span style={{ color: '#94a3b8', marginRight: '15px', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '5px' }}>
               👤 {user.email}
             </span>
-            <Link to="/create-store" style={btnPrimaryStyle}>+ Créer un magasin</Link>
-            <button onClick={handleLogout} style={btnDangerStyle}>Se déconnecter</button>
+            <Link to="/pro/dashboard" style={btnOutlineStyle}>Mes Magasins</Link>
+            <Link to="/pro/create-store" style={btnPrimaryStyle}>+ Créer un magasin</Link>
+            <button onClick={handleLogout} style={btnDangerStyle}>Déconnexion</button>
           </>
-        ) : (
-          <Link to="/auth" style={btnPrimaryStyle}>Connexion / Inscription</Link>
         )}
       </div>
     </nav>
@@ -74,7 +89,17 @@ function Navbar({ user }) {
 // ==========================================
 // 🏠 PAGE D'ACCUEIL
 // ==========================================
-function Home() {
+function Home({ user }) {
+  const navigate = useNavigate();
+
+  const handleProClick = () => {
+    if (user) {
+      navigate('/pro/dashboard');
+    } else {
+      navigate('/pro/auth');
+    }
+  };
+
   return (
     <div className="app-container">
       <div className="video-background-container">
@@ -84,32 +109,32 @@ function Home() {
         <div className="video-overlay"></div>
       </div>
 
-      <header className="hero">
+      <header className="hero" style={{ paddingTop: '80px' }}>
         <div className="hero-content">
           <span className="badge">🚀 Studio de développement innovant</span>
           <h1>L'innovation logicielle au service de votre quotidien</h1>
           <p className="hero-description">
             Parrel développe un écosystème d'applications mobiles et d'outils basés sur l'Intelligence Artificielle pour simplifier, divertir et récompenser vos actions.
           </p>
-          <div className="hero-btns">
-            <a href="#applications" className="cta-button">Découvrir nos applications</a>
-          </div>
         </div>
       </header>
 
       <section id="applications" className="apps-section">
         <h2>Nos Applications & Écosystème IA</h2>
         <div className="apps-grid">
-          <div className="app-card" style={{ border: '2px solid #00bcd4', transform: 'scale(1.05)', zIndex: 10 }}>
+          
+          {/* CARTE WALKMONEY PRO */}
+          <div className="app-card" style={{ border: '2px solid #00bcd4', transform: 'scale(1.05)', zIndex: 10, cursor: 'pointer' }} onClick={handleProClick}>
             <h3 style={{ color: '#00bcd4' }}>WalkMoney - Espace Pro</h3>
-            <span className="tag" style={{ backgroundColor: '#00bcd4' }}>Portail Commerçant</span>
+            <span className="tag" style={{ backgroundColor: '#00bcd4', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Portail Commerçant</span>
             <p style={{ marginTop: '15px', marginBottom: '20px' }}>
               Créez votre magasin, gérez vos offres de cashback et suivez vos statistiques. Tout est synchronisé en temps réel avec l'application de vos clients.
             </p>
-            <Link to="/create-store" className="cta-button" style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
-              Accéder à l'espace Pro
-            </Link>
+            <div style={{...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box'}}>
+              {user ? "Accéder à mon tableau de bord" : "Connexion / Inscription Commerçant"}
+            </div>
           </div>
+
           <div className="app-card">
             <h3>ProjetCalo</h3>
             <p>Nutrition et fitness personnalisés via IA.</p>
@@ -125,15 +150,19 @@ function Home() {
 }
 
 // ==========================================
-// 🔐 PAGE DE CONNEXION / INSCRIPTION
+// 🔐 PAGE AUTHENTIFICATION PRO
 // ==========================================
-function AuthPage() {
+function AuthPage({ user }) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  if (user) {
+    return <Navigate to="/pro/dashboard" replace />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -146,10 +175,11 @@ function AuthPage() {
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
       }
-      navigate('/create-store'); // Redirection après succès
+      navigate('/pro/dashboard');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setErrorMsg("Cet email est déjà utilisé. Veuillez vous connecter.");
+        setIsLogin(true);
       } else if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
         setErrorMsg("Email ou mot de passe incorrect.");
       } else if (error.code === 'auth/weak-password') {
@@ -162,7 +192,7 @@ function AuthPage() {
   };
 
   return (
-    <div style={{ backgroundColor: '#0f172a', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ backgroundColor: '#0f172a', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '70px' }}>
       <div style={{ backgroundColor: '#1e293b', padding: '40px', borderRadius: '12px', width: '100%', maxWidth: '400px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)' }}>
         <h2 style={{ color: 'white', textAlign: 'center', marginBottom: '20px' }}>
           {isLogin ? "Connexion Espace Pro" : "Créer un compte Pro"}
@@ -175,31 +205,15 @@ function AuthPage() {
         )}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <input 
-            type="email" 
-            placeholder="Adresse Email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
-            style={inputStyle} 
-          />
-          <input 
-            type="password" 
-            placeholder="Mot de passe" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
-            style={inputStyle} 
-          />
-          <button type="submit" disabled={isLoading} style={{...btnPrimaryStyle, padding: '15px', fontSize: '16px', marginTop: '10px', width: '100%'}}>
+          <input type="email" placeholder="Adresse Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={inputStyle} />
+          <input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required style={inputStyle} />
+          <button type="submit" disabled={isLoading} style={{...btnPrimaryStyle, padding: '15px', fontSize: '16px', marginTop: '10px', width: '100%', boxSizing: 'border-box'}}>
             {isLoading ? "Veuillez patienter..." : (isLogin ? "Se connecter" : "S'inscrire")}
           </button>
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <button 
-            onClick={() => {setIsLogin(!isLogin); setErrorMsg('');}} 
-            style={{ background: 'none', border: 'none', color: '#00bcd4', cursor: 'pointer', textDecoration: 'underline' }}>
+          <button onClick={() => {setIsLogin(!isLogin); setErrorMsg('');}} style={{ background: 'none', border: 'none', color: '#00bcd4', cursor: 'pointer', textDecoration: 'underline' }}>
             {isLogin ? "Pas encore de compte ? S'inscrire" : "Déjà un compte ? Se connecter"}
           </button>
         </div>
@@ -209,224 +223,346 @@ function AuthPage() {
 }
 
 // ==========================================
-// 🏪 FORMULAIRE DE CRÉATION DE MAGASIN
+// 📊 DASHBOARD COMMERÇANT
 // ==========================================
-function CheckoutForm({ user }) {
-  const stripe = useStripe();
-  const elements = useElements();
+function MerchantDashboard({ user }) {
+  const [stores, setStores] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // 1. Infos Générales
-  const [storeName, setStoreName] = useState('');
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
-
-  // 2. Offre & Visibilité
-  const [enableCashback, setEnableCashback] = useState(true);
-  const [cashbackRate, setCashbackRate] = useState(5);
-  
-  const [enableVisibilityBoost, setEnableVisibilityBoost] = useState(false);
-  const [selectedMultiplier, setSelectedMultiplier] = useState(1.2);
-  
-  const [enablePremiumAdBoost, setEnablePremiumAdBoost] = useState(false);
-  const [enableGoldStore, setEnableGoldStore] = useState(false);
-
-  // 3. Simulation des coûts
-  const [monthlyFixedCost, setMonthlyFixedCost] = useState(0.0);
-  const [variableFeePer100, setVariableFeePer100] = useState(0.0);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
-
-  // Met à jour la simulation
   useEffect(() => {
-    let fixedCost = 0.0;
-    if (!enableCashback) {
-      setEnablePremiumAdBoost(false);
-      setEnableGoldStore(false);
-    }
-    if (enableVisibilityBoost) {
-      const step = Math.round((selectedMultiplier - 1.1) * 10);
-      let sliderCost = step * 2.0;
-      if (sliderCost < 2.0) sliderCost = 2.0;
-      if (sliderCost > 10.0) sliderCost = 10.0;
-      fixedCost += sliderCost;
-    }
-    if (enableGoldStore && enableCashback) fixedCost += 5.0;
-
-    const rate = enableCashback ? parseFloat(cashbackRate || 0) : 0.0;
-    const commissionPercent = enablePremiumAdBoost ? 0.40 : 0.25;
-    const fee = rate * commissionPercent;
-
-    setMonthlyFixedCost(fixedCost);
-    setVariableFeePer100(rate + fee);
-  }, [enableCashback, cashbackRate, enableVisibilityBoost, selectedMultiplier, enablePremiumAdBoost, enableGoldStore]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements || !user) return;
-    setIsLoading(true);
-    setErrorMsg('');
-
-    try {
-      // 1. Stripe
-      const cardElement = elements.getElement(CardElement);
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-      });
-
-      if (error) throw new Error(error.message);
-
-      // 2. Fonction Firebase
-      const createStripeShopFunc = httpsCallable(functions, 'createStripeShop');
-      const result = await createStripeShopFunc({
-        paymentMethodId: paymentMethod.id,
-        email: user.email,
-        name: storeName,
-        initialMonthlyCost: monthlyFixedCost,
-      });
-
-      const stripeCustomerId = result.data.customerId;
-      const subscriptionItemId = result.data.subscriptionItemId;
-
-      // 3. Géocodage Nominatim
-      let lat = 48.8566;
-      let lng = 2.3522;
+    if (!user) return;
+    const fetchStores = async () => {
       try {
-        const nomRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`);
-        const nomData = await nomRes.json();
-        if(nomData && nomData.length > 0) {
-          lat = parseFloat(nomData[0].lat);
-          lng = parseFloat(nomData[0].lon);
+        const q = query(collection(db, "stores"), where("owner_id", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+        const storesData = [];
+        for (const docSnap of querySnapshot.docs) {
+          const sData = { id: docSnap.id, ...docSnap.data() };
+          // Fetch stats for this store
+          const txQ = query(collection(db, "stores", docSnap.id, "store_transactions"));
+          const txSnap = await getDocs(txQ);
+          let uniqueClients = new Set();
+          let realCA = 0;
+          let realCB = 0;
+          txSnap.forEach(txDoc => {
+            const tData = txDoc.data();
+            realCA += tData.amount_spent || 0;
+            realCB += tData.cashback_given || 0;
+            if (tData.user_id) uniqueClients.add(tData.user_id);
+          });
+          
+          storesData.push({
+            ...sData,
+            stats_clients: uniqueClients.size,
+            stats_ca: realCA,
+            stats_cb: realCB
+          });
         }
-      } catch (err) {
-        console.warn("Erreur Nominatim:", err);
+        setStores(storesData);
+      } catch (error) {
+        console.error("Erreur chargement magasins:", error);
       }
+      setLoading(false);
+    };
+    fetchStores();
+  }, [user]);
 
-      // 4. Sauvegarde Firestore
-      await addDoc(collection(db, "stores"), {
-        name: storeName,
-        address: address,
-        description: description,
-        phone: phone,
-        category: category,
-        coordinates: new GeoPoint(lat, lng),
-        latitude: lat,
-        longitude: lng,
-        loyalty_rules: [],
-        
-        is_cashback_enabled: enableCashback,
-        cashback_rate: enableCashback ? (parseFloat(cashbackRate) / 100.0) : 0.0,
-        is_visibility_boost_enabled: enableVisibilityBoost,
-        lame_point_multiplier: enableVisibilityBoost ? parseFloat(selectedMultiplier) : 1.0,
-        is_premium_ad_boost_enabled: enablePremiumAdBoost,
-        is_gold_store_enabled: enableGoldStore,
+  const handleTestSale = async (storeId) => {
+    alert("Simulation en cours... (Envoi de 50€ d'achat factice)");
+    try {
+      const storeDoc = await getDoc(doc(db, "stores", storeId));
+      const meterId = storeDoc.data().stripe_meter_id;
+      if(!meterId) throw new Error("Pas de meter_id Stripe trouvé.");
 
-        owner_id: user.uid, // LIAISON AVEC LE COMPTE CONNECTÉ
-        stripe_customer_id: stripeCustomerId,
-        stripe_meter_id: subscriptionItemId,
-        auto_billing_enabled: true,
-        current_month_debt: monthlyFixedCost,
-        totalAmountSpentByUser: 0.0,
-        totalCashbackGiven: 0.0,
-        created_at: serverTimestamp(),
+      // Calcul fake: 50€ achat, 2€ cashback, commission 1.25 -> 2.50€ facture
+      const fakePurchase = 50.0;
+      const amountToBill = 2.50;
+      const amountInCents = 250;
+
+      const reportFunc = httpsCallable(functions, 'reportCommission');
+      await reportFunc({ subscriptionItemId: meterId, amountInCents });
+
+      await updateDoc(doc(db, "stores", storeId), {
+        current_month_debt: increment(amountToBill),
+        totalAmountSpentByUser: increment(fakePurchase)
       });
 
-      alert("🎉 Félicitations ! Votre magasin a été créé avec succès.");
-      navigate('/');
-
-    } catch (err) {
-      console.error(err);
-      setErrorMsg(err.message || "Une erreur est survenue lors de la création.");
+      alert("✅ Succès ! Achat simulé, facture mise à jour.");
+      window.location.reload();
+    } catch (e) {
+      alert("❌ Erreur: " + e.message);
     }
-    
-    setIsLoading(false);
   };
 
+  const handlePayDebt = async (storeId, debt) => {
+    if(window.confirm(`Vous allez être redirigé pour payer ${debt.toFixed(2)}€.`)) {
+      // Simulation paiement
+      await updateDoc(doc(db, "stores", storeId), {
+        current_month_debt: 0.0,
+        last_payment_date: serverTimestamp()
+      });
+      alert("Paiement reçu avec succès !");
+      window.location.reload();
+    }
+  };
+
+  if (!user) return <Navigate to="/pro/auth" replace />;
+  if (loading) return <div style={pageStyle}>Chargement de votre espace...</div>;
+
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      {errorMsg && (
-        <div style={{ backgroundColor: '#fee2e2', color: '#ef4444', padding: '10px', borderRadius: '8px' }}>{errorMsg}</div>
-      )}
-
-      {/* --- 1. INFOS GENERALES --- */}
-      <h2 style={sectionTitleStyle}>1. Informations Générales</h2>
-      <div style={cardStyle}>
-        <input type="text" placeholder="Nom du magasin" value={storeName} onChange={e => setStoreName(e.target.value)} required style={inputStyle} />
-        <input type="text" placeholder="Adresse complète" value={address} onChange={e => setAddress(e.target.value)} required style={inputStyle} />
-        <input type="text" placeholder="Catégorie (ex: Boulangerie, Sport...)" value={category} onChange={e => setCategory(e.target.value)} required style={inputStyle} />
-        <input type="tel" placeholder="Téléphone" value={phone} onChange={e => setPhone(e.target.value)} required style={inputStyle} />
-        <textarea placeholder="Description du magasin" value={description} onChange={e => setDescription(e.target.value)} style={{...inputStyle, height: '80px', resize: 'none'}} />
-      </div>
-
-      {/* --- 2. OFFRES & VISIBILITE --- */}
-      <h2 style={sectionTitleStyle}>2. Offre & Visibilité</h2>
-      <div style={cardStyle}>
-        <SwitchRow checked={enableCashback} onChange={setEnableCashback} title="Activer Cashback" subtitle="Requis pour les options Pub & Or." />
-        {enableCashback && (
-          <div style={{ marginTop: '15px' }}>
-            <label style={{ fontSize: '14px', color: '#94a3b8' }}>Taux de Cashback (%)</label>
-            <input type="number" step="0.1" min="1" max="100" value={cashbackRate} onChange={e => setCashbackRate(e.target.value)} required style={{...inputStyle, marginTop: '5px'}} />
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <h1 style={{ color: '#00bcd4', marginBottom: '20px' }}>Espace Commerçant</h1>
+        
+        {stores.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#1e293b', borderRadius: '12px' }}>
+            <h2 style={{ color: 'white', marginBottom: '15px' }}>Vous n'avez pas encore de magasin</h2>
+            <Link to="/pro/create-store" style={btnPrimaryStyle}>+ Créer mon premier magasin</Link>
           </div>
-        )}
-      </div>
-
-      <div style={{...cardStyle, border: enableVisibilityBoost ? '1px solid #c084fc' : 'none'}}>
-        <SwitchRow checked={enableVisibilityBoost} onChange={setEnableVisibilityBoost} title="Boost Visibilité (Défis)" subtitle="Apparaître en premier dans les défis." />
-        {enableVisibilityBoost && (
-          <div style={{ marginTop: '15px', padding: '10px', backgroundColor: '#3b0764', borderRadius: '8px' }}>
-            <div style={{ color: '#d8b4fe', fontWeight: 'bold', marginBottom: '10px' }}>Multiplicateur offert : x{selectedMultiplier}</div>
-            <input type="range" min="1.2" max="1.6" step="0.1" value={selectedMultiplier} onChange={e => setSelectedMultiplier(e.target.value)} style={{ width: '100%' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', color: '#94a3b8', fontSize: '12px' }}>
-              <span>x1.2 (4€)</span><span>x1.4 (8€)</span><span>x1.6 (10€)</span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div style={cardStyle}>
-        {enableCashback ? (
-          <>
-            <SwitchRow checked={enablePremiumAdBoost} onChange={setEnablePremiumAdBoost} title="Sponsoriser Boost Pub" subtitle="Gains x2 pour clients. Com passe à 40%." />
-            <hr style={{ borderColor: '#334155', margin: '15px 0' }}/>
-            <SwitchRow checked={enableGoldStore} onChange={setEnableGoldStore} title="Visibilité Or + 1%" subtitle="Carte Or + 1% de cashback offert (5€/mois)." />
-          </>
         ) : (
-          <p style={{ color: '#94a3b8', fontStyle: 'italic', fontSize: '13px' }}>Activez le Cashback pour débloquer les options Pub et Or.</p>
+          stores.map(store => (
+            <div key={store.id} style={{ backgroundColor: '#1e293b', padding: '25px', borderRadius: '12px', marginBottom: '20px', border: '1px solid #334155' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <h2 style={{ color: 'white', margin: '0 0 5px 0' }}>{store.name}</h2>
+                  <p style={{ color: '#94a3b8', margin: '0 0 15px 0', fontSize: '14px' }}>{store.address}</p>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ color: '#10b981', fontWeight: 'bold', fontSize: '18px' }}>{(store.cashback_rate * 100).toFixed(1)}% Cashback</div>
+                  {store.is_visibility_boost_enabled && <span style={{ color: '#c084fc', fontSize: '12px' }}>⚡ Boost x{store.lame_point_multiplier}</span>}
+                  {store.is_gold_store_enabled && <span style={{ color: '#fbbf24', fontSize: '12px', marginLeft: '5px' }}>⭐ Gold</span>}
+                </div>
+              </div>
+
+              {/* STATS */}
+              <div style={{ display: 'flex', gap: '15px', backgroundColor: '#0f172a', padding: '15px', borderRadius: '8px', marginBottom: '20px' }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ color: '#38bdf8', fontSize: '20px', fontWeight: 'bold' }}>{store.stats_ca.toFixed(2)}€</div>
+                  <div style={{ color: '#94a3b8', fontSize: '12px' }}>CA Clients</div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ color: '#10b981', fontSize: '20px', fontWeight: 'bold' }}>{store.stats_cb.toFixed(2)}€</div>
+                  <div style={{ color: '#94a3b8', fontSize: '12px' }}>Cashback reversé</div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ color: '#c084fc', fontSize: '20px', fontWeight: 'bold' }}>{store.stats_clients}</div>
+                  <div style={{ color: '#94a3b8', fontSize: '12px' }}>Clients uniques</div>
+                </div>
+              </div>
+
+              {/* FACTURE */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#334155', padding: '15px', borderRadius: '8px', marginBottom: '20px' }}>
+                <div>
+                  <span style={{ color: 'white' }}>Facture en cours : </span>
+                  <strong style={{ color: store.current_month_debt > 0 ? '#fbbf24' : '#10b981', fontSize: '18px' }}>
+                    {store.current_month_debt.toFixed(2)} €
+                  </strong>
+                </div>
+                {store.current_month_debt > 5 && (
+                  <button onClick={() => handlePayDebt(store.id, store.current_month_debt)} style={{...btnPrimaryStyle, backgroundColor: '#fbbf24', color: 'black'}}>Régler</button>
+                )}
+              </div>
+
+              {/* ACTIONS */}
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <button onClick={() => navigate(`/pro/edit-store/${store.id}`)} style={{...btnOutlineStyle, flex: 1}}>✏️ Modifier</button>
+                <button onClick={() => navigate(`/pro/stats/${store.id}`)} style={{...btnOutlineStyle, flex: 1}}>📊 Transactions</button>
+                <button onClick={() => handleTestSale(store.id)} style={{...btnOutlineStyle, flex: 1, color: '#fbbf24', borderColor: '#fbbf24'}}>🐛 Simuler Achat</button>
+              </div>
+            </div>
+          ))
         )}
       </div>
-
-      {/* --- SIMULATION --- */}
-      <div style={{ padding: '20px', backgroundColor: '#0ea5e920', borderRadius: '8px', border: '1px solid #0ea5e9' }}>
-        <h3 style={{ color: '#0ea5e9', fontSize: '16px', marginBottom: '15px' }}>SIMULATION DES COÛTS</h3>
-        <div style={simRowStyle}><span>Abonnements Fixes :</span><strong>{monthlyFixedCost.toFixed(2)} € / mois</strong></div>
-        <hr style={{ borderColor: '#0ea5e950', margin: '10px 0' }}/>
-        <div style={simRowStyle}><span style={{ color: '#94a3b8' }}>Pour 100€ d'achat client :</span></div>
-        <div style={simRowStyle}><span>- Coût total (Cashback + Commission) :</span><strong>{variableFeePer100.toFixed(2)} €</strong></div>
-      </div>
-
-      {/* --- 3. PAIEMENT --- */}
-      <h2 style={sectionTitleStyle}>3. Paiement</h2>
-      <div style={{ padding: '15px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #334155' }}>
-        <p style={{ color: 'white', marginBottom: '15px', fontSize: '14px' }}>Stripe Sécurisé (Facturation auto mensuelle)</p>
-        <div style={{ padding: '15px', backgroundColor: '#0f172a', borderRadius: '8px' }}>
-          <CardElement options={cardStyleOptions} />
-        </div>
-      </div>
-
-      <button type="submit" disabled={!stripe || isLoading} style={{
-          padding: '16px', backgroundColor: '#10b981', color: 'white', fontWeight: 'bold', 
-          border: 'none', borderRadius: '8px', cursor: isLoading ? 'not-allowed' : 'pointer', fontSize: '16px'
-        }}>
-        {isLoading ? "Création en cours..." : "Valider et Payer"}
-      </button>
-    </form>
+    </div>
   );
 }
 
+// ==========================================
+// ✏️ EDITER UN MAGASIN
+// ==========================================
+function EditStorePage({ user }) {
+  const { storeId } = useParams();
+  const navigate = useNavigate();
+  const [store, setStore] = useState(null);
+  
+  // Champs
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
+  const [phone, setPhone] = useState('');
+  const [cashbackRate, setCashbackRate] = useState(5);
+  const [enableCashback, setEnableCashback] = useState(true);
+  const [enableVisibilityBoost, setEnableVisibilityBoost] = useState(false);
+  const [selectedMultiplier, setSelectedMultiplier] = useState(1.2);
+  const [enablePremiumAdBoost, setEnablePremiumAdBoost] = useState(false);
+  const [enableGoldStore, setEnableGoldStore] = useState(false);
+
+  useEffect(() => {
+    const fetchStore = async () => {
+      const docSnap = await getDoc(doc(db, "stores", storeId));
+      if (docSnap.exists()) {
+        const d = docSnap.data();
+        setStore(d);
+        setName(d.name || '');
+        setDesc(d.description || '');
+        setPhone(d.phone || '');
+        setCashbackRate((d.cashback_rate || 0.05) * 100);
+        setEnableCashback(d.is_cashback_enabled ?? true);
+        setEnableVisibilityBoost(d.is_visibility_boost_enabled ?? false);
+        setSelectedMultiplier(d.lame_point_multiplier || 1.2);
+        setEnablePremiumAdBoost(d.is_premium_ad_boost_enabled ?? false);
+        setEnableGoldStore(d.is_gold_store_enabled ?? false);
+      }
+    };
+    fetchStore();
+  }, [storeId]);
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    let addedCost = 0.0;
+
+    // Calcul de la facturation immédiate si ajout d'options
+    if (enableGoldStore && !store.is_gold_store_enabled) addedCost += 5.0;
+    
+    if (enableVisibilityBoost) {
+      const step = Math.round((selectedMultiplier - 1.1) * 10);
+      let currentCost = Math.max(2.0, Math.min(step * 2.0, 10.0));
+      
+      if (!store.is_visibility_boost_enabled) {
+        addedCost += currentCost;
+      } else if (selectedMultiplier > store.lame_point_multiplier) {
+        const oldStep = Math.round((store.lame_point_multiplier - 1.1) * 10);
+        let oldCost = Math.max(2.0, oldStep * 2.0);
+        addedCost += (currentCost - oldCost);
+      }
+    }
+
+    try {
+      await updateDoc(doc(db, "stores", storeId), {
+        name, description: desc, phone,
+        is_cashback_enabled: enableCashback,
+        cashback_rate: enableCashback ? (cashbackRate / 100.0) : 0,
+        is_visibility_boost_enabled: enableVisibilityBoost,
+        lame_point_multiplier: enableVisibilityBoost ? parseFloat(selectedMultiplier) : 1.0,
+        is_premium_ad_boost_enabled: enablePremiumAdBoost && enableCashback,
+        is_gold_store_enabled: enableGoldStore && enableCashback,
+        current_month_debt: increment(addedCost)
+      });
+      alert(`Mise à jour réussie. ${addedCost > 0 ? `+${addedCost}€ ajoutés à la facture en cours.` : ''}`);
+      navigate('/pro/dashboard');
+    } catch(err) {
+      alert("Erreur: " + err.message);
+    }
+  };
+
+  if (!store) return <div style={pageStyle}>Chargement...</div>;
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#1e293b', padding: '30px', borderRadius: '12px' }}>
+        <button onClick={() => navigate('/pro/dashboard')} style={{ background: 'none', color: '#00bcd4', border: 'none', cursor: 'pointer', marginBottom: '20px' }}>&larr; Retour</button>
+        <h1 style={{ color: 'white', marginBottom: '20px' }}>Modifier {store.name}</h1>
+        
+        <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <input type="text" value={name} onChange={e=>setName(e.target.value)} placeholder="Nom" style={inputStyle} required/>
+          <textarea value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Description" style={{...inputStyle, height: '80px'}} required/>
+          <input type="text" value={phone} onChange={e=>setPhone(e.target.value)} placeholder="Téléphone" style={inputStyle} required/>
+          
+          <div style={{ backgroundColor: '#0f172a', padding: '15px', borderRadius: '8px' }}>
+            <SwitchRow checked={enableCashback} onChange={setEnableCashback} title="Activer Cashback" subtitle="Offrir des récompenses" />
+            {enableCashback && <input type="number" step="0.1" value={cashbackRate} onChange={e=>setCashbackRate(e.target.value)} style={{...inputStyle, marginTop: '10px'}} />}
+          </div>
+
+          <div style={{ backgroundColor: enableVisibilityBoost ? '#3b0764' : '#0f172a', padding: '15px', borderRadius: '8px' }}>
+            <SwitchRow checked={enableVisibilityBoost} onChange={setEnableVisibilityBoost} title="Boost Visibilité" subtitle="Apparaître en haut des défis" />
+            {enableVisibilityBoost && (
+               <input type="range" min="1.2" max="1.6" step="0.1" value={selectedMultiplier} onChange={e=>setSelectedMultiplier(e.target.value)} style={{ width: '100%', marginTop: '15px' }} />
+            )}
+          </div>
+
+          <button type="submit" style={{...btnPrimaryStyle, padding: '15px', marginTop: '10px'}}>Enregistrer les modifications</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 📈 PAGE STATISTIQUES / TRANSACTIONS
+// ==========================================
+function StoreStatsPage({ user }) {
+  const { storeId } = useParams();
+  const navigate = useNavigate();
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const fetchTx = async () => {
+      // Sur le web, on ne met pas orderBy si on n'a pas créé l'index composite dans Firebase.
+      // Pour éviter les erreurs, on récupère juste la collection.
+      const q = query(collection(db, "stores", storeId, "store_transactions"), limit(50));
+      const snap = await getDocs(q);
+      const txs = [];
+      snap.forEach(d => txs.push({id: d.id, ...d.data()}));
+      // Tri manuel côté client pour éviter l'erreur d'index Firestore
+      txs.sort((a,b) => b.timestamp?.toMillis() - a.timestamp?.toMillis());
+      setTransactions(txs);
+    };
+    fetchTx();
+  }, [storeId]);
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <button onClick={() => navigate('/pro/dashboard')} style={{ background: 'none', color: '#00bcd4', border: 'none', cursor: 'pointer', marginBottom: '20px' }}>&larr; Retour au Dashboard</button>
+        <h1 style={{ color: 'white', marginBottom: '20px' }}>Dernières Transactions</h1>
+        
+        {transactions.length === 0 ? (
+          <p style={{ color: '#94a3b8' }}>Aucune transaction enregistrée.</p>
+        ) : (
+          <div style={{ backgroundColor: '#1e293b', borderRadius: '12px', overflow: 'hidden' }}>
+            {transactions.map(tx => (
+              <div key={tx.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '15px', borderBottom: '1px solid #334155' }}>
+                <div>
+                  <strong style={{ color: 'white' }}>{tx.username || 'Client'}</strong>
+                  <div style={{ color: '#94a3b8', fontSize: '12px' }}>
+                    {tx.timestamp ? new Date(tx.timestamp.toMillis()).toLocaleString('fr-FR') : 'Date inconnue'}
+                  </div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ color: 'white' }}>{tx.amount_spent?.toFixed(2)}€ dépensés</div>
+                  <div style={{ color: '#10b981', fontSize: '14px', fontWeight: 'bold' }}>+{tx.cashback_given?.toFixed(2)}€ CB</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 🏪 FORMULAIRE DE CRÉATION DE MAGASIN
+// ==========================================
+function CreateStorePage({ user }) {
+  if (!user) return <Navigate to="/pro/auth" replace />;
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+        <h1 style={{ color: '#00bcd4', marginBottom: '10px' }}>Créer un nouveau Magasin</h1>
+        <p style={{ color: '#94a3b8', marginBottom: '30px' }}>Associé au compte pro : <strong>{user.email}</strong></p>
+        <Elements stripe={stripePromise}>
+          <CheckoutForm user={user} />
+        </Elements>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// COMPOSANT SWITCH REUTILISABLE
+// ==========================================
 const SwitchRow = ({ checked, onChange, title, subtitle }) => (
   <label style={{ display: 'flex', alignItems: 'center', gap: '15px', cursor: 'pointer' }}>
     <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} style={{ width: '22px', height: '22px', accentColor: '#10b981' }} />
@@ -438,37 +574,12 @@ const SwitchRow = ({ checked, onChange, title, subtitle }) => (
 );
 
 // ==========================================
-// 📄 PAGE DE CRÉATION DE MAGASIN
-// ==========================================
-function CreateStorePage({ user }) {
-  if (!user) {
-    return <Navigate to="/auth" replace />; // Bloque l'accès si non connecté
-  }
-
-  return (
-    <div style={{ backgroundColor: '#0f172a', color: 'white', minHeight: '100vh', paddingTop: '100px', paddingBottom: '50px', fontFamily: 'Arial, sans-serif' }}>
-      <div style={{ maxWidth: '550px', margin: '0 auto' }}>
-        <h1 style={{ color: '#00bcd4', marginBottom: '10px' }}>Créer un nouveau Magasin</h1>
-        <p style={{ color: '#94a3b8', marginBottom: '30px', lineHeight: '1.5' }}>
-          Ce magasin sera associé à votre compte <strong>{user.email}</strong>. L'application mobile se mettra à jour en temps réel.
-        </p>
-
-        <Elements stripe={stripePromise}>
-          <CheckoutForm user={user} />
-        </Elements>
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
 // 🚀 APP PRINCIPALE (ROUTER)
 // ==========================================
 function App() {
   const [user, setUser] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
 
-  // Écouteur global pour savoir si on est connecté ou non
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -477,17 +588,18 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  if (loadingAuth) {
-    return <div style={{ backgroundColor: '#0f172a', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>Chargement...</div>;
-  }
+  if (loadingAuth) return <div style={pageStyle}>Chargement...</div>;
 
   return (
     <Router>
       <Navbar user={user} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={user ? <Navigate to="/create-store" replace /> : <AuthPage />} />
-        <Route path="/create-store" element={<CreateStorePage user={user} />} />
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/pro/auth" element={<AuthPage user={user} />} />
+        <Route path="/pro/dashboard" element={<MerchantDashboard user={user} />} />
+        <Route path="/pro/create-store" element={<CreateStorePage user={user} />} />
+        <Route path="/pro/edit-store/:storeId" element={<EditStorePage user={user} />} />
+        <Route path="/pro/stats/:storeId" element={<StoreStatsPage user={user} />} />
       </Routes>
     </Router>
   );
@@ -496,6 +608,8 @@ function App() {
 // ==========================================
 // 🎨 STYLES CONSTANTS
 // ==========================================
+const pageStyle = { backgroundColor: '#0f172a', color: 'white', minHeight: '100vh', paddingTop: '100px', paddingBottom: '50px', paddingLeft: '20px', paddingRight: '20px', fontFamily: 'Arial, sans-serif' };
+
 const navbarStyle = {
   position: 'fixed', top: 0, left: 0, right: 0, height: '70px',
   backgroundColor: 'rgba(15, 23, 42, 0.95)', backdropFilter: 'blur(10px)',
@@ -505,14 +619,9 @@ const navbarStyle = {
 const navBrandStyle = { display: 'flex', alignItems: 'center' };
 const navLinksStyle = { display: 'flex', alignItems: 'center', gap: '15px' };
 
-const btnPrimaryStyle = {
-  backgroundColor: '#00bcd4', color: 'white', padding: '10px 20px', 
-  borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', border: 'none', cursor: 'pointer'
-};
-const btnDangerStyle = {
-  backgroundColor: 'transparent', color: '#ef4444', padding: '10px 15px', 
-  borderRadius: '8px', border: '1px solid #ef4444', cursor: 'pointer', fontWeight: 'bold'
-};
+const btnPrimaryStyle = { backgroundColor: '#00bcd4', color: 'white', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', border: 'none', cursor: 'pointer' };
+const btnOutlineStyle = { backgroundColor: 'transparent', color: '#00bcd4', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', border: '1px solid #00bcd4', cursor: 'pointer' };
+const btnDangerStyle = { backgroundColor: 'transparent', color: '#ef4444', padding: '10px 15px', borderRadius: '8px', border: '1px solid #ef4444', cursor: 'pointer', fontWeight: 'bold' };
 
 const inputStyle = { width: '100%', padding: '14px', borderRadius: '8px', border: '1px solid #334155', backgroundColor: '#0f172a', color: 'white', boxSizing: 'border-box', marginBottom: '10px' };
 const cardStyle = { backgroundColor: '#1e293b', padding: '20px', borderRadius: '12px', border: '1px solid #334155' };
