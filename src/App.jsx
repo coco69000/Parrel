@@ -14,13 +14,15 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 // ⚠️ REMPLACE CECI PAR LA CONFIGURATION DE TON PROJET FIREBASE ⚠️
+// Remplace ton bloc firebaseConfig dans App.jsx par celui-ci :
 const firebaseConfig = {
-  apiKey: "TON_API_KEY",
-  authDomain: "ton-projet.firebaseapp.com",
-  projectId: "ton-projet",
-  storageBucket: "ton-projet.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef"
+  apiKey: "AIzaSyAOdjYDtgtyOnf1sZM0wZgJ8_8YkaXgnzU",
+  authDomain: "walkmoney-1cdad.firebaseapp.com",
+  projectId: "walkmoney-1cdad",
+  storageBucket: "walkmoney-1cdad.firebasestorage.app",
+  messagingSenderId: "996207167634",
+  appId: "1:996207167634:web:a34a2bab2c7ea97eb47e4b",
+  measurementId: "G-8LVXXK4T9C"
 };
 
 const app = initializeApp(firebaseConfig);
