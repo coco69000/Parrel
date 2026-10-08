@@ -209,7 +209,8 @@ function WalkMoneyLanding({ user }) {
 }
 
 // ==========================================
-// 📔 DAYTALIA
+// ==========================================
+// 📔 DAYTALIA - PRÉSENTATION MARKETING & APP SHOWCASE
 // ==========================================
 function DaytaliaPage() {
   const storageKey = 'daytalia-entries';
@@ -218,6 +219,7 @@ function DaytaliaPage() {
   const [mood, setMood] = useState('Calme');
   const [dayText, setDayText] = useState('');
   const [memory, setMemory] = useState('');
+  const [storeNotice, setStoreNotice] = useState('');
 
   useEffect(() => {
     try {
@@ -252,58 +254,615 @@ function DaytaliaPage() {
     setMemory('');
   };
 
+  const handleStoreClick = (storeName) => {
+    setStoreNotice(`Daytalia sera prochainement disponible en téléchargement direct sur ${storeName}. Restez à l'écoute !`);
+    setTimeout(() => setStoreNotice(''), 5000);
+  };
+
+  const featureCards = [
+    {
+      icon: '📖',
+      title: 'Autobiographie automatisée',
+      desc: "Vos écrits quotidiens sont structurés et rédigés sous forme de véritables chapitres de livre par l'IA.",
+    },
+    {
+      icon: '🎙️',
+      title: 'Journal en direct & Dictée Vocale',
+      desc: 'Racontez vos journées au micro en quelques secondes avec reformulation intelligente.',
+    },
+    {
+      icon: '💫',
+      title: 'Boîte à Souvenirs & Qualité de Vie',
+      desc: 'Suivez l\'évolution de votre bien-être au fil des mois, retrouvez vos souvenirs marquants ("Ce jour-là") et recevez des conseils bienveillants.',
+    },
+    {
+      icon: '⏳',
+      title: 'Capsule Temporelle',
+      desc: 'Scellez des messages secrets pour votre futur "vous", à déverrouiller dans 1 an, 5 ans ou 10 ans.',
+    },
+    {
+      icon: '🤝',
+      title: 'Partage intime & Sécurisé',
+      desc: 'Partagez certaines journées avec votre cercle d\'amis ou découvrez celles du fil mondial, tout en gardant un contrôle absolu sur votre vie privée (masquage partiel de texte, mode privé).',
+    },
+  ];
+
   return (
     <div style={pageStyle}>
-      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '24px' }}>
-          <span className="badge" style={{ backgroundColor: '#f472b6', color: 'white' }}>📔 Daytalia</span>
-          <h1 style={{ color: 'white', marginTop: '14px', marginBottom: '10px' }}>Racontez vos journées et gardez vos souvenirs</h1>
-          <p style={{ color: '#94a3b8', maxWidth: '720px' }}>
-            Notez ce que vous avez vécu, ce que vous avez ressenti et les moments que vous voulez conserver.
+      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
+        
+        {/* Navigation retour */}
+        <div style={{ marginBottom: '20px' }}>
+          <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
+            ← Retour aux applications Parrel
+          </Link>
+        </div>
+
+        {/* HERO SECTION MARKETING */}
+        <div style={{ marginBottom: '36px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(244, 114, 182, 0.15)', border: '1px solid rgba(244, 114, 182, 0.3)', padding: '6px 14px', borderRadius: '999px', marginBottom: '16px' }}>
+            <span style={{ color: '#f472b6', fontWeight: 'bold', fontSize: '13px' }}>📔 Daytalia • Journal Intime & IA</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '0', marginBottom: '16px', fontSize: 'clamp(1.8rem, 4vw, 2.7rem)', lineHeight: 1.25, fontWeight: 800 }}>
+            Daytalia — Votre journal de vie personnel, sublimé par l’Intelligence Artificielle.
+          </h1>
+
+          <p style={{ color: '#cbd5e1', fontSize: '1.2rem', lineHeight: 1.6, maxWidth: '850px', margin: '0 0 28px 0' }}>
+            Racontez vos journées, préservez vos souvenirs les plus précieux et laissez l'IA rédiger automatiquement l'autobiographie de votre vie.
+          </p>
+
+          {/* 2 BOUTONS OBTENIR : PLAY STORE & APP STORE */}
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '18px' }}>
+            
+            {/* Bouton Google Play */}
+            <button
+              type="button"
+              onClick={() => handleStoreClick('Google Play')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                backgroundColor: '#050811',
+                color: '#ffffff',
+                padding: '12px 24px',
+                borderRadius: '14px',
+                border: '1px solid #475569',
+                cursor: 'pointer',
+                textAlign: 'left',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f472b6'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <path d="M3.609 1.814L13.793 12 3.61 22.185A2.32 2.32 0 0 1 3 20.573V3.427c0-.623.23-1.192.609-1.613z" fill="#00C1A6"/>
+                <path d="M17.202 8.59L13.793 12l3.41 3.41 3.865-2.222c.907-.521.907-1.854 0-2.376L17.202 8.59z" fill="#FFD100"/>
+                <path d="M3.609 1.814L13.793 12l3.409-3.41-11.41-6.559c-.569-.327-1.22-.327-1.792.007l6.009 6.009z" fill="#00A0FF"/>
+                <path d="M13.793 12L3.609 22.186c.572.334 1.223.334 1.792.007l11.41-6.559-3.018-3.634z" fill="#FF3333"/>
+              </svg>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Disponible sur</div>
+                <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>Google Play</div>
+              </div>
+            </button>
+
+            {/* Bouton Apple App Store */}
+            <button
+              type="button"
+              onClick={() => handleStoreClick("l'App Store")}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                backgroundColor: '#050811',
+                color: '#ffffff',
+                padding: '12px 24px',
+                borderRadius: '14px',
+                border: '1px solid #475569',
+                cursor: 'pointer',
+                textAlign: 'left',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f472b6'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.05-.52 2.67-1.27z"/>
+              </svg>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Télécharger dans l'</div>
+                <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>App Store</div>
+              </div>
+            </button>
+
+          </div>
+
+          {storeNotice && (
+            <div style={{ backgroundColor: 'rgba(244, 114, 182, 0.12)', border: '1px solid rgba(244, 114, 182, 0.4)', borderRadius: '10px', padding: '12px 18px', color: '#fbcfe8', fontSize: '14px', maxWidth: '640px', marginBottom: '20px' }}>
+              ℹ️ {storeNotice}
+            </div>
+          )}
+        </div>
+
+        {/* SECTION PRÉSENTATION (EN DESSOUS DES BOUTONS) */}
+        <div style={{
+          backgroundColor: '#1e293b',
+          borderRadius: '20px',
+          padding: '32px',
+          border: '1px solid rgba(244, 114, 182, 0.35)',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+          marginBottom: '36px',
+        }}>
+          <h2 style={{ color: '#f472b6', marginTop: 0, marginBottom: '18px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>🌟</span> Présentation
+          </h2>
+          <p style={{ color: '#e2e8f0', fontSize: '1.08rem', lineHeight: 1.8, marginBottom: '18px' }}>
+            Chaque jour qui passe forge votre histoire. Daytalia est bien plus qu'un simple journal intime : c'est un sanctuaire personnel et un compagnon de vie intelligent qui donne du sens à votre quotidien.
+          </p>
+          <p style={{ color: '#cbd5e1', fontSize: '1.08rem', lineHeight: 1.8, margin: 0 }}>
+            Que ce soit par écrit ou par dictée vocale instantanée, racontez ce que vous vivez, ajoutez des photos, capturez vos ressentis et notez vos journées. Au fil du temps, notre moteur d’intelligence artificielle analyse vos moments clés, classe vos thèmes biographiques et tisse automatiquement les chapitres de votre propre autobiographie, prête à être imprimée ou exportée.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gap: '24px' }}>
-          <form onSubmit={handleSubmit} style={{ backgroundColor: '#1e293b', padding: '24px', borderRadius: '16px', border: '1px solid #334155' }}>
-            <div style={{ display: 'grid', gap: '14px' }}>
-              <input type="text" placeholder="Titre de la journée" value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} />
-              <select value={mood} onChange={(e) => setMood(e.target.value)} style={inputStyle}>
-                <option>Calme</option>
-                <option>Heureux</option>
-                <option>Fatigué</option>
-                <option>Inspiré</option>
-                <option>Triste</option>
-              </select>
-              <textarea placeholder="Décrivez votre journée" value={dayText} onChange={(e) => setDayText(e.target.value)} style={{ ...inputStyle, height: '120px', resize: 'vertical' }} />
-              <textarea placeholder="Un souvenir à garder" value={memory} onChange={(e) => setMemory(e.target.value)} style={{ ...inputStyle, height: '100px', resize: 'vertical' }} />
-              <button type="submit" style={btnPrimaryStyle}>Sauvegarder l'entrée</button>
-            </div>
-          </form>
-
-          <div style={{ display: 'grid', gap: '16px' }}>
-            {entries.length === 0 ? (
-              <div className="app-card" style={{ backgroundColor: '#1e293b' }}>
-                <p style={{ color: '#94a3b8', margin: 0 }}>Aucune histoire enregistrée pour le moment.</p>
+        {/* SECTION FONCTIONNALITÉS CLÉS */}
+        <div style={{ marginBottom: '36px' }}>
+          <h2 style={{ color: 'white', marginBottom: '22px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>⚡</span> Fonctionnalités clés
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '20px',
+          }}>
+            {featureCards.map((feat, idx) => (
+              <div
+                key={idx}
+                style={{
+                  backgroundColor: '#1e293b',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  border: '1px solid #334155',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                  transition: 'border-color 0.2s',
+                }}
+              >
+                <div style={{ fontSize: '30px' }}>{feat.icon}</div>
+                <h3 style={{ color: '#f472b6', margin: 0, fontSize: '1.2rem' }}>{feat.title}</h3>
+                <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.96rem', lineHeight: 1.6 }}>{feat.desc}</p>
               </div>
-            ) : (
-              entries.map((entry) => (
-                <article key={entry.id} className="app-card" style={{ backgroundColor: '#1e293b' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', marginBottom: '12px' }}>
-                    <h3 style={{ color: '#f472b6', margin: 0 }}>{entry.title}</h3>
-                    <span style={{ color: '#cbd5e1', fontSize: '13px' }}>{new Date(entry.createdAt).toLocaleString('fr-FR')}</span>
-                  </div>
-                  <div style={{ color: '#22c55e', fontWeight: 'bold', marginBottom: '12px' }}>Humeur : {entry.mood}</div>
-                  <p style={{ color: '#e2e8f0', marginTop: 0, whiteSpace: 'pre-wrap' }}>{entry.dayText}</p>
-                  {entry.memory && (
-                    <div style={{ marginTop: '16px', padding: '14px', borderRadius: '12px', backgroundColor: '#0f172a', border: '1px solid #334155' }}>
-                      <div style={{ color: '#f472b6', fontSize: '12px', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Souvenir</div>
-                      <p style={{ color: '#cbd5e1', margin: 0, whiteSpace: 'pre-wrap' }}>{entry.memory}</p>
-                    </div>
-                  )}
-                </article>
-              ))
-            )}
+            ))}
           </div>
+        </div>
+
+        {/* SECTION DOCUMENTS LÉGAUX ET CONFIDENTIALITÉ */}
+        <div style={{
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '18px',
+          padding: '26px 30px',
+          marginBottom: '40px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '20px',
+        }}>
+          <div>
+            <h3 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1.2rem' }}>
+              🛡️ Transparence, RGPD &amp; Protection de vos données
+            </h3>
+            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem', maxWidth: '600px' }}>
+              Consultez notre politique de confidentialité détaillée et nos conditions générales d’utilisation conformes aux directives d'Apple et Google Play.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <Link to="/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#f472b6', color: '#ffffff' }}>
+              Politique de Confidentialité
+            </Link>
+            <Link to="/terms" style={{ ...btnOutlineStyle, borderColor: '#f472b6', color: '#f472b6' }}>
+              Conditions Générales (EULA)
+            </Link>
+          </div>
+        </div>
+
+        {/* SECTION APERÇU / CARNET LOCAL (DÉMO INTERACTIVE) */}
+        <div style={{ marginTop: '20px' }}>
+          <details style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '18px 24px' }}>
+            <summary style={{ color: '#f472b6', fontWeight: 'bold', fontSize: '1.05rem', cursor: 'pointer', outline: 'none' }}>
+              ✍️ Tester la démo interactive du carnet de notes local (Navigateur)
+            </summary>
+            
+            <div style={{ marginTop: '24px' }}>
+              <p style={{ color: '#94a3b8', marginTop: 0, marginBottom: '18px', fontSize: '14px' }}>
+                Cet aperçu local vous permet d'écrire des notes sauvegardées temporairement dans le stockage local de votre navigateur.
+              </p>
+
+              <div style={{ display: 'grid', gap: '24px' }}>
+                <form onSubmit={handleSubmit} style={{ backgroundColor: '#0f172a', padding: '24px', borderRadius: '16px', border: '1px solid #334155' }}>
+                  <div style={{ display: 'grid', gap: '14px' }}>
+                    <input type="text" placeholder="Titre de la journée" value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} />
+                    <select value={mood} onChange={(e) => setMood(e.target.value)} style={inputStyle}>
+                      <option>Calme</option>
+                      <option>Heureux</option>
+                      <option>Fatigué</option>
+                      <option>Inspiré</option>
+                      <option>Triste</option>
+                    </select>
+                    <textarea placeholder="Décrivez votre journée" value={dayText} onChange={(e) => setDayText(e.target.value)} style={{ ...inputStyle, height: '120px', resize: 'vertical' }} />
+                    <textarea placeholder="Un souvenir à garder" value={memory} onChange={(e) => setMemory(e.target.value)} style={{ ...inputStyle, height: '100px', resize: 'vertical' }} />
+                    <button type="submit" style={{ ...btnPrimaryStyle, backgroundColor: '#f472b6' }}>Sauvegarder l'entrée</button>
+                  </div>
+                </form>
+
+                <div style={{ display: 'grid', gap: '16px' }}>
+                  {entries.length === 0 ? (
+                    <div className="app-card" style={{ backgroundColor: '#0f172a' }}>
+                      <p style={{ color: '#94a3b8', margin: 0 }}>Aucune histoire enregistrée pour le moment.</p>
+                    </div>
+                  ) : (
+                    entries.map((entry) => (
+                      <article key={entry.id} className="app-card" style={{ backgroundColor: '#0f172a' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', marginBottom: '12px' }}>
+                          <h3 style={{ color: '#f472b6', margin: 0 }}>{entry.title}</h3>
+                          <span style={{ color: '#cbd5e1', fontSize: '13px' }}>{new Date(entry.createdAt).toLocaleString('fr-FR')}</span>
+                        </div>
+                        <div style={{ color: '#22c55e', fontWeight: 'bold', marginBottom: '12px' }}>Humeur : {entry.mood}</div>
+                        <p style={{ color: '#e2e8f0', marginTop: 0, whiteSpace: 'pre-wrap' }}>{entry.dayText}</p>
+                        {entry.memory && (
+                          <div style={{ marginTop: '16px', padding: '14px', borderRadius: '12px', backgroundColor: '#1e293b', border: '1px solid #334155' }}>
+                            <div style={{ color: '#f472b6', fontSize: '12px', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Souvenir</div>
+                            <p style={{ color: '#cbd5e1', margin: 0, whiteSpace: 'pre-wrap' }}>{entry.memory}</p>
+                          </div>
+                        )}
+                      </article>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 🔒 PAGE : POLITIQUE DE CONFIDENTIALITÉ (/privacy)
+// ==========================================
+function PrivacyPolicyPage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+        
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/daytalia" style={{ color: '#f472b6', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à Daytalia
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#f472b6', color: 'white' }}>Daytalia</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#22c55e', border: '1px solid rgba(34, 197, 94, 0.3)' }}>Conformité RGPD &amp; Stores</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Politique de Confidentialité — Daytalia
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            Dernière mise à jour : Mai 2024
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+          
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
+            La présente Politique de Confidentialité décrit la manière dont Daytalia ("nous", "notre", "l'Application") collecte, utilise, stocke et protège vos données personnelles lorsque vous utilisez notre application mobile et nos services, conformément au Règlement Général sur la Protection des Données (RGPD) et aux réglementations internationales relatives à la protection de la vie privée.
+          </p>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+            
+            <section>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>1. Responsable du traitement</h2>
+              <p style={{ margin: '0 0 10px 0' }}>
+                Le traitement des données est assuré par l'équipe de développement de Daytalia.
+              </p>
+              <p style={{ margin: 0 }}>
+                Contact pour toute question relative à vos données : <strong style={{ color: '#ffffff' }}>contact@daytalia.com</strong> (ou votre email de contact).
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '12px' }}>2. Données personnelles collectées</h2>
+              <p style={{ marginBottom: '14px' }}>
+                Nous collectons uniquement les données nécessaires au bon fonctionnement de l'application :
+              </p>
+              
+              <div style={{ display: 'grid', gap: '14px', paddingLeft: '8px' }}>
+                <div>
+                  <strong style={{ color: '#ffffff' }}>1. Données de compte et d'identification :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li>Numéro de téléphone (utilisé exclusivement pour l'authentification sécurisée par SMS).</li>
+                    <li>Nom complet, nom d'utilisateur (pseudo) et date de naissance.</li>
+                    <li>Photo de profil (optionnelle).</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <strong style={{ color: '#ffffff' }}>2. Contenus créés par l'utilisateur (UGC) :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li>Récits de journées, souvenirs, notes, commentaires et réactions.</li>
+                    <li>Photographies importées pour illustrer vos récits.</li>
+                    <li>Messages enregistrés dans la fonction "Capsule Temporelle".</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <strong style={{ color: '#ffffff' }}>3. Données audio et vocales :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li>Les enregistrements vocaux effectués lors de l'utilisation de la dictée vocale sont transcrits en texte. Aucun enregistrement audio brut n'est conservé de façon permanente.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <strong style={{ color: '#ffffff' }}>4. Contacts téléphoniques (Optionnel) :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li>Si vous y consentez expressément, l'application analyse les numéros de votre répertoire de façon hachée et sécurisée afin d'identifier vos amis déjà inscrits sur Daytalia. Vos contacts ne sont ni vendus, ni cédés, ni utilisés à des fins publicitaires.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <strong style={{ color: '#ffffff' }}>5. Données d'achats et abonnements :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li>Identifiant d'abonné, statut de l'abonnement VIP et historique de transaction (géré par RevenueCat, l'App Store et Google Play). Nous n'avons jamais accès à vos coordonnées bancaires.</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '12px' }}>3. Finalités du traitement des données</h2>
+              <p style={{ marginBottom: '10px' }}>Vos données sont collectées pour :</p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1' }}>
+                <li>Vous permettre de créer, éditer et synchroniser votre journal personnel et vos souvenirs.</li>
+                <li>Générer automatiquement des synthèses et chapitres biographiques à votre demande via nos algorithmes d'IA.</li>
+                <li>Vous permettre d'interagir avec vos amis et gérer votre niveau de confidentialité (public, privé, masquer à certains contacts).</li>
+                <li>Envoyer des notifications relatives à l'activité de votre compte (souvenirs d'il y a un an, demandes d'amis, interactions).</li>
+                <li>Assurer la modération et la sécurité de la communauté (signalements, blocages).</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '12px' }}>4. Sous-traitants et partenaires tiers</h2>
+              <p style={{ marginBottom: '10px' }}>
+                Pour fournir nos services, nous faisons appel à des prestataires de confiance conformes aux standards de sécurité les plus stricts :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1' }}>
+                <li><strong style={{ color: '#ffffff' }}>Google Firebase (Google Cloud) :</strong> Authentification, hébergement de la base de données Firestore et stockage sécurisé des photos.</li>
+                <li><strong style={{ color: '#ffffff' }}>RevenueCat :</strong> Gestion et validation des abonnements intégrés (App Store et Google Play Store).</li>
+                <li><strong style={{ color: '#ffffff' }}>OneSignal &amp; Firebase Cloud Messaging :</strong> Acheminement des notifications push.</li>
+                <li><strong style={{ color: '#ffffff' }}>API d'Intelligence Artificielle (SiliconFlow / Modèles LLM) :</strong> Traitement textuel anonymisé pour l'assistance à la rédaction de l'autobiographie et les conseils bienveillants. Aucune donnée d'entraînement commercial n'est revendue.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>5. Durée de conservation des données</h2>
+              <p style={{ margin: '0 0 10px 0' }}>
+                Vos données sont conservées tant que votre compte est actif.
+              </p>
+              <p style={{ margin: 0, color: '#f472b6', fontWeight: 'bold' }}>
+                Si vous décidez de supprimer votre compte, l'ensemble de vos données (profil, photos, journées, souvenirs, capsules, autobiographie) est immédiatement et définitivement effacé de nos serveurs de production.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '12px' }}>6. Vos droits (Conformité RGPD)</h2>
+              <p style={{ marginBottom: '10px' }}>Conformément à la réglementation en vigueur, vous disposez des droits suivants :</p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1' }}>
+                <li><strong style={{ color: '#ffffff' }}>Droit d'accès et de rectification :</strong> Vous pouvez consulter et modifier vos informations à tout moment depuis votre profil.</li>
+                <li><strong style={{ color: '#ffffff' }}>Droit à l'effacement ("Droit à l'oubli") :</strong> Vous pouvez supprimer définitivement votre compte et toutes vos données en cliquant sur "Supprimer mon compte" dans les paramètres de l'application.</li>
+                <li><strong style={{ color: '#ffffff' }}>Droit à la limitation et d'opposition :</strong> Vous pouvez vous opposer au partage de vos données ou désactiver les notifications push depuis les paramètres.</li>
+                <li><strong style={{ color: '#ffffff' }}>Droit à la portabilité :</strong> Vous pouvez exporter vos chapitres et données sous forme de document PDF/Word.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>7. Sécurité des données</h2>
+              <p style={{ margin: 0 }}>
+                Toutes les communications entre votre téléphone et nos serveurs sont chiffrées selon les protocoles sécurisés HTTPS / TLS. Les accès à la base de données sont régis par des règles de sécurité Firebase strictes ne permettant qu'à l'utilisateur propriétaire d'accéder à ses données privées.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>8. Contact</h2>
+              <p style={{ margin: '0 0 6px 0' }}>Pour exercer vos droits ou pour toute question relative à cette politique :</p>
+              <p style={{ margin: 0 }}>
+                <strong style={{ color: '#ffffff' }}>Email :</strong> <a href="mailto:contact@daytalia.com" style={{ color: '#f472b6', textDecoration: 'none' }}>contact@daytalia.com</a>
+              </p>
+            </section>
+
+          </div>
+
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/terms" style={{ ...btnPrimaryStyle, backgroundColor: '#f472b6' }}>
+              Voir les Conditions Générales (EULA) →
+            </Link>
+            <Link to="/" style={btnOutlineStyle}>
+              Retour à l’accueil
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 📜 PAGE : CONDITIONS GÉNÉRALES & EULA (/terms)
+// ==========================================
+function TermsOfServicePage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+        
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/daytalia" style={{ color: '#f472b6', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à Daytalia
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#f472b6', color: 'white' }}>Daytalia</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>Contrat EULA &amp; CGU</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Conditions Générales d’Utilisation et Contrat de Licence d'Utilisateur Final (EULA) — Daytalia
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            En vigueur au : Mai 2024
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+          
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
+            Bienvenue sur Daytalia. En téléchargeant, installant ou utilisant l'application mobile Daytalia, vous acceptez sans réserve d'être lié par les présentes Conditions Générales d'Utilisation (ci-après le "Contrat"). Si vous n'acceptez pas ces conditions, vous ne devez pas utiliser l'application.
+          </p>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+            
+            <section>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>1. Admissibilité et Âge Minimum</h2>
+              <p style={{ margin: 0 }}>
+                L'accès à l'application est réservé aux personnes âgées d'au moins <strong style={{ color: '#ffffff' }}>13 ans</strong> (ou l'âge de consentement numérique en vigueur dans votre pays de résidence). En utilisant Daytalia, vous certifiez respecter cette condition.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>2. Règles de Conduite et Tolérance Zéro (UGC - Contenu Généré par les Utilisateurs)</h2>
+              <p style={{ marginBottom: '10px' }}>
+                Daytalia propose des fonctionnalités communautaires (fil d'actualité, commentaires, profils publics).
+              </p>
+              <p style={{ color: '#ef4444', fontWeight: 'bold', margin: '0 0 10px 0' }}>
+                Nous appliquons une politique de tolérance zéro envers les comportements nuisibles et les contenus répréhensibles.
+              </p>
+              <p style={{ marginBottom: '8px' }}>Il est strictement interdit de publier, partager ou transmettre sur Daytalia :</p>
+              <ul style={{ margin: '0 0 14px 20px', color: '#cbd5e1' }}>
+                <li>Tout contenu à caractère diffamatoire, injurieux, haineux, raciste, homophobe, violent ou menaçant.</li>
+                <li>Tout contenu pornographique, sexuellement explicite ou faisant l'apologie d'actes illégaux.</li>
+                <li>Des actes de harcèlement, d'intimidation ou d'atteinte à la vie privée d'autrui.</li>
+                <li>Des spams, publicités non autorisées ou faux profils d'usurpation d'identité.</li>
+              </ul>
+              <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '10px', padding: '12px 16px' }}>
+                <strong style={{ color: '#f87171' }}>Sanctions : </strong>
+                <span>Tout contenu enfreignant ces règles sera supprimé sans préavis. Tout utilisateur enfreignant ces règles s'expose à la <strong>suspension immédiate et définitive de son compte</strong>.</span>
+              </div>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>3. Modération, Signalement et Blocage</h2>
+              <p style={{ marginBottom: '10px' }}>Conformément aux directives de l'App Store et du Google Play Store :</p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1' }}>
+                <li><strong style={{ color: '#ffffff' }}>Signalement :</strong> Tout utilisateur peut signaler un post, un commentaire ou un utilisateur suspect à tout moment via le bouton "Signaler". Les signalements sont traités par notre équipe sous 24 heures.</li>
+                <li><strong style={{ color: '#ffffff' }}>Blocage :</strong> Tout utilisateur peut bloquer un autre utilisateur directement depuis son profil. Le blocage a pour effet immédiat de masquer l'ensemble des publications, profils et commentaires de la personne bloquée.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>4. Fonctionnalités d'Intelligence Artificielle</h2>
+              <p style={{ marginBottom: '10px' }}>
+                Daytalia intègre des outils d'assistance propulsés par l'intelligence artificielle pour reformuler vos récits, vous proposer des synthèses et composer des chapitres biographiques.
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1' }}>
+                <li>Vous reconnaissez que l'IA fournit des suggestions automatisées et peut occasionnellement générer des inexactitudes.</li>
+                <li>Vous demeurez le seul auteur et responsable légal des contenus finaux enregistrés et partagés sur votre compte.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>5. Abonnements VIP et Achats Intégrés</h2>
+              <p style={{ marginBottom: '10px' }}>
+                Daytalia propose une version d'accès gratuit et une formule d'abonnement payante optionnelle intitulée <strong style={{ color: '#f472b6' }}>"VIP Daytalia"</strong>, conférant des fonctionnalités avancées (génération IA enrichie, personnalisations exclusives, etc.).
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1' }}>
+                <li><strong style={{ color: '#ffffff' }}>Paiement :</strong> Le montant de l'abonnement est débité sur votre compte Apple ID ou Google Play lors de la confirmation d'achat.</li>
+                <li><strong style={{ color: '#ffffff' }}>Renouvellement automatique :</strong> L'abonnement est renouvelé automatiquement, à moins que le renouvellement automatique ne soit désactivé au moins 24 heures avant la fin de la période de facturation en cours.</li>
+                <li><strong style={{ color: '#ffffff' }}>Gestion et Résiliation :</strong> Vous pouvez gérer ou annuler votre abonnement à tout moment dans les réglages de votre compte App Store ou Google Play Store.</li>
+                <li><strong style={{ color: '#ffffff' }}>Restauration :</strong> Vous pouvez restaurer vos achats actifs sur un nouvel appareil à l'aide du bouton "Restaurer les achats" situé dans le menu VIP de l'application.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>6. Propriété Intellectuelle et Droits d'Auteur</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1' }}>
+                <li><strong style={{ color: '#ffffff' }}>Vos contenus :</strong> Vous conservez l'entière propriété intellectuelle des textes, récits et photographies que vous publiez sur Daytalia.</li>
+                <li><strong style={{ color: '#ffffff' }}>Nos contenus :</strong> La marque Daytalia, son design, son logo, ses illustrations et son code informatique sont la propriété exclusive de Daytalia et ne peuvent être copiés ou reproduits sans notre accord écrit.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>7. Résiliation et Suppression de Compte</h2>
+              <p style={{ margin: 0 }}>
+                Vous êtes libre d'interrompre l'utilisation du service à tout moment. Vous pouvez initier vous-même la suppression complète et irréversible de votre compte directement dans l'application via : <br />
+                <em style={{ color: '#cbd5e1' }}>Profil &gt; Paramètres &gt; Supprimer mon compte</em>.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>8. Limitation de Responsabilité</h2>
+              <p style={{ margin: 0 }}>
+                Daytalia s'efforce de maintenir un service accessible 24h/24 et 7j/7 mais ne saurait être tenu responsable des pannes de réseau, des interruptions temporaires de service ou de la perte de données imputable à un cas de force majeure. Nous vous encourageons à exporter régulièrement votre autobiographie aux formats PDF/Word mis à votre disposition.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>9. Loi Applicable et Juridiction</h2>
+              <p style={{ margin: 0 }}>
+                Les présentes conditions sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort de la cour d'appel dont dépend le siège du gestionnaire du service.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>10. Contact</h2>
+              <p style={{ margin: '0 0 6px 0' }}>Pour toute question concernant les présentes conditions :</p>
+              <p style={{ margin: 0 }}>
+                <strong style={{ color: '#ffffff' }}>Email :</strong> <a href="mailto:contact@daytalia.com" style={{ color: '#f472b6', textDecoration: 'none' }}>contact@daytalia.com</a>
+              </p>
+            </section>
+
+          </div>
+
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#f472b6' }}>
+              Voir la Politique de Confidentialité →
+            </Link>
+            <Link to="/" style={btnOutlineStyle}>
+              Retour à l’accueil
+            </Link>
+          </div>
+
         </div>
       </div>
     </div>
@@ -338,6 +897,12 @@ const legalApps = {
 
 function LegalPage({ type }) {
   const { appSlug } = useParams();
+
+  // Si l'application demandée est Daytalia, afficher la politique ou les conditions officielles complètes
+  if (appSlug === 'daytalia') {
+    return type === 'privacy' ? <PrivacyPolicyPage /> : <TermsOfServicePage />;
+  }
+
   const appInfo = legalApps[appSlug] || legalApps.walkmoney;
   const isPrivacy = type === 'privacy';
 
@@ -407,8 +972,12 @@ function LegalIndexPage({ type }) {
               <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
                 <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <Link to={`/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>Confidentialité</Link>
-                  <Link to={`/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>Conditions d’utilisation</Link>
+                  <Link to={slug === 'daytalia' ? '/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
+                    Confidentialité
+                  </Link>
+                  <Link to={slug === 'daytalia' ? '/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
+                    Conditions d’utilisation
+                  </Link>
                 </div>
               </div>
             ))}
@@ -425,8 +994,8 @@ function SiteFooter() {
       <div style={siteFooterInnerStyle}>
         <div style={{ color: '#cbd5e1' }}>© 2026 Parrel Studio</div>
         <div style={siteFooterLinksStyle}>
-          <Link to="/legal/politique-de-confidentialite" style={siteFooterLinkStyle}>Politique de confidentialité</Link>
-          <Link to="/legal/conditions-dutilisation" style={siteFooterLinkStyle}>Conditions d’utilisation</Link>
+          <Link to="/privacy" style={siteFooterLinkStyle}>Politique de confidentialité</Link>
+          <Link to="/terms" style={siteFooterLinkStyle}>Conditions Générales (EULA)</Link>
         </div>
       </div>
     </footer>
@@ -1263,6 +1832,12 @@ function App() {
           <Route path="stats/:storeId" element={<StoreStatsPage user={user} />} />
         </Route>
         <Route path="/daytalia" element={<DaytaliaPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms" element={<TermsOfServicePage />} />
+        <Route path="/daytalia/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/daytalia/terms" element={<TermsOfServicePage />} />
+        <Route path="/daytalia/politique-de-confidentialite" element={<PrivacyPolicyPage />} />
+        <Route path="/daytalia/conditions-dutilisation" element={<TermsOfServicePage />} />
         <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
         <Route path="/legal/conditions-dutilisation" element={<LegalIndexPage type="terms" />} />
         <Route path="/pro/auth" element={<Navigate to="/walkmoney/auth" replace />} />
