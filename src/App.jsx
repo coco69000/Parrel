@@ -224,46 +224,7 @@ function WalkMoneyLanding({ user }) {
 // 📔 DAYTALIA - PRÉSENTATION MARKETING & APP SHOWCASE
 // ==========================================
 function DaytaliaPage() {
-  const storageKey = 'daytalia-entries';
-  const [entries, setEntries] = useState([]);
-  const [title, setTitle] = useState('');
-  const [mood, setMood] = useState('Calme');
-  const [dayText, setDayText] = useState('');
-  const [memory, setMemory] = useState('');
   const [storeNotice, setStoreNotice] = useState('');
-
-  useEffect(() => {
-    try {
-      const savedEntries = JSON.parse(localStorage.getItem(storageKey) || '[]');
-      setEntries(Array.isArray(savedEntries) ? savedEntries : []);
-    } catch {
-      setEntries([]);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(entries));
-  }, [entries]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!dayText.trim() && !memory.trim()) return;
-
-    const newEntry = {
-      id: Date.now(),
-      title: title.trim() || `Journal du ${new Date().toLocaleDateString('fr-FR')}`,
-      mood,
-      dayText,
-      memory,
-      createdAt: new Date().toISOString(),
-    };
-
-    setEntries([newEntry, ...entries]);
-    setTitle('');
-    setMood('Calme');
-    setDayText('');
-    setMemory('');
-  };
 
   const handleStoreClick = (storeName) => {
     setStoreNotice(`Daytalia sera prochainement disponible en téléchargement direct sur ${storeName}. Restez à l'écoute !`);
@@ -479,64 +440,6 @@ function DaytaliaPage() {
               Conditions Générales (EULA)
             </Link>
           </div>
-        </div>
-
-        {/* SECTION APERÇU / CARNET LOCAL (DÉMO INTERACTIVE) */}
-        <div style={{ marginTop: '20px' }}>
-          <details style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '18px 24px' }}>
-            <summary style={{ color: '#f472b6', fontWeight: 'bold', fontSize: '1.05rem', cursor: 'pointer', outline: 'none' }}>
-              ✍️ Tester la démo interactive du carnet de notes local (Navigateur)
-            </summary>
-
-            <div style={{ marginTop: '24px' }}>
-              <p style={{ color: '#94a3b8', marginTop: 0, marginBottom: '18px', fontSize: '14px' }}>
-                Cet aperçu local vous permet d'écrire des notes sauvegardées temporairement dans le stockage local de votre navigateur.
-              </p>
-
-              <div style={{ display: 'grid', gap: '24px' }}>
-                <form onSubmit={handleSubmit} style={{ backgroundColor: '#0f172a', padding: '24px', borderRadius: '16px', border: '1px solid #334155' }}>
-                  <div style={{ display: 'grid', gap: '14px' }}>
-                    <input type="text" placeholder="Titre de la journée" value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} />
-                    <select value={mood} onChange={(e) => setMood(e.target.value)} style={inputStyle}>
-                      <option>Calme</option>
-                      <option>Heureux</option>
-                      <option>Fatigué</option>
-                      <option>Inspiré</option>
-                      <option>Triste</option>
-                    </select>
-                    <textarea placeholder="Décrivez votre journée" value={dayText} onChange={(e) => setDayText(e.target.value)} style={{ ...inputStyle, height: '120px', resize: 'vertical' }} />
-                    <textarea placeholder="Un souvenir à garder" value={memory} onChange={(e) => setMemory(e.target.value)} style={{ ...inputStyle, height: '100px', resize: 'vertical' }} />
-                    <button type="submit" style={{ ...btnPrimaryStyle, backgroundColor: '#f472b6' }}>Sauvegarder l'entrée</button>
-                  </div>
-                </form>
-
-                <div style={{ display: 'grid', gap: '16px' }}>
-                  {entries.length === 0 ? (
-                    <div className="app-card" style={{ backgroundColor: '#0f172a' }}>
-                      <p style={{ color: '#94a3b8', margin: 0 }}>Aucune histoire enregistrée pour le moment.</p>
-                    </div>
-                  ) : (
-                    entries.map((entry) => (
-                      <article key={entry.id} className="app-card" style={{ backgroundColor: '#0f172a' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', marginBottom: '12px' }}>
-                          <h3 style={{ color: '#f472b6', margin: 0 }}>{entry.title}</h3>
-                          <span style={{ color: '#cbd5e1', fontSize: '13px' }}>{new Date(entry.createdAt).toLocaleString('fr-FR')}</span>
-                        </div>
-                        <div style={{ color: '#22c55e', fontWeight: 'bold', marginBottom: '12px' }}>Humeur : {entry.mood}</div>
-                        <p style={{ color: '#e2e8f0', marginTop: 0, whiteSpace: 'pre-wrap' }}>{entry.dayText}</p>
-                        {entry.memory && (
-                          <div style={{ marginTop: '16px', padding: '14px', borderRadius: '12px', backgroundColor: '#1e293b', border: '1px solid #334155' }}>
-                            <div style={{ color: '#f472b6', fontSize: '12px', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Souvenir</div>
-                            <p style={{ color: '#cbd5e1', margin: 0, whiteSpace: 'pre-wrap' }}>{entry.memory}</p>
-                          </div>
-                        )}
-                      </article>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-          </details>
         </div>
 
       </div>
@@ -887,49 +790,6 @@ function QuizBotPage() {
   const [storeNotice, setStoreNotice] = useState('');
   const [roomCode, setRoomCode] = useState('');
   const [roomNotice, setRoomNotice] = useState('');
-  const [demoTopic, setDemoTopic] = useState('Histoire');
-  const [customText, setCustomText] = useState("Le 14 juillet 1789, le peuple de Paris prend d'assaut la forteresse de la Bastille, symbole de l'absolutisme royal, marquant un tournant décisif dans la Révolution française.");
-  const [quizQuestion, setQuizQuestion] = useState({
-    question: "Quel symbole de l'absolutisme royal a été pris d'assaut le 14 juillet 1789 ?",
-    options: ["La Bastille", "Le Palais du Louvre", "Le Château de Versailles", "La Conciergerie"],
-    correct: 0,
-    format: "QCM Classique",
-    hint: "Cette célèbre forteresse médiévale servait de prison d'État.",
-    explanation: "La prise de la Bastille est le moment fondateur marquant le début de la fin de la monarchie absolue en France."
-  });
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [iqScore, setIqScore] = useState(115);
-
-  const demoPresets = {
-    Histoire: {
-      text: "Le 14 juillet 1789, le peuple de Paris prend d'assaut la forteresse de la Bastille, symbole de l'absolutisme royal, marquant un tournant décisif dans la Révolution française.",
-      question: "Quel symbole de l'absolutisme royal a été pris d'assaut le 14 juillet 1789 ?",
-      options: ["La Bastille", "Le Palais du Louvre", "Le Château de Versailles", "La Conciergerie"],
-      correct: 0,
-      format: "QCM Classique",
-      hint: "Cette célèbre forteresse médiévale servait de prison d'État.",
-      explanation: "La prise de la Bastille est le moment fondateur marquant le début de la fin de la monarchie absolue en France."
-    },
-    Sciences: {
-      text: "Mars est la quatrième planète du Système solaire. Sa teinte rougeoyante provient de la grande concentration d'oxyde de fer (la rouille) présent dans sa poussière de surface.",
-      question: "Quelle substance confère à la planète Mars sa couleur rouge caractéristique ?",
-      options: ["L'oxyde de fer", "Le carbonate de calcium", "L'azote liquide", "Le soufre volcanique"],
-      correct: 0,
-      format: "Déduction Scientifique",
-      hint: "C'est la même substance chimique que la rouille sur Terre.",
-      explanation: "La poussière riche en oxyde de fer en suspension reflète principalement les longueurs d'onde rouges."
-    },
-    Cinéma: {
-      text: "Dans le film Inception réalisé par Christopher Nolan, Dom Cobb utilise une petite toupie métallique comme totem personnel pour s'assurer qu'il ne se trouve pas enfermé dans un rêve.",
-      question: "Dans le film Inception, quel totem Dom Cobb utilise-t-il pour distinguer la réalité du rêve ?",
-      options: ["Une toupie", "Un dé à coudre", "Une pièce truquée", "Une montre mécanique"],
-      correct: 0,
-      format: "Culture G & Cinéma",
-      hint: "Elle tourne sans jamais s'arrêter si le personnage est endormi.",
-      explanation: "Si la toupie continue de tourner indéfiniment sans chuter, cela prouve que Dom Cobb est encore dans un rêve."
-    }
-  };
 
   const handleStoreClick = (storeName) => {
     setStoreNotice(`QuizBot sera prochainement disponible en téléchargement direct sur ${storeName}. Restez à l'écoute !`);
@@ -943,24 +803,6 @@ function QuizBotPage() {
       return;
     }
     setRoomNotice(`🎮 Connexion au salon #${roomCode.trim().toUpperCase()}... En attente de l'hôte et synchronisation des chronos !`);
-  };
-
-  const handleSelectPreset = (key) => {
-    setDemoTopic(key);
-    const p = demoPresets[key];
-    setCustomText(p.text);
-    setQuizQuestion({ ...p });
-    setSelectedOption(null);
-    setShowResult(false);
-  };
-
-  const handleAnswerClick = (idx) => {
-    if (showResult) return;
-    setSelectedOption(idx);
-    setShowResult(true);
-    if (idx === quizQuestion.correct) {
-      setIqScore((prev) => prev + 5);
-    }
   };
 
   const featureCards = [
@@ -1353,126 +1195,6 @@ function QuizBotPage() {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* SECTION DÉMO INTERACTIVE : GÉNÉRATEUR & TEST DE QUIZ EN DIRECT */}
-        <div style={{ marginBottom: '36px' }}>
-          <details open style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '22px 26px' }}>
-            <summary style={{ color: '#8b5cf6', fontWeight: 'bold', fontSize: '1.1rem', cursor: 'pointer', outline: 'none' }}>
-              🧪 Tester la démo interactive : Génération de Quiz IA &amp; Calcul de QI en direct
-            </summary>
-
-            <div style={{ marginTop: '22px' }}>
-              <p style={{ color: '#94a3b8', marginTop: 0, marginBottom: '16px', fontSize: '14px' }}>
-                Sélectionnez un sujet ou collez vos propres notes pour voir comment QuizBot formule instantanément une question de jeu avec indices et calcul de QI.
-              </p>
-
-              {/* Boutons presets */}
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                {Object.keys(demoPresets).map((key) => (
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => handleSelectPreset(key)}
-                    style={{
-                      backgroundColor: demoTopic === key ? '#8b5cf6' : '#0f172a',
-                      color: '#ffffff',
-                      border: demoTopic === key ? '1px solid #8b5cf6' : '1px solid #334155',
-                      padding: '8px 16px',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      fontSize: '13px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Exemple {key}
-                  </button>
-                ))}
-              </div>
-
-              {/* Champ texte source */}
-              <div style={{ marginBottom: '20px' }}>
-                <textarea
-                  value={customText}
-                  onChange={(e) => setCustomText(e.target.value)}
-                  placeholder="Collez ici votre cours, texte ou résumé..."
-                  style={{ ...inputStyle, height: '90px', resize: 'vertical' }}
-                />
-              </div>
-
-              {/* Question générée */}
-              {quizQuestion && (
-                <div style={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '22px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '12px' }}>
-                    <span className="badge" style={{ backgroundColor: 'rgba(139, 92, 246, 0.2)', color: '#a78bfa', border: '1px solid rgba(139, 92, 246, 0.4)' }}>
-                      Format : {quizQuestion.format}
-                    </span>
-                    <span style={{ color: '#34d399', fontWeight: 'bold', fontSize: '14px' }}>
-                      Votre score QI estimé : {iqScore} pts
-                    </span>
-                  </div>
-
-                  <h3 style={{ color: '#ffffff', margin: '0 0 16px 0', fontSize: '1.2rem', lineHeight: 1.4 }}>
-                    {quizQuestion.question}
-                  </h3>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px', marginBottom: '16px' }}>
-                    {quizQuestion.options.map((opt, idx) => {
-                      let btnBg = '#1e293b';
-                      let btnBorder = '#334155';
-                      let btnColor = '#ffffff';
-
-                      if (showResult) {
-                        if (idx === quizQuestion.correct) {
-                          btnBg = 'rgba(34, 197, 94, 0.2)';
-                          btnBorder = '#22c55e';
-                          btnColor = '#86efac';
-                        } else if (idx === selectedOption) {
-                          btnBg = 'rgba(239, 68, 68, 0.2)';
-                          btnBorder = '#ef4444';
-                          btnColor = '#fca5a5';
-                        }
-                      }
-
-                      return (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => handleAnswerClick(idx)}
-                          disabled={showResult}
-                          style={{
-                            backgroundColor: btnBg,
-                            border: `1px solid ${btnBorder}`,
-                            color: btnColor,
-                            padding: '12px 16px',
-                            borderRadius: '10px',
-                            cursor: showResult ? 'default' : 'pointer',
-                            textAlign: 'left',
-                            fontSize: '14px',
-                            fontWeight: '500',
-                            transition: 'all 0.2s',
-                          }}
-                        >
-                          {opt}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Indice & Explication */}
-                  <div style={{ backgroundColor: '#1e293b', borderRadius: '10px', padding: '12px 16px', fontSize: '13px', color: '#cbd5e1' }}>
-                    <div style={{ color: '#fbbf24', fontWeight: 'bold', marginBottom: '4px' }}>💡 Indice IA :</div>
-                    <p style={{ margin: '0 0 8px 0' }}>{quizQuestion.hint}</p>
-                    {showResult && (
-                      <div style={{ borderTop: '1px solid #334155', paddingTop: '8px', marginTop: '8px', color: '#86efac' }}>
-                        <strong>✨ Explication IA :</strong> {quizQuestion.explanation}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          </details>
         </div>
 
         {/* SECTION DOCUMENTS LÉGAUX ET CONFIDENTIALITÉ */}
