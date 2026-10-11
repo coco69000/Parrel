@@ -4,25 +4,25 @@ import './App.css';
 
 // --- IMPORTATIONS FIREBASE ---
 import { initializeApp } from "firebase/app";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut, 
-  onAuthStateChanged 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
 } from "firebase/auth";
-import { 
-  getFirestore, 
-  collection, 
+import {
+  getFirestore,
+  collection,
   doc,
-  addDoc, 
+  addDoc,
   getDoc,
   getDocs,
   updateDoc,
-  query, 
+  query,
   where,
   limit,
-  serverTimestamp, 
+  serverTimestamp,
   GeoPoint,
   increment
 } from "firebase/firestore";
@@ -86,7 +86,7 @@ function Home({ user }) {
       <section id="applications" className="apps-section">
         <h2>Nos Applications & Écosystème IA</h2>
         <div className="apps-grid">
-          
+
           <div className="app-card" style={{ border: '2px solid #00bcd4', transform: 'scale(1.03)', zIndex: 10 }}>
             <h3 style={{ color: '#00bcd4' }}>WalkMoney - Espace Pro</h3>
             <span className="tag" style={{ backgroundColor: '#00bcd4', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Portail Commerçant</span>
@@ -94,10 +94,10 @@ function Home({ user }) {
               Créez votre magasin, gérez vos offres de cashback et suivez vos statistiques. Les boutons de connexion et de création sont maintenant dans l'espace WalkMoney.
             </p>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              <Link to="/walkmoney" style={{...btnPrimaryStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '180px' }}>
+              <Link to="/walkmoney" style={{ ...btnPrimaryStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '180px' }}>
                 Ouvrir WalkMoney
               </Link>
-              <Link to={user ? "/walkmoney/dashboard" : "/walkmoney/auth"} style={{...btnOutlineStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '180px' }}>
+              <Link to={user ? "/walkmoney/dashboard" : "/walkmoney/auth"} style={{ ...btnOutlineStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '180px' }}>
                 {user ? "Mes magasins" : "Se connecter"}
               </Link>
             </div>
@@ -109,8 +109,19 @@ function Home({ user }) {
             <p style={{ marginTop: '15px', marginBottom: '20px' }}>
               Une application pour raconter vos journées, garder vos souvenirs et retrouver vos moments importants.
             </p>
-            <Link to="/daytalia" style={{...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#f472b6' }}>
+            <Link to="/daytalia" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#f472b6' }}>
               Ouvrir Daytalia
+            </Link>
+          </div>
+
+          <div className="app-card" style={{ border: '1px solid #8b5cf6' }}>
+            <h3 style={{ color: '#8b5cf6' }}>QuizBot</h3>
+            <span className="tag" style={{ backgroundColor: '#8b5cf6', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Quiz IA &amp; Culture G</span>
+            <p style={{ marginTop: '15px', marginBottom: '20px' }}>
+              Transformez n'importe quel texte en jeu interactif grâce à l'IA. Plus de 15 mini-jeux, multijoueur en direct et calcul de QI culturel.
+            </p>
+            <Link to="/quizbot" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#8b5cf6' }}>
+              Ouvrir QuizBot
             </Link>
           </div>
 
@@ -290,7 +301,7 @@ function DaytaliaPage() {
   return (
     <div style={pageStyle}>
       <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
-        
+
         {/* Navigation retour */}
         <div style={{ marginBottom: '20px' }}>
           <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
@@ -314,7 +325,7 @@ function DaytaliaPage() {
 
           {/* 2 BOUTONS OBTENIR : PLAY STORE & APP STORE */}
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '18px' }}>
-            
+
             {/* Bouton Google Play */}
             <button
               type="button"
@@ -337,10 +348,10 @@ function DaytaliaPage() {
               onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <path d="M3.609 1.814L13.793 12 3.61 22.185A2.32 2.32 0 0 1 3 20.573V3.427c0-.623.23-1.192.609-1.613z" fill="#00C1A6"/>
-                <path d="M17.202 8.59L13.793 12l3.41 3.41 3.865-2.222c.907-.521.907-1.854 0-2.376L17.202 8.59z" fill="#FFD100"/>
-                <path d="M3.609 1.814L13.793 12l3.409-3.41-11.41-6.559c-.569-.327-1.22-.327-1.792.007l6.009 6.009z" fill="#00A0FF"/>
-                <path d="M13.793 12L3.609 22.186c.572.334 1.223.334 1.792.007l11.41-6.559-3.018-3.634z" fill="#FF3333"/>
+                <path d="M3.609 1.814L13.793 12 3.61 22.185A2.32 2.32 0 0 1 3 20.573V3.427c0-.623.23-1.192.609-1.613z" fill="#00C1A6" />
+                <path d="M17.202 8.59L13.793 12l3.41 3.41 3.865-2.222c.907-.521.907-1.854 0-2.376L17.202 8.59z" fill="#FFD100" />
+                <path d="M3.609 1.814L13.793 12l3.409-3.41-11.41-6.559c-.569-.327-1.22-.327-1.792.007l6.009 6.009z" fill="#00A0FF" />
+                <path d="M13.793 12L3.609 22.186c.572.334 1.223.334 1.792.007l11.41-6.559-3.018-3.634z" fill="#FF3333" />
               </svg>
               <div>
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Disponible sur</div>
@@ -370,7 +381,7 @@ function DaytaliaPage() {
               onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.05-.52 2.67-1.27z"/>
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.05-.52 2.67-1.27z" />
               </svg>
               <div>
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Télécharger dans l'</div>
@@ -476,7 +487,7 @@ function DaytaliaPage() {
             <summary style={{ color: '#f472b6', fontWeight: 'bold', fontSize: '1.05rem', cursor: 'pointer', outline: 'none' }}>
               ✍️ Tester la démo interactive du carnet de notes local (Navigateur)
             </summary>
-            
+
             <div style={{ marginTop: '24px' }}>
               <p style={{ color: '#94a3b8', marginTop: 0, marginBottom: '18px', fontSize: '14px' }}>
                 Cet aperçu local vous permet d'écrire des notes sauvegardées temporairement dans le stockage local de votre navigateur.
@@ -540,7 +551,7 @@ function PrivacyPolicyPage() {
   return (
     <div style={pageStyle}>
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-        
+
         {/* En-tête */}
         <div style={{ marginBottom: '24px' }}>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
@@ -568,13 +579,13 @@ function PrivacyPolicyPage() {
 
         {/* Contenu textuel officiel */}
         <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
-          
+
           <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
             La présente Politique de Confidentialité décrit la manière dont Daytalia ("nous", "notre", "l'Application") collecte, utilise, stocke et protège vos données personnelles lorsque vous utilisez notre application mobile et nos services, conformément au Règlement Général sur la Protection des Données (RGPD) et aux réglementations internationales relatives à la protection de la vie privée.
           </p>
 
           <div style={{ display: 'grid', gap: '28px' }}>
-            
+
             <section>
               <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>1. Responsable du traitement</h2>
               <p style={{ margin: '0 0 10px 0' }}>
@@ -590,7 +601,7 @@ function PrivacyPolicyPage() {
               <p style={{ marginBottom: '14px' }}>
                 Nous collectons uniquement les données nécessaires au bon fonctionnement de l'application :
               </p>
-              
+
               <div style={{ display: 'grid', gap: '14px', paddingLeft: '8px' }}>
                 <div>
                   <strong style={{ color: '#ffffff' }}>1. Données de compte et d'identification :</strong>
@@ -718,7 +729,7 @@ function TermsOfServicePage() {
   return (
     <div style={pageStyle}>
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-        
+
         {/* En-tête */}
         <div style={{ marginBottom: '24px' }}>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
@@ -746,13 +757,13 @@ function TermsOfServicePage() {
 
         {/* Contenu textuel officiel */}
         <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
-          
+
           <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
             Bienvenue sur Daytalia. En téléchargeant, installant ou utilisant l'application mobile Daytalia, vous acceptez sans réserve d'être lié par les présentes Conditions Générales d'Utilisation (ci-après le "Contrat"). Si vous n'acceptez pas ces conditions, vous ne devez pas utiliser l'application.
           </p>
 
           <div style={{ display: 'grid', gap: '28px' }}>
-            
+
             <section>
               <h2 style={{ color: '#f472b6', fontSize: '1.25rem', marginBottom: '10px' }}>1. Admissibilité et Âge Minimum</h2>
               <p style={{ margin: 0 }}>
@@ -870,6 +881,1032 @@ function TermsOfServicePage() {
 }
 
 // ==========================================
+// 🧠 QUIZBOT - PRÉSENTATION MARKETING & APP SHOWCASE
+// ==========================================
+function QuizBotPage() {
+  const [storeNotice, setStoreNotice] = useState('');
+  const [roomCode, setRoomCode] = useState('');
+  const [roomNotice, setRoomNotice] = useState('');
+  const [demoTopic, setDemoTopic] = useState('Histoire');
+  const [customText, setCustomText] = useState("Le 14 juillet 1789, le peuple de Paris prend d'assaut la forteresse de la Bastille, symbole de l'absolutisme royal, marquant un tournant décisif dans la Révolution française.");
+  const [quizQuestion, setQuizQuestion] = useState({
+    question: "Quel symbole de l'absolutisme royal a été pris d'assaut le 14 juillet 1789 ?",
+    options: ["La Bastille", "Le Palais du Louvre", "Le Château de Versailles", "La Conciergerie"],
+    correct: 0,
+    format: "QCM Classique",
+    hint: "Cette célèbre forteresse médiévale servait de prison d'État.",
+    explanation: "La prise de la Bastille est le moment fondateur marquant le début de la fin de la monarchie absolue en France."
+  });
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [showResult, setShowResult] = useState(false);
+  const [iqScore, setIqScore] = useState(115);
+
+  const demoPresets = {
+    Histoire: {
+      text: "Le 14 juillet 1789, le peuple de Paris prend d'assaut la forteresse de la Bastille, symbole de l'absolutisme royal, marquant un tournant décisif dans la Révolution française.",
+      question: "Quel symbole de l'absolutisme royal a été pris d'assaut le 14 juillet 1789 ?",
+      options: ["La Bastille", "Le Palais du Louvre", "Le Château de Versailles", "La Conciergerie"],
+      correct: 0,
+      format: "QCM Classique",
+      hint: "Cette célèbre forteresse médiévale servait de prison d'État.",
+      explanation: "La prise de la Bastille est le moment fondateur marquant le début de la fin de la monarchie absolue en France."
+    },
+    Sciences: {
+      text: "Mars est la quatrième planète du Système solaire. Sa teinte rougeoyante provient de la grande concentration d'oxyde de fer (la rouille) présent dans sa poussière de surface.",
+      question: "Quelle substance confère à la planète Mars sa couleur rouge caractéristique ?",
+      options: ["L'oxyde de fer", "Le carbonate de calcium", "L'azote liquide", "Le soufre volcanique"],
+      correct: 0,
+      format: "Déduction Scientifique",
+      hint: "C'est la même substance chimique que la rouille sur Terre.",
+      explanation: "La poussière riche en oxyde de fer en suspension reflète principalement les longueurs d'onde rouges."
+    },
+    Cinéma: {
+      text: "Dans le film Inception réalisé par Christopher Nolan, Dom Cobb utilise une petite toupie métallique comme totem personnel pour s'assurer qu'il ne se trouve pas enfermé dans un rêve.",
+      question: "Dans le film Inception, quel totem Dom Cobb utilise-t-il pour distinguer la réalité du rêve ?",
+      options: ["Une toupie", "Un dé à coudre", "Une pièce truquée", "Une montre mécanique"],
+      correct: 0,
+      format: "Culture G & Cinéma",
+      hint: "Elle tourne sans jamais s'arrêter si le personnage est endormi.",
+      explanation: "Si la toupie continue de tourner indéfiniment sans chuter, cela prouve que Dom Cobb est encore dans un rêve."
+    }
+  };
+
+  const handleStoreClick = (storeName) => {
+    setStoreNotice(`QuizBot sera prochainement disponible en téléchargement direct sur ${storeName}. Restez à l'écoute !`);
+    setTimeout(() => setStoreNotice(''), 5000);
+  };
+
+  const handleJoinRoom = (e) => {
+    e.preventDefault();
+    if (!roomCode.trim() || roomCode.trim().length < 4) {
+      setRoomNotice("⚠️ Veuillez saisir un code de salon valide à 6 chiffres.");
+      return;
+    }
+    setRoomNotice(`🎮 Connexion au salon #${roomCode.trim().toUpperCase()}... En attente de l'hôte et synchronisation des chronos !`);
+  };
+
+  const handleSelectPreset = (key) => {
+    setDemoTopic(key);
+    const p = demoPresets[key];
+    setCustomText(p.text);
+    setQuizQuestion({ ...p });
+    setSelectedOption(null);
+    setShowResult(false);
+  };
+
+  const handleAnswerClick = (idx) => {
+    if (showResult) return;
+    setSelectedOption(idx);
+    setShowResult(true);
+    if (idx === quizQuestion.correct) {
+      setIqScore((prev) => prev + 5);
+    }
+  };
+
+  const featureCards = [
+    {
+      icon: '⚡',
+      title: 'De vos idées au jeu en 5s',
+      desc: "Fini la création manuelle : l'IA extrait les concepts clés, sélectionne le thème et génère automatiquement des questions percutantes et des indices adaptés.",
+    },
+    {
+      icon: '🎮',
+      title: '+15 mini-jeux inédits',
+      desc: "Bien plus qu'un simple QCM ! Alertez dynamiquement entre Pendu nouvelle génération, Wordle, Anagrammes, Memory visuel, Relier et Quiz Éclair.",
+    },
+    {
+      icon: '🌍',
+      title: 'Multijoueur en Direct',
+      desc: "Salons publics avec matchmaking rapide ou salles privées entre amis via un simple code à 6 chiffres, jouable en mode invité sans inscription.",
+    },
+    {
+      icon: '📈',
+      title: 'Suivi de QI Culturel',
+      desc: "Mesurez vos connaissances grâce à un algorithme d'ajustement adaptatif, analysez vos points forts par thème et débloquez trophées et badges.",
+    },
+    {
+      icon: '🎨',
+      title: 'Illustrations IA (FLUX)',
+      desc: "Visuels générés sur-mesure par IA générative ou extraits de banques d'images libres (Openverse) pour donner vie à chaque question.",
+    },
+    {
+      icon: '⭐',
+      title: 'QuizBot VIP',
+      desc: "Générez des chapitres entiers de révision sans limite de texte, bénéficiez de visuels FLUX exclusifs et combinez librement tous les types de jeux.",
+    },
+  ];
+
+  const miniGameCategories = [
+    {
+      category: 'Classiques & Réflexion',
+      icon: '🧩',
+      items: ['QCM texte et images', 'Vrai ou Faux', 'Choisir l’Intrus', 'Compléter la Phrase'],
+    },
+    {
+      category: 'Jeux de Mots & Déduction',
+      icon: '🔤',
+      items: ['Pendu nouvelle génération', 'Mot Mystère (style Wordle)', 'Anagrammes rapides', 'Énigmes « Qui suis-je ? »'],
+    },
+    {
+      category: 'Logique & Rapidité',
+      icon: '⚡',
+      items: ['Relier (Définition ↔ Mot / Image)', 'Memory visuel', 'Remise en ordre chronologique', 'Quiz Éclair & Estimations'],
+    },
+  ];
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
+
+        {/* Navigation retour */}
+        <div style={{ marginBottom: '20px' }}>
+          <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
+            ← Retour aux applications Parrel
+          </Link>
+        </div>
+
+        {/* HERO SECTION MARKETING */}
+        <div style={{ marginBottom: '36px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(139, 92, 246, 0.15)', border: '1px solid rgba(139, 92, 246, 0.3)', padding: '6px 14px', borderRadius: '999px', marginBottom: '16px' }}>
+            <span style={{ color: '#8b5cf6', fontWeight: 'bold', fontSize: '13px' }}>🧠 QuizBot (QuizQI) • Quiz &amp; IA Générative</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '0', marginBottom: '16px', fontSize: 'clamp(1.8rem, 4vw, 2.7rem)', lineHeight: 1.25, fontWeight: 800 }}>
+            Apprenez, créez et défiez le monde entier.
+          </h1>
+
+          <p style={{ color: '#cbd5e1', fontSize: '1.2rem', lineHeight: 1.6, maxWidth: '880px', margin: '0 0 28px 0' }}>
+            Collez un cours, un article ou vos notes : notre Intelligence Artificielle génère instantanément un quiz sur-mesure parmi plus de 15 formats de jeux différents. Jouez en solo, mesurez votre score de culture générale et affrontez vos amis en direct !
+          </p>
+
+          {/* 3 BOUTONS OBTENIR : PLAY STORE, APP STORE & REJOINDRE */}
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '18px' }}>
+
+            {/* Bouton Google Play */}
+            <button
+              type="button"
+              onClick={() => handleStoreClick('Google Play')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                backgroundColor: '#050811',
+                color: '#ffffff',
+                padding: '12px 24px',
+                borderRadius: '14px',
+                border: '1px solid #475569',
+                cursor: 'pointer',
+                textAlign: 'left',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#8b5cf6'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <path d="M3.609 1.814L13.793 12 3.61 22.185A2.32 2.32 0 0 1 3 20.573V3.427c0-.623.23-1.192.609-1.613z" fill="#00C1A6" />
+                <path d="M17.202 8.59L13.793 12l3.41 3.41 3.865-2.222c.907-.521.907-1.854 0-2.376L17.202 8.59z" fill="#FFD100" />
+                <path d="M3.609 1.814L13.793 12l3.409-3.41-11.41-6.559c-.569-.327-1.22-.327-1.792.007l6.009 6.009z" fill="#00A0FF" />
+                <path d="M13.793 12L3.609 22.186c.572.334 1.223.334 1.792.007l11.41-6.559-3.018-3.634z" fill="#FF3333" />
+              </svg>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Disponible sur</div>
+                <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>Google Play</div>
+              </div>
+            </button>
+
+            {/* Bouton Apple App Store */}
+            <button
+              type="button"
+              onClick={() => handleStoreClick("l'App Store")}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                backgroundColor: '#050811',
+                color: '#ffffff',
+                padding: '12px 24px',
+                borderRadius: '14px',
+                border: '1px solid #475569',
+                cursor: 'pointer',
+                textAlign: 'left',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#8b5cf6'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.05-.52 2.67-1.27z" />
+              </svg>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Télécharger dans l'</div>
+                <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>App Store</div>
+              </div>
+            </button>
+
+            {/* Bouton Rejoindre avec un code */}
+            <a
+              href="#join-room"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                backgroundColor: 'rgba(139, 92, 246, 0.15)',
+                color: '#a78bfa',
+                padding: '14px 22px',
+                borderRadius: '14px',
+                border: '1px solid #8b5cf6',
+                textDecoration: 'none',
+                fontWeight: 'bold',
+                fontSize: '15px',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#8b5cf6'; e.currentTarget.style.color = '#ffffff'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(139, 92, 246, 0.15)'; e.currentTarget.style.color = '#a78bfa'; }}
+            >
+              <span>🎮</span> Rejoindre une partie avec un code
+            </a>
+
+          </div>
+
+          {storeNotice && (
+            <div style={{ backgroundColor: 'rgba(139, 92, 246, 0.15)', border: '1px solid rgba(139, 92, 246, 0.4)', borderRadius: '10px', padding: '12px 18px', color: '#ddd6fe', fontSize: '14px', maxWidth: '640px', marginBottom: '20px' }}>
+              ℹ️ {storeNotice}
+            </div>
+          )}
+
+          {/* BOX INTERACTIVE : REJOINDRE AVEC UN CODE */}
+          <div id="join-room" style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '20px 24px', maxWidth: '580px', marginTop: '16px' }}>
+            <div style={{ color: '#a78bfa', fontWeight: 'bold', fontSize: '14px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>🔑</span> Accès direct à une salle privée
+            </div>
+            <form onSubmit={handleJoinRoom} style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <input
+                type="text"
+                placeholder="Code à 6 chiffres (ex: 742189)"
+                maxLength={6}
+                value={roomCode}
+                onChange={(e) => setRoomCode(e.target.value)}
+                style={{ ...inputStyle, marginBottom: 0, flex: '1 1 200px', letterSpacing: '2px', fontWeight: 'bold', textTransform: 'uppercase' }}
+              />
+              <button type="submit" style={{ ...btnPrimaryStyle, backgroundColor: '#8b5cf6', whiteSpace: 'nowrap' }}>
+                Rejoindre la partie
+              </button>
+            </form>
+            {roomNotice && (
+              <div style={{ marginTop: '10px', fontSize: '13px', color: roomNotice.startsWith('⚠️') ? '#fca5a5' : '#86efac' }}>
+                {roomNotice}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* SECTION 1 : LA MAGIE DE L'IA */}
+        <div style={{
+          backgroundColor: '#1e293b',
+          borderRadius: '20px',
+          padding: '32px',
+          border: '1px solid rgba(139, 92, 246, 0.35)',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+          marginBottom: '36px',
+        }}>
+          <h2 style={{ color: '#8b5cf6', marginTop: 0, marginBottom: '14px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>⚡</span> De vos idées au jeu en 5 secondes chrono
+          </h2>
+          <p style={{ color: '#cbd5e1', fontSize: '1.08rem', lineHeight: 1.7, marginBottom: '22px' }}>
+            Fini les créations de quiz manuelles et fastidieuses. QuizBot extrait l’essence de vos contenus en quelques fractions de seconde :
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '18px' }}>
+            <div style={{ backgroundColor: '#0f172a', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ color: '#8b5cf6', fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>1</div>
+              <h3 style={{ color: '#ffffff', margin: '0 0 8px 0', fontSize: '1.1rem' }}>Collez votre texte</h3>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem', lineHeight: 1.6 }}>
+                Résumé historique, fiche de révision pour le bac, article scientifique, notes brutes ou lien d'actualité.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#0f172a', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ color: '#8b5cf6', fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>2</div>
+              <h3 style={{ color: '#ffffff', margin: '0 0 8px 0', fontSize: '1.1rem' }}>Laissez l’IA travailler</h3>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem', lineHeight: 1.6 }}>
+                Elle extrait les concepts clés, sélectionne le thème et génère automatiquement des questions pertinentes et des indices.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#0f172a', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ color: '#8b5cf6', fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>3</div>
+              <h3 style={{ color: '#ffffff', margin: '0 0 8px 0', fontSize: '1.1rem' }}>Illustrations intelligentes</h3>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem', lineHeight: 1.6 }}>
+                L'IA recherche ou génère automatiquement des visuels adaptés (Openverse / FLUX) pour illustrer vos questions et options de jeu.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 2 : PLUS DE 15 MINI-JEUX INÉDITS */}
+        <div style={{ marginBottom: '36px' }}>
+          <h2 style={{ color: 'white', marginBottom: '10px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>🎮</span> Bien plus qu'un simple QCM !
+          </h2>
+          <p style={{ color: '#94a3b8', margin: '0 0 22px 0', fontSize: '1.05rem' }}>
+            Ne vous ennuyez plus jamais avec des questions répétitives. QuizBot alterne dynamiquement une multitude de mécaniques :
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+            {miniGameCategories.map((cat, idx) => (
+              <div key={idx} style={{ backgroundColor: '#1e293b', borderRadius: '16px', padding: '24px', border: '1px solid #334155' }}>
+                <div style={{ fontSize: '32px', marginBottom: '10px' }}>{cat.icon}</div>
+                <h3 style={{ color: '#8b5cf6', margin: '0 0 14px 0', fontSize: '1.2rem' }}>{cat.category}</h3>
+                <ul style={{ margin: 0, paddingLeft: '18px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                  {cat.items.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* SECTION 3 : MULTIJOUEUR EN DIRECT */}
+        <div style={{
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '20px',
+          padding: '32px',
+          marginBottom: '36px'
+        }}>
+          <h2 style={{ color: '#8b5cf6', marginTop: 0, marginBottom: '10px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>🌍</span> Défiez vos amis ou des joueurs du monde entier
+          </h2>
+          <p style={{ color: '#cbd5e1', marginBottom: '24px', fontSize: '1.05rem' }}>
+            Affrontez la communauté dans un écosystème multijoueur temps réel fluide et immersif :
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '18px' }}>
+            <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>📡</div>
+              <h4 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1rem' }}>Salons publics &amp; Matchmaking</h4>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.6 }}>
+                Trouvez une partie instantanément grâce à notre radar de recherche thématique.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>🔐</div>
+              <h4 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1rem' }}>Salons privés entre amis</h4>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.6 }}>
+                Créez une salle, partagez votre code à 6 chiffres et jouez ensemble avec un chat en direct.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>⏱️</div>
+              <h4 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1rem' }}>Synchro parfaite</h4>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.6 }}>
+                Chronomètres en temps réel, animations de podium et classement dynamique après chaque question.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>🚀</div>
+              <h4 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1rem' }}>Mode Invité immédiat</h4>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.6 }}>
+                Vos amis peuvent rejoindre votre partie immédiatement avec un simple code, sans obligation de créer un compte.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 4 : SUIVI DE PERFORMANCE & QI CULTUREL */}
+        <div style={{ marginBottom: '36px' }}>
+          <h2 style={{ color: 'white', marginBottom: '14px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>📈</span> Mesurez et développez votre potentiel
+          </h2>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+            <div style={{ backgroundColor: '#1e293b', borderRadius: '16px', padding: '24px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '30px', marginBottom: '10px' }}>🧠</div>
+              <h3 style={{ color: '#8b5cf6', margin: '0 0 10px 0', fontSize: '1.2rem' }}>Indicateur de QI Culturel</h3>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.96rem', lineHeight: 1.6 }}>
+                Notre algorithme évalue votre progression en ajustant votre score selon la difficulté des questions et les thèmes abordés.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', borderRadius: '16px', padding: '24px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '30px', marginBottom: '10px' }}>📊</div>
+              <h3 style={{ color: '#8b5cf6', margin: '0 0 10px 0', fontSize: '1.2rem' }}>Analyse de compétences par IA</h3>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.96rem', lineHeight: 1.6 }}>
+                Découvrez vos points forts (Histoire, Sciences, Cinéma, Géographie...) et les domaines à perfectionner.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', borderRadius: '16px', padding: '24px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '30px', marginBottom: '10px' }}>🏆</div>
+              <h3 style={{ color: '#8b5cf6', margin: '0 0 10px 0', fontSize: '1.2rem' }}>Collection de Badges &amp; Trophées</h3>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.96rem', lineHeight: 1.6 }}>
+                Débloquez des récompenses uniques en réalisant des scores parfaits, en enchaînant les victoires ou en créant vos propres quiz.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 5 : QUIZBOT VIP */}
+        <div style={{
+          backgroundColor: '#1e293b',
+          borderRadius: '20px',
+          padding: '30px',
+          border: '1px solid rgba(245, 158, 11, 0.4)',
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 1) 0%, rgba(30, 27, 75, 0.6) 100%)',
+          marginBottom: '36px',
+        }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(245, 158, 11, 0.15)', border: '1px solid rgba(245, 158, 11, 0.4)', padding: '5px 12px', borderRadius: '999px', marginBottom: '14px' }}>
+            <span style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '13px' }}>⭐ QuizBot VIP — L'expérience ultime</span>
+          </div>
+          <h2 style={{ color: '#ffffff', marginTop: 0, marginBottom: '10px', fontSize: '1.45rem' }}>
+            Passez à la vitesse supérieure
+          </h2>
+          <p style={{ color: '#cbd5e1', marginBottom: '22px', fontSize: '1.05rem' }}>
+            Pour les créateurs passionnés et les réviseurs intensifs :
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+            <div style={{ backgroundColor: 'rgba(15, 23, 42, 0.7)', padding: '18px', borderRadius: '12px', border: '1px solid #334155' }}>
+              <div style={{ color: '#fbbf24', fontWeight: 'bold', marginBottom: '6px', fontSize: '1.05rem' }}>🚀 Prompts illimités</div>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.92rem', lineHeight: 1.5 }}>
+                Transformez des chapitres entiers sans limite de caractères ni plafond de requêtes.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: 'rgba(15, 23, 42, 0.7)', padding: '18px', borderRadius: '12px', border: '1px solid #334155' }}>
+              <div style={{ color: '#fbbf24', fontWeight: 'bold', marginBottom: '6px', fontSize: '1.05rem' }}>🎨 Génération FLUX IA</div>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.92rem', lineHeight: 1.5 }}>
+                Des visuels sur-mesure créés de toutes pièces pour vos questions grâce aux modèles FLUX.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: 'rgba(15, 23, 42, 0.7)', padding: '18px', borderRadius: '12px', border: '1px solid #334155' }}>
+              <div style={{ color: '#fbbf24', fontWeight: 'bold', marginBottom: '6px', fontSize: '1.05rem' }}>🧩 Combinaisons infinies</div>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.92rem', lineHeight: 1.5 }}>
+                Assemblez tous les types de mini-jeux dans un seul quiz personnalisé multi-formats.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION DÉMO INTERACTIVE : GÉNÉRATEUR & TEST DE QUIZ EN DIRECT */}
+        <div style={{ marginBottom: '36px' }}>
+          <details open style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '22px 26px' }}>
+            <summary style={{ color: '#8b5cf6', fontWeight: 'bold', fontSize: '1.1rem', cursor: 'pointer', outline: 'none' }}>
+              🧪 Tester la démo interactive : Génération de Quiz IA &amp; Calcul de QI en direct
+            </summary>
+
+            <div style={{ marginTop: '22px' }}>
+              <p style={{ color: '#94a3b8', marginTop: 0, marginBottom: '16px', fontSize: '14px' }}>
+                Sélectionnez un sujet ou collez vos propres notes pour voir comment QuizBot formule instantanément une question de jeu avec indices et calcul de QI.
+              </p>
+
+              {/* Boutons presets */}
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '16px' }}>
+                {Object.keys(demoPresets).map((key) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => handleSelectPreset(key)}
+                    style={{
+                      backgroundColor: demoTopic === key ? '#8b5cf6' : '#0f172a',
+                      color: '#ffffff',
+                      border: demoTopic === key ? '1px solid #8b5cf6' : '1px solid #334155',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontSize: '13px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Exemple {key}
+                  </button>
+                ))}
+              </div>
+
+              {/* Champ texte source */}
+              <div style={{ marginBottom: '20px' }}>
+                <textarea
+                  value={customText}
+                  onChange={(e) => setCustomText(e.target.value)}
+                  placeholder="Collez ici votre cours, texte ou résumé..."
+                  style={{ ...inputStyle, height: '90px', resize: 'vertical' }}
+                />
+              </div>
+
+              {/* Question générée */}
+              {quizQuestion && (
+                <div style={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '22px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '12px' }}>
+                    <span className="badge" style={{ backgroundColor: 'rgba(139, 92, 246, 0.2)', color: '#a78bfa', border: '1px solid rgba(139, 92, 246, 0.4)' }}>
+                      Format : {quizQuestion.format}
+                    </span>
+                    <span style={{ color: '#34d399', fontWeight: 'bold', fontSize: '14px' }}>
+                      Votre score QI estimé : {iqScore} pts
+                    </span>
+                  </div>
+
+                  <h3 style={{ color: '#ffffff', margin: '0 0 16px 0', fontSize: '1.2rem', lineHeight: 1.4 }}>
+                    {quizQuestion.question}
+                  </h3>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px', marginBottom: '16px' }}>
+                    {quizQuestion.options.map((opt, idx) => {
+                      let btnBg = '#1e293b';
+                      let btnBorder = '#334155';
+                      let btnColor = '#ffffff';
+
+                      if (showResult) {
+                        if (idx === quizQuestion.correct) {
+                          btnBg = 'rgba(34, 197, 94, 0.2)';
+                          btnBorder = '#22c55e';
+                          btnColor = '#86efac';
+                        } else if (idx === selectedOption) {
+                          btnBg = 'rgba(239, 68, 68, 0.2)';
+                          btnBorder = '#ef4444';
+                          btnColor = '#fca5a5';
+                        }
+                      }
+
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => handleAnswerClick(idx)}
+                          disabled={showResult}
+                          style={{
+                            backgroundColor: btnBg,
+                            border: `1px solid ${btnBorder}`,
+                            color: btnColor,
+                            padding: '12px 16px',
+                            borderRadius: '10px',
+                            cursor: showResult ? 'default' : 'pointer',
+                            textAlign: 'left',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            transition: 'all 0.2s',
+                          }}
+                        >
+                          {opt}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Indice & Explication */}
+                  <div style={{ backgroundColor: '#1e293b', borderRadius: '10px', padding: '12px 16px', fontSize: '13px', color: '#cbd5e1' }}>
+                    <div style={{ color: '#fbbf24', fontWeight: 'bold', marginBottom: '4px' }}>💡 Indice IA :</div>
+                    <p style={{ margin: '0 0 8px 0' }}>{quizQuestion.hint}</p>
+                    {showResult && (
+                      <div style={{ borderTop: '1px solid #334155', paddingTop: '8px', marginTop: '8px', color: '#86efac' }}>
+                        <strong>✨ Explication IA :</strong> {quizQuestion.explanation}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </details>
+        </div>
+
+        {/* SECTION DOCUMENTS LÉGAUX ET CONFIDENTIALITÉ */}
+        <div style={{
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '18px',
+          padding: '26px 30px',
+          marginBottom: '40px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '20px',
+        }}>
+          <div>
+            <h3 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1.2rem' }}>
+              🛡️ Transparence, RGPD &amp; Protection de vos données
+            </h3>
+            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem', maxWidth: '600px' }}>
+              Consultez nos documents juridiques complets rédigés sur mesure pour l'application QuizBot (identifiée sous le bundle com.parrel.quizbot).
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <Link to="/quizbot/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#8b5cf6', color: '#ffffff' }}>
+              Politique de Confidentialité
+            </Link>
+            <Link to="/quizbot/terms" style={{ ...btnOutlineStyle, borderColor: '#8b5cf6', color: '#8b5cf6' }}>
+              Conditions Générales (EULA)
+            </Link>
+          </div>
+        </div>
+
+        {/* SECTION FOOTER DE L'APPLI */}
+        <div style={{
+          borderTop: '1px solid #334155',
+          paddingTop: '24px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '14px',
+          color: '#94a3b8',
+          fontSize: '13px'
+        }}>
+          <div>
+            Application <strong style={{ color: '#ffffff' }}>QuizBot</strong> (bundle <code style={{ color: '#a78bfa' }}>com.parrel.quizbot</code>) • Parrel Studio
+          </div>
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>
+              Assistance : support.parrel@gmail.com
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 🔒 PAGE : POLITIQUE DE CONFIDENTIALITÉ — QUIZBOT (/quizbot/privacy)
+// ==========================================
+function QuizBotPrivacyPolicyPage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/quizbot" style={{ color: '#8b5cf6', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à QuizBot
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#8b5cf6', color: 'white' }}>QuizBot</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#22c55e', border: '1px solid rgba(34, 197, 94, 0.3)' }}>Conformité RGPD &amp; Stores</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Politique de Confidentialité — QuizBot
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            Dernière mise à jour : 11 Octobre 2024 • Application : QuizBot • Bundle ID : com.parrel.quizbot
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px' }}>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> QuizBot (identifiée sous le bundle <code>com.parrel.quizbot</code>)</div>
+            <div><strong style={{ color: '#ffffff' }}>Éditeur / Développeur :</strong> Parrel Studio</div>
+            <div><strong style={{ color: '#ffffff' }}>Contact :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
+          </div>
+
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
+            La présente Politique de Confidentialité décrit la manière dont nous collectons, utilisons, stockons et protégeons vos données à caractère personnel lorsque vous utilisez l'application mobile QuizBot (ci-après « l'Application »). En téléchargeant, installant ou utilisant QuizBot, vous acceptez les pratiques décrites dans cette politique. Si vous n'acceptez pas ces dispositions, veuillez désinstaller et ne pas utiliser l'Application.
+          </p>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+
+            <section>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>1. Introduction</h2>
+              <p style={{ margin: 0 }}>
+                La présente Politique de Confidentialité s’applique à l’ensemble des fonctionnalités de QuizBot. Nous nous engageons à respecter scrupuleusement le Règlement Général sur la Protection des Données (RGPD), le California Consumer Privacy Act (CCPA) et les exigences strictes de sécurité imposées par l'App Store d'Apple et le Google Play Store.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>2. Données personnelles collectées</h2>
+              <p style={{ marginBottom: '14px' }}>
+                Dans le cadre du bon fonctionnement de QuizBot, nous pouvons collecter et traiter les données suivantes :
+              </p>
+
+              <div style={{ display: 'grid', gap: '16px', paddingLeft: '8px' }}>
+                <div>
+                  <strong style={{ color: '#ffffff' }}>A. Données d'authentification et de profil :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li><strong style={{ color: '#ffffff' }}>Compte utilisateur :</strong> Adresse e-mail, mot de passe chiffré, pseudonyme (nom d'utilisateur), pays sélectionné.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Photo de profil / Avatar :</strong> Si vous choisissez d'importer une photo depuis votre galerie, celle-ci est stockée sur nos serveurs sécurisés (Firebase Storage).</li>
+                    <li><strong style={{ color: '#ffffff' }}>Mode Invité (Anonyme) :</strong> Si vous utilisez le mode invité, un identifiant technique temporaire est généré sans collecter d'adresse e-mail.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <strong style={{ color: '#ffffff' }}>B. Données de jeu et d'activité :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li><strong style={{ color: '#ffffff' }}>Scores, classement et statistiques :</strong> Points accumulés, historique des parties jouées, calcul de QI virtuel, badges débloqués, statistiques de performances par thème.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Quiz personnalisés :</strong> Titres, textes sources, questions, réponses, indices et structures de mini-jeux que vous créez ou modifiez.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Interactions sociales :</strong> Liste d'amis, demandes d'amis, messages échangés dans les salons de discussion (chat en direct de salle d'attente), listes d'utilisateurs bloqués et signalements effectués.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <strong style={{ color: '#ffffff' }}>C. Données techniques et jetons de notification :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li><strong style={{ color: '#ffffff' }}>Notifications Push (Firebase Cloud Messaging - FCM) :</strong> Nous collectons le jeton FCM de votre appareil afin de pouvoir vous envoyer des notifications liées aux parties, aux demandes d'amis ou aux annonces de l'Application.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Sécurité &amp; Intégrité (Firebase App Check) :</strong> Données techniques attestant de la validité de l'appareil (Play Integrity sur Android, App Attest sur iOS) pour prévenir la triche et les abus.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <strong style={{ color: '#ffffff' }}>D. Données d'achats et abonnements (VIP) :</strong>
+                  <ul style={{ margin: '6px 0 0 20px', color: '#cbd5e1' }}>
+                    <li>Les transactions financières sont traitées directement par Apple (App Store) ou Google (Google Play Store). Nous ne stockons et n'avons jamais accès à vos numéros de carte bancaire.</li>
+                    <li>Nous utilisons RevenueCat pour identifier le statut de votre abonnement (utilisateur Standard vs VIP) associé à votre identifiant technique d'utilisateur.</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>3. Utilisation de l'Intelligence Artificielle (IA) et APIs Tierces</h2>
+              <p style={{ marginBottom: '10px' }}>
+                QuizBot intègre des fonctionnalités avancées de génération de quiz et d'images :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Génération textuelle :</strong> Les textes ou thèmes que vous fournissez sont envoyés de manière sécurisée via des fonctions Cloud chiffrées à des modèles de traitement du langage naturel (notamment Mistral / DeepSeek via des fournisseurs d'API sécurisés tels que SiliconFlow). Aucune donnée sensible ou identifiant personnel n'est transmis à ces modèles.</li>
+                <li><strong style={{ color: '#ffffff' }}>Recherche et génération d'images :</strong> L'Application peut interroger le moteur Openverse (images sous licence libre) ou générer des visuels via des modèles d'IA générative (tels que FLUX). Seules les descriptions requises pour l'illustration (prompts visuels en anglais) sont envoyées à ces services.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>4. Finalités du traitement des données</h2>
+              <p style={{ marginBottom: '10px' }}>Vos données sont traitées pour :</p>
+              <ol style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Permettre la création, l'accès et la gestion de votre compte utilisateur.</li>
+                <li>Synchroniser vos quiz, scores, badges et classements en ligne en temps réel.</li>
+                <li>Permettre le jeu multijoueur (gestion des salons publics/privés, suivi des tours de jeu, synchronisation des chronomètres, salon de discussion temporaire).</li>
+                <li>Modérer la plateforme (traitement des signalements et des blocages de sécurité).</li>
+                <li>Gérer les accès aux fonctionnalités VIP via les boutiques d'applications.</li>
+              </ol>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>5. Partage et sous-traitants de données</h2>
+              <p style={{ marginBottom: '10px' }}>
+                Vos données personnelles ne sont jamais vendues à des tiers. Elles sont hébergées et traitées par des prestataires techniques réputés respectant les standards de sécurité internationaux :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Google Firebase (Google LLC) :</strong> Authentification, base de données Firestore, hébergement Storage, Cloud Functions, notifications FCM, App Check.</li>
+                <li><strong style={{ color: '#ffffff' }}>RevenueCat Inc. :</strong> Gestion technique et synchronisation de l'état des abonnements in-app.</li>
+                <li><strong style={{ color: '#ffffff' }}>Apple Inc. &amp; Google LLC :</strong> Traitement des paiements in-app et vérification d'intégrité logicielle.</li>
+                <li><strong style={{ color: '#ffffff' }}>Modèles d'IA tiers (SiliconFlow / Mistral / DeepSeek) :</strong> Uniquement pour la génération de contenu de quiz à partir des requêtes textuelles.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>6. Sécurité des données</h2>
+              <p style={{ marginBottom: '10px' }}>
+                Nous appliquons des mesures de sécurité rigoureuses pour protéger vos données :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Chiffrement des communications en transit (HTTPS / TLS).</li>
+                <li>Règles de sécurité Firestore empêchant tout accès non autorisé aux profils ou données privées d'autres utilisateurs.</li>
+                <li>Masquage et vérification sécurisée des réponses de quiz côté serveur (Cloud Functions) afin de prévenir la manipulation frauduleuse des scores et du QI.</li>
+                <li>Filtrage des types de fichiers (JPEG/PNG/WEBP) pour les photos de profil.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>7. Conservation des données et Droit de suppression (RGPD / CCPA)</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Vos données sont conservées tant que votre compte utilisateur est actif.</li>
+                <li><strong style={{ color: '#8b5cf6' }}>Suppression de compte :</strong> Conformément aux exigences légales et des magasins d'applications, vous pouvez à tout moment supprimer définitivement votre compte et l'intégralité de vos données directement depuis l'Application (<em style={{ color: '#ffffff' }}>Paramètres &gt; Supprimer mon compte</em>). Cette action entraîne la suppression irréversible de votre profil, de vos quiz créés, de vos statistiques de QI et de vos scores.</li>
+                <li>Vous pouvez également exercer vos droits d'accès, de rectification ou d'opposition en nous contactant à : <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a>.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>8. Protection des mineurs</h2>
+              <p style={{ margin: 0 }}>
+                QuizBot ne s'adresse pas directement aux enfants de moins de 13 ans (ou l'âge minimum légal dans votre juridiction). Nous ne collectons pas sciemment de données auprès d'enfants sans consentement parental préalable. Si vous constatez qu'un enfant nous a fourni des données sans autorisation, contactez-nous immédiatement pour suppression.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>9. Modifications de la politique de confidentialité</h2>
+              <p style={{ margin: 0 }}>
+                Nous nous réservons le droit de mettre à jour cette Politique de Confidentialité. En cas de modification substantielle, vous en serez informé via une mise à jour de l'Application ou un avertissement sur l'écran d'accueil.
+              </p>
+            </section>
+
+          </div>
+
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/quizbot/terms" style={{ ...btnPrimaryStyle, backgroundColor: '#8b5cf6' }}>
+              Voir les Conditions Générales (CGU / EULA) →
+            </Link>
+            <Link to="/" style={btnOutlineStyle}>
+              Retour à l’accueil
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 📜 PAGE : CONDITIONS GÉNÉRALES & EULA — QUIZBOT (/quizbot/terms)
+// ==========================================
+function QuizBotTermsOfServicePage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/quizbot" style={{ color: '#8b5cf6', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à QuizBot
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#8b5cf6', color: 'white' }}>QuizBot</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>Contrat EULA &amp; CGU</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Conditions Générales d’Utilisation et Contrat de Licence d'Utilisateur Final (EULA) — QuizBot
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            Dernière mise à jour : 11 Octobre 2024 • Application : QuizBot • Bundle ID : com.parrel.quizbot
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px' }}>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> QuizBot</div>
+            <div><strong style={{ color: '#ffffff' }}>Éditeur :</strong> Parrel Studio</div>
+            <div><strong style={{ color: '#ffffff' }}>Bundle ID :</strong> <code>com.parrel.quizbot</code></div>
+            <div><strong style={{ color: '#ffffff' }}>Contact :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
+          </div>
+
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
+            En téléchargeant, installant ou utilisant l'application mobile QuizBot (« l'Application »), vous acceptez d'être lié sans réserve par les présentes Conditions Générales d’Utilisation (CGU) et le Contrat de Licence d'Utilisateur Final (EULA). Si vous n'acceptez pas l'ensemble de ces termes, vous n'êtes pas autorisé à utiliser l'Application.
+          </p>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+
+            <section>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>1. Acceptation des conditions</h2>
+              <p style={{ margin: 0 }}>
+                L'utilisation de QuizBot implique votre acceptation pleine et entière des présentes CGU / EULA. Si vous n'acceptez pas ces conditions, vous devez immédiatement désinstaller l'Application de votre appareil.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>2. Licence d'utilisation</h2>
+              <p style={{ marginBottom: '10px' }}>
+                L'Éditeur vous concède une licence personnelle, non exclusive, non transférable, révocable et limitée d'utilisation de QuizBot à des fins personnelles et non commerciales, sur tout appareil mobile compatible (iOS ou Android) que vous possédez ou contrôlez.
+              </p>
+              <p style={{ marginBottom: '8px' }}>Il vous est strictement interdit de :</p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Décompiler, désosser (reverse-engineer) ou tenter d'extraire le code source de l'Application.</li>
+                <li>Exploiter commercialement, louer, prêter ou sous-licencier l'Application.</li>
+                <li>Contourner les mesures techniques de protection (App Check, validations des serveurs Cloud).</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>3. Contenu Généré par les Utilisateurs (UGC) et Modération</h2>
+              <p style={{ marginBottom: '12px' }}>
+                QuizBot permet aux utilisateurs de concevoir des quiz, d'écrire des textes, d'importer des images de profil ou de questions, de nommer des salons multijoueurs et d'échanger des messages dans un chat en direct.
+              </p>
+
+              <div style={{ marginBottom: '16px' }}>
+                <strong style={{ color: '#ffffff' }}>A. Règle de Tolérance Zéro contre les Abus</strong>
+                <p style={{ color: '#ef4444', fontWeight: 'bold', margin: '6px 0 8px 0' }}>
+                  Il est formellement interdit de publier, transmettre ou partager du contenu qui est :
+                </p>
+                <ul style={{ margin: '0 0 10px 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                  <li>Diffamatoire, injurieux, obscène, pornographique ou sexuellement explicite ;</li>
+                  <li>Incitant à la haine, au racisme, à la discrimination ou à la violence envers des personnes ou des groupes ;</li>
+                  <li>Constitutif de harcèlement, de menaces, d'intimidation ou de violation de la vie privée d'autrui ;</li>
+                  <li>Constitutif de triche, de désinformation délibérée ou de spam commercial ;</li>
+                  <li>En violation des droits de propriété intellectuelle de tiers.</li>
+                </ul>
+              </div>
+
+              <div>
+                <strong style={{ color: '#ffffff' }}>B. Outils de signalement et de blocage (In-App)</strong>
+                <p style={{ margin: '6px 0 8px 0' }}>Pour garantir une communauté sûre, QuizBot met à la disposition des utilisateurs :</p>
+                <ol style={{ margin: '0 0 12px 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                  <li><strong style={{ color: '#ffffff' }}>Un mécanisme de signalement (Report) :</strong> Tout quiz public ou tout profil utilisateur peut être signalé immédiatement via le bouton dédié (icône drapeau).</li>
+                  <li><strong style={{ color: '#ffffff' }}>Un mécanisme de blocage (Block) :</strong> Vous pouvez bloquer tout joueur indésirable en un clic. Ses créations et ses messages n'apparaîtront plus pour vous.</li>
+                  <li><strong style={{ color: '#ffffff' }}>Modération active :</strong> L'Éditeur se réserve le droit d'examiner les signalements, de supprimer sans préavis tout contenu contrevenant et de bannir temporairement ou définitivement tout utilisateur enfreignant ces règles, dans un délai maximal de 24 heures suivant la notification.</li>
+                </ol>
+              </div>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>4. Utilisation des fonctions d'Intelligence Artificielle</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>QuizBot utilise des algorithmes d'IA pour formater des quiz et proposer des illustrations.</li>
+                <li>Bien que nous nous efforcions de paramétrer l'IA pour garantir une exactitude maximale, les réponses générées peuvent comporter des erreurs, inexactitudes historiques ou approximations factuelles. L'Éditeur ne saurait être tenu responsable des inexactitudes générées par les modèles d'IA tiers.</li>
+                <li>Vous vous engagez à ne pas soumettre de requêtes (prompts) illicites, haineuses ou conçues pour forcer l'IA à produire du contenu illégal.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>5. Scores, QI et Classements</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Le score et l'indicateur de « QI » proposés dans QuizBot sont calculés à des fins strictement récréatives, ludiques et pédagogiques. Ils ne constituent en aucun cas un test psychométrique officiel, médical ou scientifique de quotient intellectuel.</li>
+                <li>Toute tentative de triche (utilisation de bots, manipulation des requêtes réseau, falsification des soumissions de scores) entraînera la réinitialisation immédiate du compte et/ou son bannissement définitif.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>6. Abonnements VIP et Achats In-App</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Avantages VIP :</strong> L'abonnement VIP débloque des plafonds d'utilisation étendus (génération de quiz allongée, accès aux illustrations d'IA avancées, combinaison illimitée de formats de jeux).</li>
+                <li><strong style={{ color: '#ffffff' }}>Facturation &amp; Renouvellement :</strong> Les abonnements sont gérés via le compte Apple ID (iOS) ou Google Play (Android). Le paiement est prélevé à la confirmation de l'achat. L'abonnement se renouvelle automatiquement sauf si le renouvellement automatique est désactivé au moins 24 heures avant la fin de la période en cours.</li>
+                <li><strong style={{ color: '#ffffff' }}>Gestion et Annulation :</strong> Vous pouvez gérer ou résilier votre abonnement à tout moment dans les réglages de votre compte App Store ou Google Play Store. Conformément aux politiques des boutiques d'applications, aucun remboursement partiel ou rétroactif n'est assuré directement par l'Éditeur.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>7. Disponibilité du Service et Mises à Jour Forcées</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>L'accès à QuizBot requiert une connexion Internet active pour la majorité des fonctionnalités en ligne et de génération.</li>
+                <li>L'Application intègre un système de contrôle de version. En cas de mise à jour critique de sécurité ou d'évolution du protocole serveur, l'Éditeur peut exiger la mise à jour obligatoire de l'Application pour continuer à l'utiliser.</li>
+                <li>L'Éditeur peut suspendre temporairement le service pour des raisons de maintenance, sans préavis.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>8. Exclusion de Garanties et Limitation de Responsabilité</h2>
+              <p style={{ margin: '0 0 10px 0' }}>
+                L'Application est fournie « EN L'ÉTAT » et « SELON DISPONIBILITÉ », sans garantie d'aucune sorte, expresse ou implicite. Dans les limites permises par la loi applicable, l'Éditeur décline toute responsabilité pour :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Les dommages directs, indirects ou accessoires découlant de l'utilisation ou de l'impossibilité d'utiliser l'Application ;</li>
+                <li>Les pertes de données, de scores ou d'historique résultant d'une panne de réseau ou d'une défaillance technique ;</li>
+                <li>Le comportement ou le contenu publié par d'autres utilisateurs dans le cadre des fonctionnalités multijoueurs ou publiques.</li>
+              </ul>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>9. Résiliation</h2>
+              <p style={{ margin: 0 }}>
+                L'Éditeur peut résilier ou suspendre votre accès à l'Application sans préavis si vous ne respectez pas les présentes conditions, sans que cela n'ouvre droit à une quelconque indemnité ou remboursement. Vous pouvez également cesser d'utiliser l'Application et supprimer votre compte à tout moment.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>10. Droit applicable et Juridiction compétente</h2>
+              <p style={{ margin: 0 }}>
+                Les présentes conditions sont régies et interprétées conformément au droit français. Tout litige relatif à leur interprétation ou exécution qui ne pourrait être résolu à l'amiable sera soumis à la compétence exclusive des tribunaux compétents du ressort du tribunal de commerce compétent.
+              </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '10px' }}>11. Contact</h2>
+              <p style={{ margin: '0 0 6px 0' }}>Pour toute question concernant les présentes CGU / EULA ou pour signaler un abus, veuillez contacter :</p>
+              <p style={{ margin: 0 }}>
+                <strong style={{ color: '#ffffff' }}>E-mail :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a>
+              </p>
+            </section>
+
+          </div>
+
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/quizbot/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#8b5cf6' }}>
+              Voir la Politique de Confidentialité →
+            </Link>
+            <Link to="/" style={btnOutlineStyle}>
+              Retour à l’accueil
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
 // 📄 PAGES LÉGALES PAR APPLICATION
 // ==========================================
 const legalApps = {
@@ -882,6 +1919,11 @@ const legalApps = {
     name: 'Daytalia',
     label: 'Daytalia',
     color: '#f472b6'
+  },
+  quizbot: {
+    name: 'QuizBot',
+    label: 'QuizBot (QuizQI)',
+    color: '#8b5cf6'
   },
   projetcalo: {
     name: 'ProjetCalo',
@@ -901,6 +1943,11 @@ function LegalPage({ type }) {
   // Si l'application demandée est Daytalia, afficher la politique ou les conditions officielles complètes
   if (appSlug === 'daytalia') {
     return type === 'privacy' ? <PrivacyPolicyPage /> : <TermsOfServicePage />;
+  }
+
+  // Si l'application demandée est QuizBot ou QuizQI, afficher les documents juridiques officiels complets
+  if (appSlug === 'quizbot' || appSlug === 'quizqi') {
+    return type === 'privacy' ? <QuizBotPrivacyPolicyPage /> : <QuizBotTermsOfServicePage />;
   }
 
   const appInfo = legalApps[appSlug] || legalApps.walkmoney;
@@ -972,10 +2019,10 @@ function LegalIndexPage({ type }) {
               <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
                 <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <Link to={slug === 'daytalia' ? '/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
+                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
                     Confidentialité
                   </Link>
-                  <Link to={slug === 'daytalia' ? '/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
+                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
                     Conditions d’utilisation
                   </Link>
                 </div>
@@ -1048,7 +2095,7 @@ function AuthPage({ user }) {
         <h2 style={{ color: 'white', textAlign: 'center', marginBottom: '20px' }}>
           {isLogin ? "Connexion Espace Pro" : "Créer un compte Pro"}
         </h2>
-        
+
         {errorMsg && (
           <div style={{ backgroundColor: '#fee2e2', color: '#ef4444', padding: '10px', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' }}>
             {errorMsg}
@@ -1058,13 +2105,13 @@ function AuthPage({ user }) {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <input type="email" placeholder="Adresse Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={inputStyle} />
           <input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required style={inputStyle} />
-          <button type="submit" disabled={isLoading} style={{...btnPrimaryStyle, padding: '15px', fontSize: '16px', marginTop: '10px', width: '100%', boxSizing: 'border-box'}}>
+          <button type="submit" disabled={isLoading} style={{ ...btnPrimaryStyle, padding: '15px', fontSize: '16px', marginTop: '10px', width: '100%', boxSizing: 'border-box' }}>
             {isLoading ? "Veuillez patienter..." : (isLogin ? "Se connecter" : "S'inscrire")}
           </button>
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <button onClick={() => {setIsLogin(!isLogin); setErrorMsg('');}} style={{ background: 'none', border: 'none', color: '#00bcd4', cursor: 'pointer', textDecoration: 'underline' }}>
+          <button onClick={() => { setIsLogin(!isLogin); setErrorMsg(''); }} style={{ background: 'none', border: 'none', color: '#00bcd4', cursor: 'pointer', textDecoration: 'underline' }}>
             {isLogin ? "Pas encore de compte ? S'inscrire" : "Déjà un compte ? Se connecter"}
           </button>
         </div>
@@ -1090,7 +2137,7 @@ function MerchantDashboard({ user }) {
         const storesData = [];
         for (const docSnap of querySnapshot.docs) {
           const sData = { id: docSnap.id, ...docSnap.data() };
-          
+
           const txQ = query(collection(db, "stores", docSnap.id, "store_transactions"));
           const txSnap = await getDocs(txQ);
           let uniqueClients = new Set();
@@ -1102,7 +2149,7 @@ function MerchantDashboard({ user }) {
             realCB += tData.cashback_given || 0;
             if (tData.user_id) uniqueClients.add(tData.user_id);
           });
-          
+
           storesData.push({
             ...sData,
             stats_clients: uniqueClients.size,
@@ -1146,7 +2193,7 @@ function MerchantDashboard({ user }) {
   };
 
   const handlePayDebt = async (storeId, debt) => {
-    if(window.confirm(`Vous allez être redirigé pour payer ${debt.toFixed(2)}€.`)) {
+    if (window.confirm(`Vous allez être redirigé pour payer ${debt.toFixed(2)}€.`)) {
       await updateDoc(doc(db, "stores", storeId), {
         current_month_debt: 0.0,
         last_payment_date: serverTimestamp()
@@ -1163,7 +2210,7 @@ function MerchantDashboard({ user }) {
     <div style={pageStyle}>
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         <h1 style={{ color: '#00bcd4', marginBottom: '20px' }}>Espace Commerçant : Mes Magasins</h1>
-        
+
         {stores.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#1e293b', borderRadius: '12px' }}>
             <h2 style={{ color: 'white', marginBottom: '15px' }}>Vous n'avez pas encore de magasin</h2>
@@ -1209,15 +2256,15 @@ function MerchantDashboard({ user }) {
                   </strong>
                 </div>
                 {store.current_month_debt > 5 && (
-                  <button onClick={() => handlePayDebt(store.id, store.current_month_debt)} style={{...btnPrimaryStyle, backgroundColor: '#fbbf24', color: 'black'}}>Régler</button>
+                  <button onClick={() => handlePayDebt(store.id, store.current_month_debt)} style={{ ...btnPrimaryStyle, backgroundColor: '#fbbf24', color: 'black' }}>Régler</button>
                 )}
               </div>
 
               {/* ACTIONS */}
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                <button onClick={() => navigate(`/walkmoney/edit-store/${store.id}`)} style={{...btnOutlineStyle, flex: 1}}>✏️ Modifier</button>
-                <button onClick={() => navigate(`/walkmoney/stats/${store.id}`)} style={{...btnOutlineStyle, flex: 1}}>📊 Statistiques</button>
-                <button onClick={() => handleTestSale(store)} style={{...btnOutlineStyle, flex: 1, color: '#fbbf24', borderColor: '#fbbf24'}}>🐛 Simuler Achat</button>
+                <button onClick={() => navigate(`/walkmoney/edit-store/${store.id}`)} style={{ ...btnOutlineStyle, flex: 1 }}>✏️ Modifier</button>
+                <button onClick={() => navigate(`/walkmoney/stats/${store.id}`)} style={{ ...btnOutlineStyle, flex: 1 }}>📊 Statistiques</button>
+                <button onClick={() => handleTestSale(store)} style={{ ...btnOutlineStyle, flex: 1, color: '#fbbf24', borderColor: '#fbbf24' }}>🐛 Simuler Achat</button>
               </div>
             </div>
           ))
@@ -1283,7 +2330,7 @@ function LoyaltyRulesManager({ rules, setRules }) {
           {rules.map((rule, index) => (
             <li key={index} style={{ backgroundColor: '#1e293b', padding: '10px 15px', borderRadius: '8px', marginBottom: '5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '14px', color: 'white' }}>
-                Au bout de <strong style={{ color: '#00bcd4' }}>{rule.threshold} {rule.type === 'visit' ? 'visites' : '€ dépensés'}</strong> 
+                Au bout de <strong style={{ color: '#00bcd4' }}>{rule.threshold} {rule.type === 'visit' ? 'visites' : '€ dépensés'}</strong>
                 &nbsp;👉&nbsp; Gain : <strong style={{ color: '#10b981' }}>-{rule.rewardPercent}%</strong> sur la prochaine commande
               </span>
               <button onClick={(e) => { e.preventDefault(); handleRemoveRule(index); }} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '16px' }}>
@@ -1319,7 +2366,7 @@ function CheckoutForm({ user }) {
   const [selectedMultiplier, setSelectedMultiplier] = useState(1.2);
   const [enablePremiumAdBoost, setEnablePremiumAdBoost] = useState(false);
   const [enableGoldStore, setEnableGoldStore] = useState(false);
-  
+
   // Nouveau state pour la fidélité
   const [loyaltyRules, setLoyaltyRules] = useState([]);
 
@@ -1384,7 +2431,7 @@ function CheckoutForm({ user }) {
       try {
         const nomRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`);
         const nomData = await nomRes.json();
-        if(nomData && nomData.length > 0) {
+        if (nomData && nomData.length > 0) {
           lat = parseFloat(nomData[0].lat);
           lng = parseFloat(nomData[0].lon);
         }
@@ -1402,7 +2449,7 @@ function CheckoutForm({ user }) {
         latitude: lat,
         longitude: lng,
         loyalty_rules: loyaltyRules, // Sauvegarde des règles de fidélité !
-        
+
         is_cashback_enabled: enableCashback,
         cashback_rate: enableCashback ? (parseFloat(cashbackRate) / 100.0) : 0.0,
         is_visibility_boost_enabled: enableVisibilityBoost,
@@ -1440,7 +2487,7 @@ function CheckoutForm({ user }) {
         <input type="text" placeholder="Adresse complète" value={address} onChange={e => setAddress(e.target.value)} required style={inputStyle} />
         <input type="text" placeholder="Catégorie (ex: Boulangerie, Sport...)" value={category} onChange={e => setCategory(e.target.value)} required style={inputStyle} />
         <input type="tel" placeholder="Téléphone" value={phone} onChange={e => setPhone(e.target.value)} required style={inputStyle} />
-        <textarea placeholder="Description du magasin" value={description} onChange={e => setDescription(e.target.value)} style={{...inputStyle, height: '80px', resize: 'none'}} />
+        <textarea placeholder="Description du magasin" value={description} onChange={e => setDescription(e.target.value)} style={{ ...inputStyle, height: '80px', resize: 'none' }} />
       </div>
 
       <h2 style={sectionTitleStyle}>2. Offre & Visibilité</h2>
@@ -1449,15 +2496,15 @@ function CheckoutForm({ user }) {
         {enableCashback && (
           <div style={{ marginTop: '15px' }}>
             <label style={{ fontSize: '14px', color: '#94a3b8' }}>Taux de Cashback (%)</label>
-            <input type="number" step="0.1" min="1" max="100" value={cashbackRate} onChange={e => setCashbackRate(e.target.value)} required style={{...inputStyle, marginTop: '5px'}} />
-            
+            <input type="number" step="0.1" min="1" max="100" value={cashbackRate} onChange={e => setCashbackRate(e.target.value)} required style={{ ...inputStyle, marginTop: '5px' }} />
+
             {/* INTÉGRATION COMPOSANT FIDÉLITÉ */}
             <LoyaltyRulesManager rules={loyaltyRules} setRules={setLoyaltyRules} />
           </div>
         )}
       </div>
 
-      <div style={{...cardStyle, border: enableVisibilityBoost ? '1px solid #c084fc' : 'none'}}>
+      <div style={{ ...cardStyle, border: enableVisibilityBoost ? '1px solid #c084fc' : 'none' }}>
         <SwitchRow checked={enableVisibilityBoost} onChange={setEnableVisibilityBoost} title="Boost Visibilité (Défis)" subtitle="Apparaître en premier dans les défis." />
         {enableVisibilityBoost && (
           <div style={{ marginTop: '15px', padding: '10px', backgroundColor: '#3b0764', borderRadius: '8px' }}>
@@ -1471,7 +2518,7 @@ function CheckoutForm({ user }) {
         {enableCashback ? (
           <>
             <SwitchRow checked={enablePremiumAdBoost} onChange={setEnablePremiumAdBoost} title="Sponsoriser Boost Pub" subtitle="Gains x2 pour clients. Com passe à 40%." />
-            <hr style={{ borderColor: '#334155', margin: '15px 0' }}/>
+            <hr style={{ borderColor: '#334155', margin: '15px 0' }} />
             <SwitchRow checked={enableGoldStore} onChange={setEnableGoldStore} title="Visibilité Or + 1%" subtitle="Carte Or + 1% de cashback offert (5€/mois)." />
           </>
         ) : (
@@ -1482,7 +2529,7 @@ function CheckoutForm({ user }) {
       <div style={{ padding: '20px', backgroundColor: '#0ea5e920', borderRadius: '8px', border: '1px solid #0ea5e9' }}>
         <h3 style={{ color: '#0ea5e9', fontSize: '16px', marginBottom: '15px' }}>SIMULATION DES COÛTS</h3>
         <div style={simRowStyle}><span>Abonnements Fixes :</span><strong>{monthlyFixedCost.toFixed(2)} € / mois</strong></div>
-        <hr style={{ borderColor: '#0ea5e950', margin: '10px 0' }}/>
+        <hr style={{ borderColor: '#0ea5e950', margin: '10px 0' }} />
         <div style={simRowStyle}><span style={{ color: '#94a3b8' }}>Pour 100€ d'achat client :</span></div>
         <div style={simRowStyle}><span>- Coût total (Cashback + Commission) :</span><strong>{variableFeePer100.toFixed(2)} €</strong></div>
       </div>
@@ -1496,9 +2543,9 @@ function CheckoutForm({ user }) {
       </div>
 
       <button type="submit" disabled={!stripe || isLoading} style={{
-          padding: '16px', backgroundColor: '#10b981', color: 'white', fontWeight: 'bold', 
-          border: 'none', borderRadius: '8px', cursor: isLoading ? 'not-allowed' : 'pointer', fontSize: '16px'
-        }}>
+        padding: '16px', backgroundColor: '#10b981', color: 'white', fontWeight: 'bold',
+        border: 'none', borderRadius: '8px', cursor: isLoading ? 'not-allowed' : 'pointer', fontSize: '16px'
+      }}>
         {isLoading ? "Création en cours..." : "Valider et Payer"}
       </button>
     </form>
@@ -1528,7 +2575,7 @@ function EditStorePage({ user }) {
   const { storeId } = useParams();
   const navigate = useNavigate();
   const [store, setStore] = useState(null);
-  
+
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [phone, setPhone] = useState('');
@@ -1538,7 +2585,7 @@ function EditStorePage({ user }) {
   const [selectedMultiplier, setSelectedMultiplier] = useState(1.2);
   const [enablePremiumAdBoost, setEnablePremiumAdBoost] = useState(false);
   const [enableGoldStore, setEnableGoldStore] = useState(false);
-  
+
   // Nouveau state pour la fidélité
   const [loyaltyRules, setLoyaltyRules] = useState([]);
 
@@ -1571,7 +2618,7 @@ function EditStorePage({ user }) {
     if (enableVisibilityBoost) {
       const step = Math.round((selectedMultiplier - 1.1) * 10);
       let currentCost = Math.max(2.0, Math.min(step * 2.0, 10.0));
-      
+
       if (!store.is_visibility_boost_enabled) {
         addedCost += currentCost;
       } else if (selectedMultiplier > store.lame_point_multiplier) {
@@ -1595,7 +2642,7 @@ function EditStorePage({ user }) {
       });
       alert(`Mise à jour réussie. ${addedCost > 0 ? `+${addedCost}€ ajoutés à la facture en cours.` : ''}`);
       navigate('/walkmoney/dashboard');
-    } catch(err) {
+    } catch (err) {
       alert("Erreur: " + err.message);
     }
   };
@@ -1607,17 +2654,17 @@ function EditStorePage({ user }) {
       <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#1e293b', padding: '30px', borderRadius: '12px' }}>
         <button onClick={() => navigate('/walkmoney/dashboard')} style={{ background: 'none', color: '#00bcd4', border: 'none', cursor: 'pointer', marginBottom: '20px' }}>&larr; Retour</button>
         <h1 style={{ color: 'white', marginBottom: '20px' }}>Modifier {store.name}</h1>
-        
+
         <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <input type="text" value={name} onChange={e=>setName(e.target.value)} placeholder="Nom" style={inputStyle} required/>
-          <textarea value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Description" style={{...inputStyle, height: '80px'}} required/>
-          <input type="text" value={phone} onChange={e=>setPhone(e.target.value)} placeholder="Téléphone" style={inputStyle} required/>
-          
+          <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Nom" style={inputStyle} required />
+          <textarea value={desc} onChange={e => setDesc(e.target.value)} placeholder="Description" style={{ ...inputStyle, height: '80px' }} required />
+          <input type="text" value={phone} onChange={e => setPhone(e.target.value)} placeholder="Téléphone" style={inputStyle} required />
+
           <div style={{ backgroundColor: '#0f172a', padding: '15px', borderRadius: '8px' }}>
             <SwitchRow checked={enableCashback} onChange={setEnableCashback} title="Activer Cashback" subtitle="Offrir des récompenses" />
             {enableCashback && (
               <div style={{ marginTop: '10px' }}>
-                <input type="number" step="0.1" value={cashbackRate} onChange={e=>setCashbackRate(e.target.value)} style={inputStyle} />
+                <input type="number" step="0.1" value={cashbackRate} onChange={e => setCashbackRate(e.target.value)} style={inputStyle} />
                 {/* INTÉGRATION COMPOSANT FIDÉLITÉ */}
                 <LoyaltyRulesManager rules={loyaltyRules} setRules={setLoyaltyRules} />
               </div>
@@ -1627,11 +2674,11 @@ function EditStorePage({ user }) {
           <div style={{ backgroundColor: enableVisibilityBoost ? '#3b0764' : '#0f172a', padding: '15px', borderRadius: '8px' }}>
             <SwitchRow checked={enableVisibilityBoost} onChange={setEnableVisibilityBoost} title="Boost Visibilité" subtitle="Apparaître en haut des défis" />
             {enableVisibilityBoost && (
-               <input type="range" min="1.2" max="1.6" step="0.1" value={selectedMultiplier} onChange={e=>setSelectedMultiplier(e.target.value)} style={{ width: '100%', marginTop: '15px' }} />
+              <input type="range" min="1.2" max="1.6" step="0.1" value={selectedMultiplier} onChange={e => setSelectedMultiplier(e.target.value)} style={{ width: '100%', marginTop: '15px' }} />
             )}
           </div>
 
-          <button type="submit" style={{...btnPrimaryStyle, padding: '15px', marginTop: '10px'}}>Enregistrer les modifications</button>
+          <button type="submit" style={{ ...btnPrimaryStyle, padding: '15px', marginTop: '10px' }}>Enregistrer les modifications</button>
         </form>
       </div>
     </div>
@@ -1658,8 +2705,8 @@ function StoreStatsPage({ user }) {
       const q = query(collection(db, "stores", storeId, "store_transactions"), limit(100));
       const snap = await getDocs(q);
       const txs = [];
-      snap.forEach(d => txs.push({id: d.id, ...d.data()}));
-      txs.sort((a,b) => b.timestamp?.toMillis() - a.timestamp?.toMillis());
+      snap.forEach(d => txs.push({ id: d.id, ...d.data() }));
+      txs.sort((a, b) => b.timestamp?.toMillis() - a.timestamp?.toMillis());
       setTransactions(txs);
     };
     fetchData();
@@ -1689,18 +2736,18 @@ function StoreStatsPage({ user }) {
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         <button onClick={() => navigate('/walkmoney/dashboard')} style={{ background: 'none', color: '#00bcd4', border: 'none', cursor: 'pointer', marginBottom: '20px' }}>&larr; Retour au Dashboard</button>
         <h1 style={{ color: 'white', marginBottom: '20px' }}>Statistiques : {storeData ? storeData.name : '...'}</h1>
-        
+
         {/* ONGLET NAVIGATION */}
         <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-          <button 
-            onClick={() => setActiveTab('summary')} 
-            style={{...btnPrimaryStyle, backgroundColor: activeTab === 'summary' ? '#0ea5e9' : 'transparent', border: '1px solid #0ea5e9', color: activeTab === 'summary' ? 'white' : '#0ea5e9'}}
+          <button
+            onClick={() => setActiveTab('summary')}
+            style={{ ...btnPrimaryStyle, backgroundColor: activeTab === 'summary' ? '#0ea5e9' : 'transparent', border: '1px solid #0ea5e9', color: activeTab === 'summary' ? 'white' : '#0ea5e9' }}
           >
             📊 Résumé & Top Clients
           </button>
-          <button 
-            onClick={() => setActiveTab('transactions')} 
-            style={{...btnPrimaryStyle, backgroundColor: activeTab === 'transactions' ? '#0ea5e9' : 'transparent', border: '1px solid #0ea5e9', color: activeTab === 'transactions' ? 'white' : '#0ea5e9'}}
+          <button
+            onClick={() => setActiveTab('transactions')}
+            style={{ ...btnPrimaryStyle, backgroundColor: activeTab === 'transactions' ? '#0ea5e9' : 'transparent', border: '1px solid #0ea5e9', color: activeTab === 'transactions' ? 'white' : '#0ea5e9' }}
           >
             🧾 Historique Transactions
           </button>
@@ -1709,20 +2756,20 @@ function StoreStatsPage({ user }) {
         {/* CONTENU ONGLET: RÉSUMÉ */}
         {activeTab === 'summary' && storeData && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            
+
             {/* Cartes de résumé */}
             <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
               <div style={statCardStyle}>
                 <div style={statCardTitle}>Chiffre d'affaires clients</div>
-                <div style={{...statCardValue, color: '#38bdf8'}}>{(storeData.totalAmountSpentByUser || 0).toFixed(2)} €</div>
+                <div style={{ ...statCardValue, color: '#38bdf8' }}>{(storeData.totalAmountSpentByUser || 0).toFixed(2)} €</div>
               </div>
               <div style={statCardStyle}>
                 <div style={statCardTitle}>Cashback total reversé</div>
-                <div style={{...statCardValue, color: '#10b981'}}>{(storeData.totalCashbackGiven || 0).toFixed(2)} €</div>
+                <div style={{ ...statCardValue, color: '#10b981' }}>{(storeData.totalCashbackGiven || 0).toFixed(2)} €</div>
               </div>
               <div style={statCardStyle}>
                 <div style={statCardTitle}>Facture en cours</div>
-                <div style={{...statCardValue, color: '#fbbf24'}}>{(storeData.current_month_debt || 0).toFixed(2)} €</div>
+                <div style={{ ...statCardValue, color: '#fbbf24' }}>{(storeData.current_month_debt || 0).toFixed(2)} €</div>
               </div>
             </div>
 
@@ -1832,12 +2879,22 @@ function App() {
           <Route path="stats/:storeId" element={<StoreStatsPage user={user} />} />
         </Route>
         <Route path="/daytalia" element={<DaytaliaPage />} />
+        <Route path="/quizbot" element={<QuizBotPage />} />
+        <Route path="/quizqi" element={<QuizBotPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
         <Route path="/daytalia/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/daytalia/terms" element={<TermsOfServicePage />} />
         <Route path="/daytalia/politique-de-confidentialite" element={<PrivacyPolicyPage />} />
         <Route path="/daytalia/conditions-dutilisation" element={<TermsOfServicePage />} />
+        <Route path="/quizbot/privacy" element={<QuizBotPrivacyPolicyPage />} />
+        <Route path="/quizbot/terms" element={<QuizBotTermsOfServicePage />} />
+        <Route path="/quizbot/politique-de-confidentialite" element={<QuizBotPrivacyPolicyPage />} />
+        <Route path="/quizbot/conditions-dutilisation" element={<QuizBotTermsOfServicePage />} />
+        <Route path="/quizqi/privacy" element={<QuizBotPrivacyPolicyPage />} />
+        <Route path="/quizqi/terms" element={<QuizBotTermsOfServicePage />} />
+        <Route path="/quizqi/politique-de-confidentialite" element={<QuizBotPrivacyPolicyPage />} />
+        <Route path="/quizqi/conditions-dutilisation" element={<QuizBotTermsOfServicePage />} />
         <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
         <Route path="/legal/conditions-dutilisation" element={<LegalIndexPage type="terms" />} />
         <Route path="/pro/auth" element={<Navigate to="/walkmoney/auth" replace />} />
