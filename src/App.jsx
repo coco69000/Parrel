@@ -1291,10 +1291,11 @@ function QuizBotPrivacyPolicyPage() {
         {/* Contenu textuel officiel */}
         <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
 
-          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px' }}>
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
             <div><strong style={{ color: '#ffffff' }}>Application :</strong> QuizBot (identifiée sous le bundle <code>com.parrel.quizbot</code>)</div>
             <div><strong style={{ color: '#ffffff' }}>Éditeur / Développeur :</strong> Parrel Studio</div>
-            <div><strong style={{ color: '#ffffff' }}>Contact :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
+            <div><strong style={{ color: '#ffffff' }}>URL officielle HTTPS :</strong> <a href="https://parrel.vercel.app/quizbot/privacy" style={{ color: '#8b5cf6', textDecoration: 'none' }}>https://parrel.vercel.app/quizbot/privacy</a></div>
+            <div><strong style={{ color: '#ffffff' }}>Contact &amp; Délégué aux données :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
           </div>
 
           <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
@@ -1403,11 +1404,11 @@ function QuizBotPrivacyPolicyPage() {
             </section>
 
             <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
-              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>7. Conservation des données et Droit de suppression (RGPD / CCPA)</h2>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>7. Conservation des données et Droit de suppression (RGPD / CCPA / Apple Guideline 5.1.1(v))</h2>
               <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
                 <li>Vos données sont conservées tant que votre compte utilisateur est actif.</li>
-                <li><strong style={{ color: '#8b5cf6' }}>Suppression de compte :</strong> Conformément aux exigences légales et des magasins d'applications, vous pouvez à tout moment supprimer définitivement votre compte et l'intégralité de vos données directement depuis l'Application (<em style={{ color: '#ffffff' }}>Paramètres &gt; Supprimer mon compte</em>). Cette action entraîne la suppression irréversible de votre profil, de vos quiz créés, de vos statistiques de QI et de vos scores.</li>
-                <li>Vous pouvez également exercer vos droits d'accès, de rectification ou d'opposition en nous contactant à : <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a>.</li>
+                <li><strong style={{ color: '#8b5cf6' }}>Suppression de compte (Exigence Apple 5.1.1(v)) :</strong> Conformément aux exigences de l'App Store d'Apple et du RGPD, vous disposez d'un mécanisme de suppression de compte complet et sans friction directement dans l'Application (<em style={{ color: '#ffffff' }}>Profil &gt; Paramètres &gt; Supprimer mon compte</em>). L'exécution de cette commande entraîne l'effacement immédiat et irréversible de l'ensemble de vos données personnelles, de votre profil, de vos quiz créés, de vos statistiques de QI, de vos scores et de vos jetons de notification sur tous nos serveurs de production.</li>
+                <li>Vous pouvez également exercer vos droits d'accès, de rectification, de portabilité ou d'opposition en écrivant à : <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a>.</li>
               </ul>
             </section>
 
@@ -1478,11 +1479,13 @@ function QuizBotTermsOfServicePage() {
         {/* Contenu textuel officiel */}
         <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
 
-          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px' }}>
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
             <div><strong style={{ color: '#ffffff' }}>Application :</strong> QuizBot</div>
             <div><strong style={{ color: '#ffffff' }}>Éditeur :</strong> Parrel Studio</div>
             <div><strong style={{ color: '#ffffff' }}>Bundle ID :</strong> <code>com.parrel.quizbot</code></div>
-            <div><strong style={{ color: '#ffffff' }}>Contact :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
+            <div><strong style={{ color: '#ffffff' }}>URL officielle HTTPS :</strong> <a href="https://parrel.vercel.app/quizbot/terms" style={{ color: '#8b5cf6', textDecoration: 'none' }}>https://parrel.vercel.app/quizbot/terms</a></div>
+            <div><strong style={{ color: '#ffffff' }}>EULA Standard Apple :</strong> <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa', textDecoration: 'underline' }}>Apple Licensed Application End User License Agreement</a></div>
+            <div><strong style={{ color: '#ffffff' }}>Contact Support :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
           </div>
 
           <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
@@ -1537,7 +1540,7 @@ function QuizBotTermsOfServicePage() {
                 <ol style={{ margin: '0 0 12px 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
                   <li><strong style={{ color: '#ffffff' }}>Un mécanisme de signalement (Report) :</strong> Tout quiz public ou tout profil utilisateur peut être signalé immédiatement via le bouton dédié (icône drapeau).</li>
                   <li><strong style={{ color: '#ffffff' }}>Un mécanisme de blocage (Block) :</strong> Vous pouvez bloquer tout joueur indésirable en un clic. Ses créations et ses messages n'apparaîtront plus pour vous.</li>
-                  <li><strong style={{ color: '#ffffff' }}>Modération active :</strong> L'Éditeur se réserve le droit d'examiner les signalements, de supprimer sans préavis tout contenu contrevenant et de bannir temporairement ou définitivement tout utilisateur enfreignant ces règles, dans un délai maximal de 24 heures suivant la notification.</li>
+                  <li><strong style={{ color: '#ffffff' }}>Modération active sous 24h :</strong> L'Éditeur examine tous les signalements, supprime sans préavis tout contenu contrevenant et bannit temporairement ou définitivement tout utilisateur enfreignant ces règles dans un délai maximal de 24 heures.</li>
                 </ol>
               </div>
             </section>
@@ -1564,7 +1567,7 @@ function QuizBotTermsOfServicePage() {
               <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
                 <li><strong style={{ color: '#ffffff' }}>Avantages VIP :</strong> L'abonnement VIP débloque des plafonds d'utilisation étendus (génération de quiz allongée, accès aux illustrations d'IA avancées, combinaison illimitée de formats de jeux).</li>
                 <li><strong style={{ color: '#ffffff' }}>Facturation &amp; Renouvellement :</strong> Les abonnements sont gérés via le compte Apple ID (iOS) ou Google Play (Android). Le paiement est prélevé à la confirmation de l'achat. L'abonnement se renouvelle automatiquement sauf si le renouvellement automatique est désactivé au moins 24 heures avant la fin de la période en cours.</li>
-                <li><strong style={{ color: '#ffffff' }}>Gestion et Annulation :</strong> Vous pouvez gérer ou résilier votre abonnement à tout moment dans les réglages de votre compte App Store ou Google Play Store. Conformément aux politiques des boutiques d'applications, aucun remboursement partiel ou rétroactif n'est assuré directement par l'Éditeur.</li>
+                <li><strong style={{ color: '#ffffff' }}>Gestion et Annulation :</strong> Vous pouvez gérer ou résilier votre abonnement à tout moment dans les réglages de votre compte App Store (<a href="https://apps.apple.com/account/subscriptions" target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa' }}>Gérer mon abonnement Apple</a>) ou Google Play Store. Conformément aux politiques des boutiques d'applications, aucun remboursement partiel ou rétroactif n'est assuré directement par l'Éditeur.</li>
               </ul>
             </section>
 
@@ -1609,6 +1612,27 @@ function QuizBotTermsOfServicePage() {
               <p style={{ margin: 0 }}>
                 <strong style={{ color: '#ffffff' }}>E-mail :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#8b5cf6', textDecoration: 'none' }}>support.parrel@gmail.com</a>
               </p>
+            </section>
+
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#8b5cf6', fontSize: '1.25rem', marginBottom: '12px' }}>
+                12. Dispositions Spécifiques et Mentions Obligatoires Apple (EULA App Store)
+              </h2>
+              <p style={{ marginBottom: '12px' }}>
+                Pour les utilisateurs téléchargeant ou utilisant QuizBot depuis l'App Store d'Apple sur iOS ou iPadOS, les mentions obligatoires suivantes s'appliquent expressément :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Parties au Contrat :</strong> Vous reconnaissez que le présent contrat de licence (EULA) est conclu exclusivement entre vous et Parrel Studio, et non avec Apple Inc. Parrel Studio est seul responsable de l'Application QuizBot et de son contenu.</li>
+                <li><strong style={{ color: '#ffffff' }}>Portée de la Licence :</strong> La licence accordée pour QuizBot est limitée à une licence non transférable d'utilisation sur tout appareil de marque Apple (iPhone, iPad) que vous possédez ou contrôlez, conformément aux règles d'utilisation prévues dans les Conditions générales des services multimédias d'Apple.</li>
+                <li><strong style={{ color: '#ffffff' }}>Maintenance et Assistance :</strong> Parrel Studio est seul responsable de la fourniture des services de maintenance et d'assistance relatifs à QuizBot. Vous reconnaissez qu'Apple n'a aucune obligation de fournir des services de maintenance ou d'assistance pour QuizBot.</li>
+                <li><strong style={{ color: '#ffffff' }}>Garantie :</strong> Parrel Studio est seul responsable des garanties du produit. En cas de défaut de conformité de QuizBot avec toute garantie applicable, vous pouvez en informer Apple, qui pourra rembourser le prix d'achat payé pour QuizBot sur l'App Store. Dans toute la mesure permise par le droit applicable, Apple n'aura aucune autre obligation de garantie de quelque nature que ce soit à l'égard de QuizBot.</li>
+                <li><strong style={{ color: '#ffffff' }}>Réclamations sur le Produit :</strong> Parrel Studio, et non Apple, est responsable du traitement des réclamations de l'utilisateur final ou de tiers relatives à QuizBot (notamment la responsabilité du fait des produits, les exigences réglementaires et la protection des consommateurs).</li>
+                <li><strong style={{ color: '#ffffff' }}>Droits de Propriété Intellectuelle :</strong> En cas de réclamation d'un tiers alléguant que QuizBot ou votre détention/utilisation de QuizBot enfreint les droits de propriété intellectuelle d'un tiers, Parrel Studio (et non Apple) sera seul responsable de l'enquête, de la défense, du règlement et de l'apaisement de cette réclamation.</li>
+                <li><strong style={{ color: '#ffffff' }}>Conformité Légale :</strong> Vous déclarez et garantissez que (i) vous ne résidez pas dans un pays soumis à un embargo du gouvernement américain ou désigné comme soutenant le terrorisme ; et (ii) vous ne figurez sur aucune liste américaine de parties interdites ou restreintes.</li>
+                <li><strong style={{ color: '#ffffff' }}>Tiers Bénéficiaire Apple :</strong> Vous reconnaissez et acceptez qu'Apple et ses filiales sont des tiers bénéficiaires des présentes CGU / EULA. Dès votre acceptation, Apple aura le droit (et sera réputée avoir accepté le droit) de faire appliquer les présentes conditions à votre encontre en tant que tiers bénéficiaire.</li>
+                <li><strong style={{ color: '#ffffff' }}>Contrat EULA Standard Apple :</strong> L'Application est également soumise au contrat type de licence Apple disponible sur : <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa', textDecoration: 'underline' }}>https://www.apple.com/legal/internet-services/itunes/dev/stdeula/</a>.</li>
+                <li><strong style={{ color: '#ffffff' }}>Gestion des Abonnements Apple ID :</strong> Les abonnements sont résiliables à tout moment depuis les Réglages Apple ou sur <a href="https://apps.apple.com/account/subscriptions" target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa', textDecoration: 'underline' }}>https://apps.apple.com/account/subscriptions</a> au moins 24h avant l'échéance. Toute portion d'essai gratuit non utilisée est perdue à la souscription d'un abonnement payant.</li>
+              </ul>
             </section>
 
           </div>
@@ -2611,10 +2635,12 @@ function App() {
         <Route path="/daytalia/conditions-dutilisation" element={<TermsOfServicePage />} />
         <Route path="/quizbot/privacy" element={<QuizBotPrivacyPolicyPage />} />
         <Route path="/quizbot/terms" element={<QuizBotTermsOfServicePage />} />
+        <Route path="/quizbot/eula" element={<QuizBotTermsOfServicePage />} />
         <Route path="/quizbot/politique-de-confidentialite" element={<QuizBotPrivacyPolicyPage />} />
         <Route path="/quizbot/conditions-dutilisation" element={<QuizBotTermsOfServicePage />} />
         <Route path="/quizqi/privacy" element={<QuizBotPrivacyPolicyPage />} />
         <Route path="/quizqi/terms" element={<QuizBotTermsOfServicePage />} />
+        <Route path="/quizqi/eula" element={<QuizBotTermsOfServicePage />} />
         <Route path="/quizqi/politique-de-confidentialite" element={<QuizBotPrivacyPolicyPage />} />
         <Route path="/quizqi/conditions-dutilisation" element={<QuizBotTermsOfServicePage />} />
         <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
