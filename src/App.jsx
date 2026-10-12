@@ -88,17 +88,17 @@ function Home({ user }) {
         <div className="apps-grid">
 
           <div className="app-card" style={{ border: '2px solid #00bcd4', transform: 'scale(1.03)', zIndex: 10 }}>
-            <h3 style={{ color: '#00bcd4' }}>WalkMoney - Espace Pro</h3>
-            <span className="tag" style={{ backgroundColor: '#00bcd4', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Portail Commerçant</span>
+            <h3 style={{ color: '#00bcd4' }}>EcoNav / WalkMoney</h3>
+            <span className="tag" style={{ backgroundColor: '#00bcd4', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Navigation GPS &amp; Mobilité Récompensée</span>
             <p style={{ marginTop: '15px', marginBottom: '20px' }}>
-              Créez votre magasin, gérez vos offres de cashback et suivez vos statistiques. Les boutons de connexion et de création sont maintenant dans l'espace WalkMoney.
+              Transformez chacun de vos pas et coups de pédale en récompenses réelles : navigation cinématique 60 FPS, points « Lames », cashback IA en magasin et boutique solidaire.
             </p>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
               <Link to="/walkmoney" style={{ ...btnPrimaryStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '180px' }}>
-                Ouvrir WalkMoney
+                Ouvrir EcoNav / WalkMoney
               </Link>
               <Link to={user ? "/walkmoney/dashboard" : "/walkmoney/auth"} style={{ ...btnOutlineStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '180px' }}>
-                {user ? "Mes magasins" : "Se connecter"}
+                {user ? "Mes magasins" : "Espace Commerçant"}
               </Link>
             </div>
           </div>
@@ -140,7 +140,7 @@ function Home({ user }) {
 }
 
 // ==========================================
-// 💼 LAYOUT WALKMONEY
+// 💼 LAYOUT WALKMONEY / ECONAV
 // ==========================================
 function WalkMoneyLayout({ user }) {
   const navigate = useNavigate();
@@ -151,34 +151,40 @@ function WalkMoneyLayout({ user }) {
     navigate('/');
   };
 
-  const isActive = (path) => location.pathname === path || location.pathname.startsWith(path + '/');
+  const isActive = (path) => location.pathname === path || (path !== '/walkmoney' && location.pathname.startsWith(path + '/'));
 
   return (
     <div style={pageStyle}>
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-        <div style={{ backgroundColor: '#1e293b', padding: '28px', borderRadius: '18px', border: '1px solid #334155', marginBottom: '24px' }}>
+        <div style={{ backgroundColor: '#1e293b', padding: '24px 28px', borderRadius: '18px', border: '1px solid #334155', marginBottom: '24px' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
             <div>
-              <span className="badge" style={{ marginBottom: '12px' }}>💼 WalkMoney</span>
-              <h1 style={{ color: 'white', marginBottom: '8px' }}>Espace commerçant</h1>
-              <p style={{ color: '#94a3b8', margin: 0 }}>La barre de navigation pro est maintenant intégrée à WalkMoney.</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
+                <span className="badge" style={{ backgroundColor: '#00bcd4', color: '#0f172a', fontWeight: 'bold' }}>🌱 EcoNav • WalkMoney</span>
+                <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>Mobilité Récompensée &amp; Espace Pro</span>
+              </div>
+              <h1 style={{ color: 'white', marginBottom: '6px', fontSize: '1.75rem' }}>EcoNav / WalkMoney</h1>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '14px' }}>Navigation cinématique éco-responsable, points Lames et portail commerçants partenaires.</p>
             </div>
-            {user && <div style={{ color: '#94a3b8', fontSize: '14px' }}>Connecté : {user.email}</div>}
+            {user && <div style={{ color: '#94a3b8', fontSize: '14px' }}>Connecté : <strong style={{ color: '#ffffff' }}>{user.email}</strong></div>}
           </div>
 
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '22px' }}>
-            <button onClick={() => navigate('/walkmoney')} style={{ ...(isActive('/walkmoney') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: isActive('/walkmoney') ? '#00bcd4' : 'transparent' }}>
-              Accueil
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '20px' }}>
+            <button onClick={() => navigate('/walkmoney')} style={{ ...(location.pathname === '/walkmoney' ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: location.pathname === '/walkmoney' ? '#00bcd4' : 'transparent' }}>
+              📱 Découvrir l'App
             </button>
-            <button onClick={() => navigate(user ? '/walkmoney/dashboard' : '/walkmoney/auth')} style={{ ...(isActive('/walkmoney/auth') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: isActive('/walkmoney/auth') ? '#00bcd4' : 'transparent' }}>
-              Connexion
-            </button>
-            <button onClick={() => navigate('/walkmoney/dashboard')} style={{ ...(isActive('/walkmoney/dashboard') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: isActive('/walkmoney/dashboard') ? '#00bcd4' : 'transparent' }}>
-              Mes magasins
+            <button onClick={() => navigate(user ? '/walkmoney/dashboard' : '/walkmoney/auth')} style={{ ...(isActive('/walkmoney/auth') || isActive('/walkmoney/dashboard') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: (isActive('/walkmoney/auth') || isActive('/walkmoney/dashboard')) ? '#00bcd4' : 'transparent' }}>
+              💼 {user ? 'Mes magasins' : 'Espace Commerçant'}
             </button>
             <button onClick={() => navigate('/walkmoney/create-store')} style={{ ...(isActive('/walkmoney/create-store') ? btnPrimaryStyle : btnOutlineStyle), backgroundColor: isActive('/walkmoney/create-store') ? '#00bcd4' : 'transparent' }}>
               + Créer un magasin
             </button>
+            <Link to="/walkmoney/privacy" style={{ ...btnOutlineStyle, display: 'inline-block', textAlign: 'center', textDecoration: 'none' }}>
+              🔒 Confidentialité
+            </Link>
+            <Link to="/walkmoney/terms" style={{ ...btnOutlineStyle, display: 'inline-block', textAlign: 'center', textDecoration: 'none' }}>
+              📜 CGU &amp; EULA
+            </Link>
             {user && (
               <button onClick={handleLogout} style={{ ...btnDangerStyle, marginLeft: 'auto' }}>
                 Se déconnecter
@@ -194,27 +200,304 @@ function WalkMoneyLayout({ user }) {
 }
 
 // ==========================================
-// 🏁 ACCUEIL WALKMONEY
+// 🏁 ACCUEIL WALKMONEY / ECONAV (SHOWCASE & MARKETING)
 // ==========================================
 function WalkMoneyLanding({ user }) {
   const navigate = useNavigate();
+  const [storeNotice, setStoreNotice] = useState('');
+
+  const handleStoreClick = (storeName) => {
+    setStoreNotice(`EcoNav sera prochainement disponible en téléchargement direct sur ${storeName}. Restez à l'écoute !`);
+    setTimeout(() => setStoreNotice(''), 5000);
+  };
+
+  const reasons = [
+    {
+      num: '1',
+      icon: '🧭',
+      title: 'Une navigation fluide et prédictive de nouvelle génération',
+      desc: 'Fini les flèches saccadées et les retards d\'affichage. Grâce à notre moteur propriétaire de lissage cinématique et d\'analyse inertielle à 60 FPS, suivez votre itinéraire en temps réel sur une cartographie vectorielle haute précision, adaptée aux piétons, cyclistes et usagers des transports en commun.',
+      points: [
+        'Moteur propriétaire de lissage cinématique 60 FPS',
+        'Cartographie vectorielle haute précision en temps réel',
+        'Modes adaptés aux piétons, cyclistes et transports en commun'
+      ]
+    },
+    {
+      num: '2',
+      icon: '🏃',
+      title: 'Marchez, roulez… Encaissez !',
+      desc: 'Chaque kilomètre compte. Votre effort est valorisé équitablement en fonction de la distance, du temps, du dénivelé réel et même des conditions météo difficiles (bonus pluie/froid).',
+      points: [
+        'Points Lames : Cumulez des points à chaque trajet terminé.',
+        'Système de Niveaux : Plus vous bougez, plus votre niveau grimpe (jusqu\'au niveau 50) avec des multiplicateurs de gains permanents.',
+        'Bonus Quotidien & Série : Validez vos connexions quotidiennes pour décupler vos gains.'
+      ]
+    },
+    {
+      num: '3',
+      icon: '🏪',
+      title: 'Vos commerces locaux vous récompensent (Cashback & IA)',
+      desc: 'Rendez visite à nos commerçants partenaires et profitez d\'un remboursement direct de vos achats :',
+      points: [
+        'Détection automatique d’arrivée : Le GPS confirme votre présence sur place.',
+        'Scan intelligent de ticket : Photographiez votre preuve d\'achat. Notre intelligence artificielle analyse et valide instantanément votre ticket.',
+        'Cashback cumulable : Récupérez un pourcentage de vos dépenses réelles en euros et en Lames bonus.'
+      ]
+    },
+    {
+      num: '4',
+      icon: '🎯',
+      title: 'Relevez des défis près de chez vous',
+      desc: 'Explorez votre ville grâce à des défis d\'exploration de points d\'intérêt (parcs, monuments, lieux culturels).',
+      points: [
+        'Validation d\'étapes d\'arrêt (zones de présence chronométrées)',
+        'Séries de visites découvertes thématiques',
+        'Super-cagnottes bonus allant jusqu\'à 5 000 Lames à débloquer'
+      ]
+    },
+    {
+      num: '5',
+      icon: '🎁',
+      title: 'Boutique solidaire & Récompenses réelles',
+      desc: 'Convertissez librement vos points dans notre boutique intégrée :',
+      points: [
+        'Virements directs (ex: PayPal) et cartes cadeaux.',
+        'Dons aux Objectifs de Développement Durable (ODD de l\'ONU) et campagnes humanitaires.',
+        'Plantation d\'arbres certifiés pour neutraliser votre empreinte carbone.'
+      ]
+    }
+  ];
 
   return (
-    <div style={{ display: 'grid', gap: '20px' }}>
-      <div className="app-card" style={{ backgroundColor: '#1e293b' }}>
-        <h2 style={{ color: '#00bcd4', marginBottom: '12px' }}>Bienvenue dans WalkMoney</h2>
-        <p style={{ color: '#cbd5e1', marginBottom: '18px' }}>
-          Ici se trouvent la connexion, la liste des magasins et la création d'un nouveau magasin.
+    <div style={{ display: 'grid', gap: '28px' }}>
+
+      {/* Navigation de retour */}
+      <div>
+        <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
+          ← Retour aux applications Parrel
+        </Link>
+      </div>
+
+      {/* HERO SECTION MARKETING */}
+      <div style={{ backgroundColor: '#1e293b', padding: '36px', borderRadius: '22px', border: '1px solid #334155', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(0, 188, 212, 0.15)', border: '1px solid rgba(0, 188, 212, 0.3)', padding: '6px 14px', borderRadius: '999px', marginBottom: '18px' }}>
+          <span style={{ color: '#00bcd4', fontWeight: 'bold', fontSize: '13px' }}>🌱 EcoNav • WalkMoney • Mobilité Éco-Responsable</span>
+        </div>
+
+        <h1 style={{ color: 'white', marginTop: '0', marginBottom: '16px', fontSize: 'clamp(1.9rem, 4vw, 2.7rem)', lineHeight: 1.25, fontWeight: 800 }}>
+          Transformez chacun de vos pas et coups de pédale en récompenses réelles.
+        </h1>
+
+        <p style={{ color: '#cbd5e1', fontSize: '1.2rem', lineHeight: 1.6, maxWidth: '900px', margin: '0 0 28px 0' }}>
+          EcoNav est l'application de navigation GPS éco-responsable qui rémunère vos mobilités douces. Marchez, roulez à vélo, prenez les transports en commun, soutenez les commerces de proximité et gagnez des points « Lames » convertibles en argent, dons et bons d'achat.
+        </p>
+
+        {/* BOUTONS DE TÉLÉCHARGEMENT */}
+        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '18px' }}>
+
+          {/* Bouton Google Play */}
+          <button
+            type="button"
+            onClick={() => handleStoreClick('Google Play')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '14px',
+              backgroundColor: '#050811',
+              color: '#ffffff',
+              padding: '12px 24px',
+              borderRadius: '14px',
+              border: '1px solid #475569',
+              cursor: 'pointer',
+              textAlign: 'left',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#00bcd4'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M3.609 1.814L13.793 12 3.61 22.185A2.32 2.32 0 0 1 3 20.573V3.427c0-.623.23-1.192.609-1.613z" fill="#00C1A6" />
+              <path d="M17.202 8.59L13.793 12l3.41 3.41 3.865-2.222c.907-.521.907-1.854 0-2.376L17.202 8.59z" fill="#FFD100" />
+              <path d="M3.609 1.814L13.793 12l3.409-3.41-11.41-6.559c-.569-.327-1.22-.327-1.792.007l6.009 6.009z" fill="#00A0FF" />
+              <path d="M13.793 12L3.609 22.186c.572.334 1.223.334 1.792.007l11.41-6.559-3.018-3.634z" fill="#FF3333" />
+            </svg>
+            <div>
+              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Disponible sur</div>
+              <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>Google Play</div>
+            </div>
+          </button>
+
+          {/* Bouton Apple App Store */}
+          <button
+            type="button"
+            onClick={() => handleStoreClick("l'App Store")}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '14px',
+              backgroundColor: '#050811',
+              color: '#ffffff',
+              padding: '12px 24px',
+              borderRadius: '14px',
+              border: '1px solid #475569',
+              cursor: 'pointer',
+              textAlign: 'left',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#00bcd4'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.05-.52 2.67-1.27z" />
+            </svg>
+            <div>
+              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Télécharger dans l'</div>
+              <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>App Store</div>
+            </div>
+          </button>
+
+          {/* Bouton Espace Commerçant */}
+          <button
+            type="button"
+            onClick={() => navigate(user ? '/walkmoney/dashboard' : '/walkmoney/auth')}
+            style={{ ...btnOutlineStyle, padding: '12px 20px', borderRadius: '14px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+          >
+            💼 {user ? 'Accéder à mes magasins' : 'Espace Commerçant Partenaire'}
+          </button>
+        </div>
+
+        {storeNotice && (
+          <div style={{ backgroundColor: 'rgba(0, 188, 212, 0.15)', border: '1px solid rgba(0, 188, 212, 0.4)', borderRadius: '10px', padding: '12px 18px', color: '#67e8f9', fontSize: '14px', maxWidth: '640px', marginTop: '14px' }}>
+            ℹ️ {storeNotice}
+          </div>
+        )}
+      </div>
+
+      {/* STATS / CHIFFRES CLÉS */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+        <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '14px', padding: '18px', textAlign: 'center' }}>
+          <div style={{ color: '#00bcd4', fontSize: '28px', fontWeight: '800' }}>60 FPS</div>
+          <div style={{ color: '#cbd5e1', fontSize: '13px', marginTop: '4px' }}>Lissage cinématique &amp; capteurs inertiels</div>
+        </div>
+        <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '14px', padding: '18px', textAlign: 'center' }}>
+          <div style={{ color: '#10b981', fontSize: '28px', fontWeight: '800' }}>Niveau 50</div>
+          <div style={{ color: '#cbd5e1', fontSize: '13px', marginTop: '4px' }}>Paliers &amp; multiplicateurs permanents</div>
+        </div>
+        <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '14px', padding: '18px', textAlign: 'center' }}>
+          <div style={{ color: '#f59e0b', fontSize: '28px', fontWeight: '800' }}>Scan IA</div>
+          <div style={{ color: '#cbd5e1', fontSize: '13px', marginTop: '4px' }}>Analyse OCR &amp; Cashback instantané</div>
+        </div>
+        <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '14px', padding: '18px', textAlign: 'center' }}>
+          <div style={{ color: '#ec4899', fontSize: '28px', fontWeight: '800' }}>100% Solidaire</div>
+          <div style={{ color: '#cbd5e1', fontSize: '13px', marginTop: '4px' }}>Virements, dons ODD ONU &amp; arbres</div>
+        </div>
+      </div>
+
+      {/* POURQUOI CHOISIR ECONAV ? */}
+      <div>
+        <div style={{ marginBottom: '20px' }}>
+          <span className="badge" style={{ backgroundColor: '#10b981', color: '#0f172a', fontWeight: 'bold' }}>Fonctionnalités Clés</span>
+          <h2 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: '1.8rem' }}>
+            Pourquoi choisir EcoNav ?
+          </h2>
+          <p style={{ color: '#94a3b8', margin: 0 }}>
+            L'alliance unique de la navigation haute précision, de la détection anti-triche et de l'économie circulaire locale.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gap: '18px' }}>
+          {reasons.map((item) => (
+            <div
+              key={item.num}
+              style={{
+                backgroundColor: '#1e293b',
+                borderRadius: '16px',
+                border: '1px solid #334155',
+                padding: '24px 28px',
+                display: 'grid',
+                gap: '12px',
+                transition: 'border-color 0.2s',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#00bcd4'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#334155'; }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '28px' }}>{item.icon}</span>
+                <h3 style={{ color: '#ffffff', margin: 0, fontSize: '1.25rem' }}>
+                  {item.num}. {item.title}
+                </h3>
+              </div>
+
+              <p style={{ color: '#cbd5e1', margin: 0, lineHeight: 1.65 }}>
+                {item.desc}
+              </p>
+
+              <ul style={{ margin: '4px 0 0 20px', color: '#94a3b8', lineHeight: 1.7, fontSize: '14px' }}>
+                {item.points.map((pt, idx) => (
+                  <li key={idx} style={{ color: '#e2e8f0' }}>{pt}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* TÉLÉCHARGEZ ECONAV DÈS AUJOURD'HUI */}
+      <div style={{ backgroundColor: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', border: '1px solid #00bcd4', borderRadius: '20px', padding: '32px', textAlign: 'center' }}>
+        <h2 style={{ color: '#00bcd4', marginTop: 0, marginBottom: '10px', fontSize: '1.7rem' }}>
+          Téléchargez EcoNav dès aujourd'hui
+        </h2>
+        <p style={{ color: '#cbd5e1', maxWidth: '600px', margin: '0 auto 22px auto', lineHeight: 1.6 }}>
+          Disponible sur iOS (App Store) et Android (Google Play Store). Commencez à rentabiliser vos déplacements quotidiens dès votre prochain trajet.
+        </p>
+        <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <button type="button" onClick={() => handleStoreClick('Google Play')} style={btnPrimaryStyle}>
+            Google Play Store
+          </button>
+          <button type="button" onClick={() => handleStoreClick("l'App Store")} style={{ ...btnPrimaryStyle, backgroundColor: '#10b981' }}>
+            Apple App Store
+          </button>
+        </div>
+      </div>
+
+      {/* ESPACE COMMERÇANT & PARTENAIRES (PORTAIL PRO) */}
+      <div className="app-card" style={{ backgroundColor: '#1e293b', border: '1px solid #334155', padding: '28px', borderRadius: '18px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+          <span style={{ fontSize: '24px' }}>💼</span>
+          <h2 style={{ color: '#00bcd4', margin: 0, fontSize: '1.4rem' }}>Portail Commerçants &amp; Partenaires WalkMoney</h2>
+        </div>
+        <p style={{ color: '#cbd5e1', marginBottom: '20px', lineHeight: 1.6 }}>
+          Vous tenez un commerce de proximité ? Intégrez le réseau EcoNav / WalkMoney. Définissez votre taux de cashback, attirez de nouveaux clients engagés dans votre boutique grâce à la détection de présence GPS et la validation automatique par IA de leurs tickets de caisse.
         </p>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <button onClick={() => navigate(user ? '/walkmoney/dashboard' : '/walkmoney/auth')} style={btnPrimaryStyle}>
-            {user ? 'Accéder à mes magasins' : 'Se connecter'}
+            {user ? 'Accéder à mes magasins' : 'Se connecter au portail Pro'}
           </button>
           <button onClick={() => navigate('/walkmoney/create-store')} style={btnOutlineStyle}>
             + Créer un magasin
           </button>
         </div>
       </div>
+
+      {/* PIED DE PAGE LÉGAL DÉDIÉ */}
+      <div style={{ borderTop: '1px solid #334155', paddingTop: '20px', display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', color: '#94a3b8', fontSize: '14px' }}>
+        <div>Documents officiels EcoNav / WalkMoney :</div>
+        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+          <Link to="/walkmoney/privacy" style={{ color: '#00bcd4', textDecoration: 'none' }}>
+            Politique de Confidentialité
+          </Link>
+          <Link to="/walkmoney/terms" style={{ color: '#00bcd4', textDecoration: 'none' }}>
+            Conditions Générales (CGU)
+          </Link>
+          <Link to="/walkmoney/eula" style={{ color: '#00bcd4', textDecoration: 'none' }}>
+            Contrat de Licence (EULA)
+          </Link>
+        </div>
+      </div>
+
     </div>
   );
 }
@@ -1653,12 +1936,439 @@ function QuizBotTermsOfServicePage() {
 }
 
 // ==========================================
+// 🔒 PAGE : POLITIQUE DE CONFIDENTIALITÉ — ECONAV / WALKMONEY
+// ==========================================
+function WalkMoneyPrivacyPolicyPage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/walkmoney" style={{ color: '#00bcd4', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à EcoNav / WalkMoney
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#00bcd4', color: '#0f172a', fontWeight: 'bold' }}>EcoNav / WalkMoney</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#22c55e', border: '1px solid rgba(34, 197, 94, 0.3)' }}>Conformité RGPD &amp; Stores (Apple / Google)</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Politique de Confidentialité — EcoNav / WalkMoney
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            Dernière mise à jour : 12 Octobre 2026 • Application : EcoNav / WalkMoney • Éditeur : Parrel Studio
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> EcoNav / WalkMoney</div>
+            <div><strong style={{ color: '#ffffff' }}>Éditeur de l'Application :</strong> EcoNav / WalkMoney (« Nous », « Notre ») — Parrel Studio</div>
+            <div><strong style={{ color: '#ffffff' }}>URL officielle HTTPS :</strong> <a href="https://parrel.vercel.app/walkmoney/privacy" style={{ color: '#00bcd4', textDecoration: 'none' }}>https://parrel.vercel.app/walkmoney/privacy</a></div>
+            <div><strong style={{ color: '#ffffff' }}>Contact DPO / Support :</strong> <a href="mailto:contact@walkmoney.com" style={{ color: '#00bcd4', textDecoration: 'none' }}>contact@walkmoney.com</a> / <a href="mailto:contact@econav.app" style={{ color: '#00bcd4', textDecoration: 'none' }}>contact@econav.app</a></div>
+          </div>
+
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
+            La présente Politique de Confidentialité décrit la manière dont nous collectons, utilisons, stockons et protégeons vos données personnelles lors de l'utilisation de l'application mobile EcoNav (ci-après « l'Application »), conformément au Règlement Général sur la Protection des Données (RGPD - Règlement UE 2016/679) et aux législations applicables.
+          </p>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+
+            {/* 1. Responsable du Traitement */}
+            <section>
+              <h2 style={{ color: '#00bcd4', fontSize: '1.25rem', marginBottom: '10px' }}>1. Responsable du Traitement</h2>
+              <p style={{ margin: 0 }}>
+                Le responsable du traitement des données est :<br />
+                <strong style={{ color: '#ffffff' }}>Parrel Studio (EcoNav / WalkMoney)</strong><br />
+                Adresse : France<br />
+                Email : <a href="mailto:contact@walkmoney.com" style={{ color: '#00bcd4' }}>contact@walkmoney.com</a>
+              </p>
+            </section>
+
+            {/* 2. Données Personnelles Collectées */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#00bcd4', fontSize: '1.25rem', marginBottom: '12px' }}>2. Données Personnelles Collectées</h2>
+              <p style={{ marginBottom: '14px' }}>
+                Dans le cadre strict du bon fonctionnement des services de mobilité, du calcul de cinématique à 60 FPS, de la lutte anti-triche et du versement des récompenses, nous collectons et traitons les données suivantes :
+              </p>
+
+              <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', border: '1px solid #334155' }}>
+                  <thead>
+                    <tr style={{ backgroundColor: '#0f172a', borderBottom: '1px solid #334155' }}>
+                      <th style={{ padding: '12px 14px', color: '#00bcd4', fontWeight: 'bold', width: '22%' }}>Catégorie</th>
+                      <th style={{ padding: '12px 14px', color: '#ffffff', fontWeight: 'bold', width: '38%' }}>Données précises</th>
+                      <th style={{ padding: '12px 14px', color: '#ffffff', fontWeight: 'bold', width: '40%' }}>Finalité du traitement</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid #334155' }}>
+                      <td style={{ padding: '12px 14px', fontWeight: 'bold', color: '#ffffff' }}>Identifiants de compte</td>
+                      <td style={{ padding: '12px 14px', color: '#cbd5e1' }}>Adresse e-mail, pseudonyme, identifiant unique Firebase Auth (UID).</td>
+                      <td style={{ padding: '12px 14px', color: '#94a3b8' }}>Création de compte, authentification sécurisée, synchronisation multi-appareils.</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #334155', backgroundColor: 'rgba(15, 23, 42, 0.4)' }}>
+                      <td style={{ padding: '12px 14px', fontWeight: 'bold', color: '#ffffff' }}>Données de localisation GPS (Premier plan et Arrière-plan)</td>
+                      <td style={{ padding: '12px 14px', color: '#cbd5e1' }}>Coordonnées géographiques (latitude, longitude, cap, vitesse, altitude, précision).</td>
+                      <td style={{ padding: '12px 14px', color: '#94a3b8' }}>Calcul des itinéraires, mesure des distances parcourues, validation des trajets, calcul des gains en points Lames, détection de présence en boutique et détection de triche.</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #334155' }}>
+                      <td style={{ padding: '12px 14px', fontWeight: 'bold', color: '#ffffff' }}>Capteurs de mouvement</td>
+                      <td style={{ padding: '12px 14px', color: '#cbd5e1' }}>Accéléromètre de l'appareil (magnitude, décélération, variations d'accélération).</td>
+                      <td style={{ padding: '12px 14px', color: '#94a3b8' }}>Filtrage cinématique pour lissage de navigation, détection d'arrêt/freinage d'urgence, vérification d'absence d'usage de véhicule motorisé en mode marche/vélo.</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #334155', backgroundColor: 'rgba(15, 23, 42, 0.4)' }}>
+                      <td style={{ padding: '12px 14px', fontWeight: 'bold', color: '#ffffff' }}>Données d'adresses personnelles</td>
+                      <td style={{ padding: '12px 14px', color: '#cbd5e1' }}>Coordonnées et libellé du domicile (définis volontairement par l'utilisateur).</td>
+                      <td style={{ padding: '12px 14px', color: '#94a3b8' }}>Point d'ancrage pour les trajets quotidiens, réinitialisation sécurisée des validations d'achats lors du retour au domicile.</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #334155' }}>
+                      <td style={{ padding: '12px 14px', fontWeight: 'bold', color: '#ffffff' }}>Images &amp; Caméra</td>
+                      <td style={{ padding: '12px 14px', color: '#cbd5e1' }}>Photographies de tickets de caisse prises via l'Application.</td>
+                      <td style={{ padding: '12px 14px', color: '#94a3b8' }}>Analyse OCR et validation par modèle d'IA pour l'attribution de cashback et fidélité marchande.</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #334155', backgroundColor: 'rgba(15, 23, 42, 0.4)' }}>
+                      <td style={{ padding: '12px 14px', fontWeight: 'bold', color: '#ffffff' }}>Données financières &amp; Abonnements</td>
+                      <td style={{ padding: '12px 14px', color: '#cbd5e1' }}>Identifiant anonyme client RevenueCat, historique d'achats in-app (VIP/Premium), tokens de paiement Stripe.</td>
+                      <td style={{ padding: '12px 14px', color: '#94a3b8' }}>Gestion des souscriptions d'abonnements, facturation, déblocage des fonctionnalités Premium.</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 14px', fontWeight: 'bold', color: '#ffffff' }}>Données techniques et de sécurité</td>
+                      <td style={{ padding: '12px 14px', color: '#cbd5e1' }}>Modèle de téléphone, OS, adresse IP (pour détection de langue/pays), statut root/jailbreak, SafeDevice/App Check token.</td>
+                      <td style={{ padding: '12px 14px', color: '#94a3b8' }}>Prévention de la fraude, sécurité de l'API, intégrité contre les faux GPS (Mock Location).</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* 3. Géolocalisation en Arrière-Plan */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#00bcd4', fontSize: '1.25rem', marginBottom: '12px' }}>3. Géolocalisation en Arrière-Plan (Background Location)</h2>
+              <p style={{ marginBottom: '12px' }}>
+                L'Application requiert l'accès à votre géolocalisation même lorsque l'Application est fermée ou en arrière-plan <strong style={{ color: '#ffffff' }}>uniquement lorsque vous initiez expressément une session de navigation active</strong>.
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Pourquoi ?</strong> Pour enregistrer votre progression, vous attribuer vos Lames, surveiller la déviation de l'itinéraire et détecter l'arrivée à destination sans exiger que l'écran reste continuellement allumé.</li>
+                <li><strong style={{ color: '#ffffff' }}>Contrôle absolu :</strong> Vous pouvez arrêter la navigation à tout moment via le bouton « STOP NAVIGATION » ou révoquer l'autorisation dans les paramètres de votre système d'exploitation mobile (iOS ou Android).</li>
+              </ul>
+            </section>
+
+            {/* 4. Bases Légales du Traitement */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#00bcd4', fontSize: '1.25rem', marginBottom: '12px' }}>4. Bases Légales du Traitement</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Exécution du contrat (Art. 6.1.b RGPD) :</strong> Fourniture du service de navigation, comptabilisation des points Lames et versement du cashback.</li>
+                <li><strong style={{ color: '#ffffff' }}>Consentement (Art. 6.1.a RGPD) :</strong> Accès à la géolocalisation précise, à l'appareil photo et aux notifications push.</li>
+                <li><strong style={{ color: '#ffffff' }}>Intérêt légitime (Art. 6.1.f RGPD) :</strong> Prévention de la fraude (anti-triche vitesse/faux GPS), sécurité des infrastructures informatiques.</li>
+              </ul>
+            </section>
+
+            {/* 5. Destinataires et Sous-traitants des Données */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#00bcd4', fontSize: '1.25rem', marginBottom: '12px' }}>5. Destinataires et Sous-traitants des Données</h2>
+              <p style={{ marginBottom: '12px' }}>
+                Vos données sont traitées par des prestataires techniques de confiance soumis à des clauses de stricte confidentialité :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Google Firebase (Google LLC) :</strong> Authentification, bases de données Firestore, Cloud Functions, hébergement.</li>
+                <li><strong style={{ color: '#ffffff' }}>RevenueCat Inc. &amp; Google Play / Apple StoreKit :</strong> Gestion des achats d'abonnements intégrés.</li>
+                <li><strong style={{ color: '#ffffff' }}>Stripe Inc. :</strong> Traitement sécurisé des paiements.</li>
+                <li><strong style={{ color: '#ffffff' }}>Services de cartographie &amp; routage :</strong> OSRM, OpenStreetMap, Photon (Komoot), Google Directions API.</li>
+                <li><strong style={{ color: '#ffffff' }}>Traitement OCR / IA :</strong> Serveurs sécurisés Cloud Functions / APIs d'analyse d'images pour la lecture et la validation de tickets de caisse.</li>
+                <li><strong style={{ color: '#ffffff' }}>Open-Meteo :</strong> Requêtes météo et dénivelé (coordonnées transmises sans identifiant nominatif).</li>
+              </ul>
+              <div style={{ backgroundColor: 'rgba(0, 188, 212, 0.1)', border: '1px solid rgba(0, 188, 212, 0.3)', borderRadius: '10px', padding: '14px 18px', marginTop: '14px', color: '#67e8f9', fontSize: '14px' }}>
+                🛡️ <strong>Garantie absolue :</strong> EcoNav ne vend et ne loue aucune donnée personnelle nominative ou de localisation à des courtiers de données (data brokers) ou tiers publicitaires.
+              </div>
+            </section>
+
+            {/* 6. Durée de Conservation des Données */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#00bcd4', fontSize: '1.25rem', marginBottom: '12px' }}>6. Durée de Conservation des Données</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Données de compte :</strong> Conservées pendant toute la durée de vie du compte actif.</li>
+                <li><strong style={{ color: '#ffffff' }}>Historique des positions GPS précises :</strong> Les traces de navigation détaillées sont purgées ou anonymisées sous 30 jours après la fin du trajet. Seuls les totaux agrégés (distance, durée, moyenne, points gagnés) sont conservés sur votre profil.</li>
+                <li><strong style={{ color: '#ffffff' }}>Photos de tickets de caisse :</strong> Conservées le temps de l'arbitrage comptable et de l'attribution du cashback (durée maximale : 90 jours), puis supprimées définitivement.</li>
+              </ul>
+            </section>
+
+            {/* 7. Vos Droits */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#00bcd4', fontSize: '1.25rem', marginBottom: '12px' }}>7. Vos Droits (Conformité RGPD &amp; Apple/Google)</h2>
+              <p style={{ marginBottom: '12px' }}>
+                Conformément aux articles 15 à 22 du RGPD, vous disposez des droits suivants :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Droit d’accès et de rectification de vos données.</li>
+                <li><strong style={{ color: '#00bcd4' }}>Droit à l’effacement (« Droit à l’oubli ») :</strong> Vous pouvez supprimer l'intégralité de votre compte et de vos données associées instantanément depuis l'application via : <code style={{ backgroundColor: '#0f172a', padding: '2px 6px', borderRadius: '4px', color: '#ffffff' }}>Paramètres (Engrenage) &gt; Supprimer mon compte et mes données</code>. Cette opération déclenche un appel serveur irréversible supprimant votre profil, vos points et vos historiques.</li>
+                <li>Droit à la limitation et d'opposition au traitement de vos données.</li>
+                <li>Droit à la portabilité de vos données.</li>
+              </ul>
+              <p style={{ marginTop: '14px', marginBottom: 0 }}>
+                Pour exercer ces droits par écrit : contactez notre DPO à <a href="mailto:contact@walkmoney.com" style={{ color: '#00bcd4' }}>contact@walkmoney.com</a>. Vous disposez également du droit d'introduire une réclamation auprès de la CNIL (France - <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" style={{ color: '#00bcd4' }}>www.cnil.fr</a>) ou de l'autorité de protection des données compétente dans votre pays.
+              </p>
+            </section>
+
+          </div>
+
+          {/* Boutons d'action */}
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/walkmoney/terms" style={{ ...btnPrimaryStyle, backgroundColor: '#00bcd4' }}>
+              Consulter les CGU &amp; EULA →
+            </Link>
+            <Link to="/walkmoney" style={btnOutlineStyle}>
+              Retour à EcoNav
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 📜 PAGE : CONDITIONS GÉNÉRALES D'UTILISATION (CGU) & CONTRAT DE LICENCE EULA — ECONAV / WALKMONEY
+// ==========================================
+function WalkMoneyTermsOfServicePage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/walkmoney" style={{ color: '#00bcd4', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à EcoNav / WalkMoney
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#00bcd4', color: '#0f172a', fontWeight: 'bold' }}>EcoNav / WalkMoney</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>Contrat EULA &amp; CGU</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Conditions Générales d’Utilisation (CGU) et Contrat EULA — EcoNav / WalkMoney
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            En vigueur au : 12 Octobre 2026 • Application : EcoNav / WalkMoney • Éditeur : Parrel Studio
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '28px', fontSize: '14px', display: 'grid', gap: '6px' }}>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> EcoNav / WalkMoney</div>
+            <div><strong style={{ color: '#ffffff' }}>Éditeur :</strong> Parrel Studio</div>
+            <div><strong style={{ color: '#ffffff' }}>Contact juridique :</strong> <a href="mailto:contact@walkmoney.com" style={{ color: '#00bcd4', textDecoration: 'none' }}>contact@walkmoney.com</a></div>
+            <div><strong style={{ color: '#ffffff' }}>URL officielle :</strong> <a href="https://parrel.vercel.app/walkmoney/terms" style={{ color: '#00bcd4', textDecoration: 'none' }}>https://parrel.vercel.app/walkmoney/terms</a></div>
+          </div>
+
+          <div style={{ display: 'grid', gap: '32px' }}>
+
+            {/* BLOC PARTIE 1 : CGU */}
+            <div>
+              <div style={{ display: 'inline-block', backgroundColor: 'rgba(0, 188, 212, 0.15)', border: '1px solid rgba(0, 188, 212, 0.3)', padding: '4px 12px', borderRadius: '8px', color: '#00bcd4', fontWeight: 'bold', fontSize: '12px', textTransform: 'uppercase', marginBottom: '12px' }}>
+                Partie 1
+              </div>
+              <h2 style={{ color: '#ffffff', fontSize: '1.5rem', marginTop: 0, marginBottom: '16px', borderBottom: '1px solid #334155', paddingBottom: '10px' }}>
+                Conditions Générales d’Utilisation (CGU)
+              </h2>
+
+              <div style={{ display: 'grid', gap: '22px' }}>
+                <section>
+                  <h3 style={{ color: '#00bcd4', fontSize: '1.15rem', marginBottom: '8px' }}>1. Objet et Acceptation</h3>
+                  <p style={{ margin: 0 }}>
+                    Les présentes Conditions Générales d’Utilisation (les « CGU ») ont pour objet d’encadrer l’accès et l’utilisation de l'application EcoNav (l’« Application »). En créant un compte ou en utilisant l’Application, l'utilisateur (« l'Utilisateur ») accepte sans réserve les présentes CGU.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#00bcd4', fontSize: '1.15rem', marginBottom: '8px' }}>2. Éligibilité et Inscription</h3>
+                  <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                    <li>L'Application est accessible à toute personne physique âgée d'au moins 16 ans (ou âge légal de consentement numérique dans votre pays de résidence).</li>
+                    <li>L'Utilisateur garantit l'exactitude des informations fournies (pseudonyme, e-mail) et s'engage à ne créer qu'un seul compte par personne physique (interdiction formelle du multicompte).</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#00bcd4', fontSize: '1.15rem', marginBottom: '8px' }}>3. Fonctionnement des Récompenses (Points « Lames »)</h3>
+                  <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                    <li><strong style={{ color: '#ffffff' }}>Nature des Lames :</strong> Les Lames sont des points virtuels de fidélité et d'engagement écologique accordés gratuitement par l'Éditeur lors de l'exécution de trajets validés, de défis ou de visionnage de publicités.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Absence de valeur monétaire légale :</strong> Les Lames ne constituent ni une monnaie légale, ni de la cryptomonnaie, ni un instrument financier. Elles n'ont aucune valeur de rachat en dehors des options expressément proposées dans l'Application (boutique de récompenses, dons, cashback).</li>
+                    <li><strong style={{ color: '#ffffff' }}>Règles d'attribution :</strong> L'attribution des Lames est subordonnée au respect strict des modes de déplacement déclarés (marche, vélo, transports en commun).</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#00bcd4', fontSize: '1.15rem', marginBottom: '8px' }}>4. Politique Anti-Triche et Intégrité du Système</h3>
+                  <p style={{ marginBottom: '10px' }}>
+                    L'Application intègre des mécanismes algorithmiques avancés de vérification (comparaison de vitesse Doppler, variance d'allure, surveillance de l'accéléromètre, détection de faux GPS / Mock Locations et App Check) :
+                  </p>
+                  <ol style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                    <li><strong style={{ color: '#ffffff' }}>Dépassement de vitesse :</strong> Tout déplacement à vitesse incompatible avec le mode choisi (ex : vitesse de voiture motorisée en mode marche ou vélo) entraîne l'annulation immédiate du trajet sans attribution de Lames.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Déviations d'itinéraire :</strong> Tout écart excessif (&gt; seuil configuré de 3 km en standard, 6 km en VIP) sans correction invalide le trajet.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Faux tickets de caisse :</strong> Toute soumission de ticket falsifié, raturé, appartenant à un tiers, scanné plusieurs fois ou non conforme au magasin ciblé entraîne un rejet immédiat et peut conduire au bannissement définitif du compte.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Sanctions :</strong> L'Éditeur se réserve le droit de révoquer unilatéralement les Lames indûment perçues et de suspendre ou clôturer tout compte contrevenant à ces règles.</li>
+                  </ol>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#00bcd4', fontSize: '1.15rem', marginBottom: '8px' }}>5. Services Payants et Abonnements (« VIP / Premium »)</h3>
+                  <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                    <li><strong style={{ color: '#ffffff' }}>Services proposés :</strong> L'Utilisateur peut souscrire à un abonnement VIP payant octroyant des fonctionnalités étendues (tolérance d'écart d'itinéraire élargie, multiplicateurs de points, cashback bonifié, etc.).</li>
+                    <li><strong style={{ color: '#ffffff' }}>Facturation :</strong> Les abonnements sont gérés et facturés via les plateformes officielles : Google Play Store (Google Play Billing), Apple App Store (In-App Purchases) ou Stripe.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Renouvellement automatique :</strong> L'abonnement se renouvelle automatiquement pour la même durée, sauf résiliation par l'Utilisateur au moins 24 heures avant l'échéance de la période en cours depuis les paramètres de son compte Google Play ou Apple ID.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Droit de rétractation :</strong> Les règles légales de rétractation des stores d'applications respectifs (Apple / Google) s'appliquent.</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#00bcd4', fontSize: '1.15rem', marginBottom: '8px' }}>6. Responsabilité et Sécurité Routière</h3>
+                  <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '10px', padding: '14px 18px', color: '#fca5a5', fontSize: '14px', marginBottom: '10px' }}>
+                    ⚠️ <strong>ATTENTION SÉCURITÉ :</strong> L'Utilisateur est seul responsable de sa propre sécurité et du respect des règles du Code de la Route applicable dans sa juridiction. L'Utilisateur ne doit jamais manipuler l'Application d'une manière qui détourne son attention de la conduite, de la circulation piétonne ou de l'environnement immédiat.
+                  </div>
+                  <p style={{ margin: 0 }}>
+                    L'Application est fournie « en l'état ». L'Éditeur ne saurait être tenu responsable d'éventuelles erreurs cartographiques, travaux, conditions météo ou indisponibilités de transports publics.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#00bcd4', fontSize: '1.15rem', marginBottom: '8px' }}>7. Résiliation</h3>
+                  <p style={{ margin: 0 }}>
+                    L'Utilisateur peut cesser d'utiliser l'Application et supprimer son compte à tout moment. L'Éditeur peut suspendre ou résilier l'accès d'un Utilisateur en cas de manquement grave aux présentes CGU.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#00bcd4', fontSize: '1.15rem', marginBottom: '8px' }}>8. Droit Applicable et Juridiction</h3>
+                  <p style={{ margin: 0 }}>
+                    Les présentes CGU sont régies par le droit français. Tout litige relatif à leur interprétation ou exécution relève des tribunaux compétents du ressort du siège de l'Éditeur, sous réserve des règles impératives applicables aux consommateurs.
+                  </p>
+                </section>
+              </div>
+            </div>
+
+            {/* BLOC PARTIE 2 : EULA */}
+            <div style={{ borderTop: '2px solid #334155', paddingTop: '28px' }}>
+              <div style={{ display: 'inline-block', backgroundColor: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '4px 12px', borderRadius: '8px', color: '#38bdf8', fontWeight: 'bold', fontSize: '12px', textTransform: 'uppercase', marginBottom: '12px' }}>
+                Partie 2
+              </div>
+              <h2 style={{ color: '#ffffff', fontSize: '1.5rem', marginTop: 0, marginBottom: '8px' }}>
+                Contrat de Licence d'Utilisateur Final (EULA)
+              </h2>
+              <div style={{ color: '#94a3b8', fontSize: '13px', marginBottom: '18px' }}>
+                STANDARD END USER LICENSE AGREEMENT (EULA) — Applicable pour la distribution sur l'Apple App Store et le Google Play Store
+              </div>
+
+              <div style={{ display: 'grid', gap: '22px' }}>
+                <section>
+                  <h3 style={{ color: '#38bdf8', fontSize: '1.15rem', marginBottom: '8px' }}>1. Concession de Licence</h3>
+                  <p style={{ margin: 0 }}>
+                    L'Éditeur vous concède une licence personnelle, non exclusive, non transférable, révocable et limitée pour télécharger, installer et utiliser l'Application EcoNav sur des appareils mobiles compatibles dont vous êtes propriétaire ou détenteur légitime, uniquement pour votre usage personnel et non commercial, conformément aux règles d'usage des conditions de service de l'App Store d'Apple et de Google Play.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#38bdf8', fontSize: '1.15rem', marginBottom: '8px' }}>2. Restrictions d'Utilisation</h3>
+                  <p style={{ marginBottom: '8px' }}>Vous vous engagez expressément à ne pas :</p>
+                  <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                    <li>Décompiler, désosser, désassembler ou tenter de dériver le code source de l'Application ;</li>
+                    <li>Modifier, adapter, corriger ou créer des œuvres dérivées de l'Application ;</li>
+                    <li>Contourner ou tenter de contourner les mesures de sécurité, de vérification d'intégrité de l'appareil (SafeDevice, App Check) ou les systèmes de détection anti-fraude ;</li>
+                    <li>Utiliser des émulateurs, robots, outils de simulation GPS (« Fake GPS / Location Spoofing ») ou scripts automatisés pour générer des trajets fictifs ;</li>
+                    <li>Louer, prêter, sous-licencier, distribuer ou transférer l'Application à des tiers.</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#38bdf8', fontSize: '1.15rem', marginBottom: '8px' }}>3. Propriété Intellectuelle</h3>
+                  <p style={{ margin: 0 }}>
+                    L'Application, son interface visuelle, ses algorithmes cinématiques, ses marques, logos et contenus graphiques sont et demeurent la propriété exclusive de l'Éditeur et de ses concédants de licence. Aucun droit de propriété n'est transféré à l'Utilisateur en dehors de la licence d'utilisation concédée à l'article 1.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#38bdf8', fontSize: '1.15rem', marginBottom: '8px' }}>4. Absence de Garantie (Disclaimer of Warranties)</h3>
+                  <p style={{ margin: 0, textTransform: 'uppercase', fontSize: '13px', color: '#cbd5e1' }}>
+                    DANS TOUTE LA MESURE PERMISE PAR LA LOI APPLICABLE, L'APPLICATION EST FOURNIE « EN L'ÉTAT » ET « SELON DISPONIBILITÉ », AVEC TOUS SES DÉFAUTS ET SANS GARANTIE D'AUCUNE SORTE. L'ÉDITEUR DÉCLINE TOUTE GARANTIE EXPRESSE OU IMPLICITE CONCERNANT L'EXACTITUDE DES ITINÉRAIRES GPS, L'ESTIMATION DU TEMPS DE PARCOURS, LA CONTINUITÉ DE SERVICE OU L'ADÉQUATION À UN USAGE PARTICULIER.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#38bdf8', fontSize: '1.15rem', marginBottom: '8px' }}>5. Limitation de Responsabilité</h3>
+                  <p style={{ margin: 0, textTransform: 'uppercase', fontSize: '13px', color: '#cbd5e1' }}>
+                    DANS LES LIMITES LÉGALES, L'ÉDITEUR NE SAURAIT ÊTRE TENU RESPONSABLE DES DOMMAGES CORPORELS, ACCIDENTS DE LA CIRCULATION, DOMMAGES MATÉRIELS, PERTES DE PROFITS, PERTES DE DONNÉES OU DOMMAGES INDIRECTS RÉSULTANT DE L'UTILISATION OU DE L'IMPOSSIBILITÉ D'UTILISER L'APPLICATION, MÊME SI L'ÉDITEUR AVAIT ÉTÉ INFORMÉ DE LA POSSIBILITÉ DE TELS DOMMAGES.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#38bdf8', fontSize: '1.15rem', marginBottom: '8px' }}>6. Achats In-App et Conditions des Plateformes Tierces (Apple App Store)</h3>
+                  <p style={{ marginBottom: '8px' }}>Si vous avez téléchargé l'Application depuis l'App Store d'Apple :</p>
+                  <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                    <li>Vous reconnaissez que le présent contrat EULA est conclu entre vous et l'Éditeur uniquement, et non avec Apple Inc. Apple n'assume aucune responsabilité quant à l'Application ou son contenu.</li>
+                    <li>En cas de non-conformité de l'Application avec une garantie applicable, vous pouvez en informer Apple, qui pourra rembourser le prix d'achat in-app éventuel selon ses propres politiques. Apple n'a aucune autre obligation de maintenance ou de support envers l'Application.</li>
+                    <li>Apple et ses filiales sont des tiers bénéficiaires du présent contrat EULA et ont le droit de le faire appliquer à votre encontre.</li>
+                    <li>Gestion des abonnements Apple ID : modifiables à tout moment sur <a href="https://apps.apple.com/account/subscriptions" target="_blank" rel="noopener noreferrer" style={{ color: '#38bdf8' }}>https://apps.apple.com/account/subscriptions</a>.</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 style={{ color: '#38bdf8', fontSize: '1.15rem', marginBottom: '8px' }}>7. Résiliation de Licence</h3>
+                  <p style={{ margin: 0 }}>
+                    La licence est effective jusqu'à sa résiliation par vous ou par l'Éditeur. Vos droits au titre de cette licence prendront fin automatiquement et sans préavis si vous ne respectez pas l'une des stipulations du présent contrat. Dès résiliation, vous devez cesser toute utilisation de l'Application et la désinstaller de tous vos appareils.
+                  </p>
+                </section>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Boutons d'action */}
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/walkmoney/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#00bcd4' }}>
+              Voir la Politique de Confidentialité →
+            </Link>
+            <Link to="/walkmoney" style={btnOutlineStyle}>
+              Retour à EcoNav
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
 // 📄 PAGES LÉGALES PAR APPLICATION
 // ==========================================
 const legalApps = {
   walkmoney: {
-    name: 'WalkMoney',
-    label: 'WalkMoney - Espace Pro',
+    name: 'EcoNav / WalkMoney',
+    label: 'EcoNav / WalkMoney (Navigation & Récompenses)',
+    color: '#00bcd4'
+  },
+  econav: {
+    name: 'EcoNav',
+    label: 'EcoNav (WalkMoney)',
     color: '#00bcd4'
   },
   daytalia: {
@@ -1694,6 +2404,11 @@ function LegalPage({ type }) {
   // Si l'application demandée est QuizBot ou QuizQI, afficher les documents juridiques officiels complets
   if (appSlug === 'quizbot' || appSlug === 'quizqi') {
     return type === 'privacy' ? <QuizBotPrivacyPolicyPage /> : <QuizBotTermsOfServicePage />;
+  }
+
+  // Si l'application demandée est WalkMoney ou EcoNav, afficher les documents juridiques officiels complets
+  if (appSlug === 'walkmoney' || appSlug === 'econav') {
+    return type === 'privacy' ? <WalkMoneyPrivacyPolicyPage /> : <WalkMoneyTermsOfServicePage />;
   }
 
   const appInfo = legalApps[appSlug] || legalApps.walkmoney;
@@ -1765,10 +2480,10 @@ function LegalIndexPage({ type }) {
               <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
                 <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
+                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
                     Confidentialité
                   </Link>
-                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
+                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
                     Conditions d’utilisation
                   </Link>
                 </div>
@@ -1787,8 +2502,8 @@ function SiteFooter() {
       <div style={siteFooterInnerStyle}>
         <div style={{ color: '#cbd5e1' }}>© 2026 Parrel Studio</div>
         <div style={siteFooterLinksStyle}>
-          <Link to="/privacy" style={siteFooterLinkStyle}>Politique de confidentialité</Link>
-          <Link to="/terms" style={siteFooterLinkStyle}>Conditions Générales (EULA)</Link>
+          <Link to="/legal/politique-de-confidentialite" style={siteFooterLinkStyle}>Politiques de confidentialité</Link>
+          <Link to="/legal/conditions-dutilisation" style={siteFooterLinkStyle}>Conditions Générales (EULA)</Link>
         </div>
       </div>
     </footer>
@@ -2624,6 +3339,17 @@ function App() {
           <Route path="edit-store/:storeId" element={<EditStorePage user={user} />} />
           <Route path="stats/:storeId" element={<StoreStatsPage user={user} />} />
         </Route>
+        <Route path="/econav" element={<Navigate to="/walkmoney" replace />} />
+        <Route path="/walkmoney/privacy" element={<WalkMoneyPrivacyPolicyPage />} />
+        <Route path="/walkmoney/terms" element={<WalkMoneyTermsOfServicePage />} />
+        <Route path="/walkmoney/eula" element={<WalkMoneyTermsOfServicePage />} />
+        <Route path="/walkmoney/politique-de-confidentialite" element={<WalkMoneyPrivacyPolicyPage />} />
+        <Route path="/walkmoney/conditions-dutilisation" element={<WalkMoneyTermsOfServicePage />} />
+        <Route path="/econav/privacy" element={<WalkMoneyPrivacyPolicyPage />} />
+        <Route path="/econav/terms" element={<WalkMoneyTermsOfServicePage />} />
+        <Route path="/econav/eula" element={<WalkMoneyTermsOfServicePage />} />
+        <Route path="/econav/politique-de-confidentialite" element={<WalkMoneyPrivacyPolicyPage />} />
+        <Route path="/econav/conditions-dutilisation" element={<WalkMoneyTermsOfServicePage />} />
         <Route path="/daytalia" element={<DaytaliaPage />} />
         <Route path="/quizbot" element={<QuizBotPage />} />
         <Route path="/quizqi" element={<QuizBotPage />} />
