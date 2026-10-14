@@ -136,13 +136,20 @@ function Home({ user }) {
             </Link>
           </div>
 
+          <div className="app-card" style={{ border: '1px solid #f59e0b' }}>
+            <h3 style={{ color: '#f59e0b' }}>Playfun</h3>
+            <span className="tag" style={{ backgroundColor: '#f59e0b', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>+35 Jeux de Soirée • Visio &amp; IA</span>
+            <p style={{ marginTop: '15px', marginBottom: '20px' }}>
+              Transformez n’importe quel moment entre amis en soirée mémorable ! Plus de 35 jeux cultes (Loup-Garou, Uno, Blanc Manger Coco, Poker...), visio/vocal en direct et thèmes générés par IA.
+            </p>
+            <Link to="/playfun" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#f59e0b' }}>
+              Ouvrir Playfun
+            </Link>
+          </div>
+
           <div className="app-card">
             <h3>ProjetCalo</h3>
             <p>Nutrition et fitness personnalisés via IA.</p>
-          </div>
-          <div className="app-card">
-            <h3>Playfun</h3>
-            <p>+20 jeux de soirée multijoueur.</p>
           </div>
         </div>
       </section>
@@ -2755,6 +2762,750 @@ function GeoHuntTermsOfServicePage() {
 }
 
 // ==========================================
+// 🥳 PLAYFUN - PRÉSENTATION MARKETING & APP SHOWCASE
+// ==========================================
+function PlayfunPage() {
+  const [storeNotice, setStoreNotice] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(0);
+
+  const handleStoreClick = (storeName) => {
+    setStoreNotice(`Playfun sera prochainement disponible en téléchargement direct sur ${storeName}. Préparez vos soirées et vos amis !`);
+    setTimeout(() => setStoreNotice(''), 5000);
+  };
+
+  const gameCategories = [
+    {
+      name: 'Déduction & Bluff',
+      icon: '🕵️',
+      color: '#ef4444',
+      desc: 'Démasquez les imposteurs et mentez avec panache.',
+      games: [
+        'Loup-Garou (+20 rôles : Loup Blanc, Pyromancien, Dictateur, Rat Malade…)',
+        'Infiltré & Mr. White (Undercover)',
+        'Le Menteur',
+        'Skull'
+      ]
+    },
+    {
+      name: 'Cartes & Stratégie',
+      icon: '🃏',
+      color: '#3b82f6',
+      desc: 'Défiez la chance et calculez chaque coup.',
+      games: [
+        'Uno',
+        'Président',
+        'Poker Texas Hold\'em',
+        'Zéro Pointé (Skyjo)',
+        'Mille Bornes',
+        'Rami & Belote',
+        'Big Two & Zombie!'
+      ]
+    },
+    {
+      name: 'Plateau & Réflexion',
+      icon: '♟️',
+      color: '#10b981',
+      desc: 'Les grands classiques du jeu de société réinventés.',
+      games: [
+        'Petits Chevaux (Classique ou 2v2)',
+        'Blokus',
+        'Yams',
+        'Dominos',
+        'Bataille Navale',
+        'Jeu de Dames'
+      ]
+    },
+    {
+      name: 'Dessin, Mots & Rapidité',
+      icon: '🎨',
+      color: '#8b5cf6',
+      desc: 'Faites preuve de créativité et de réactivité.',
+      games: [
+        'Pictionary & Gribouillis (Téléphone Arabe illustré)',
+        'Time\'s Up & Codenames',
+        'Taboo & Just One',
+        'Petit Bac & Devine Tête (gyroscope)',
+        'Dobble & Cadavre Exquis'
+      ]
+    },
+    {
+      name: 'Ambiance & Soirée',
+      icon: '🎉',
+      color: '#f59e0b',
+      desc: 'Fous rires garantis autour d\'un verre ou en ligne.',
+      games: [
+        'Blanc Manger Coco',
+        'Photo Roulette (photos éphémères)',
+        'Action ou Vérité',
+        'Qui Pourrait le Plus ?',
+        'Le Roi des Mèmes & Le Juge',
+        'La Patate Chaude, Le Dilemme & Jeu de la Pièce'
+      ]
+    }
+  ];
+
+  const exclusiveFeatures = [
+    {
+      icon: '📹',
+      title: 'Visio & Vocal en Direct (LiveKit)',
+      desc: 'Voyez les réactions en direct de vos amis, lisez leurs expressions en plein bluff et débattez en temps réel grâce au flux audio/vidéo chiffré intégré.'
+    },
+    {
+      icon: '🤖',
+      title: 'Générateur de Thèmes par IA (VIP)',
+      desc: 'Créez vos propres listes de mots, cartes Taboo ou questions personnalisées en 3 secondes grâce à l\'IA (« Harry Potter », « Années 90 », « Anecdotes de bureau »…).'
+    },
+    {
+      icon: '🏆',
+      title: 'Matchmaking Mondial & +100 Badges',
+      desc: 'Rejoignez des joueurs du monde entier, grimpez en niveaux, accumulez de l\'XP et débloquez une immense collection de badges de maîtrise.'
+    },
+    {
+      icon: '🧠',
+      title: 'IA Anti-Blocage Intelligente',
+      desc: 'Un ami doit s\'absenter ou perd sa connexion ? L\'ordinateur (IA) prend automatiquement le relais pour que la partie ne soit jamais interrompue.'
+    }
+  ];
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
+
+        {/* Navigation retour */}
+        <div style={{ marginBottom: '20px' }}>
+          <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
+            ← Retour aux applications Parrel
+          </Link>
+        </div>
+
+        {/* HERO SECTION MARKETING */}
+        <div style={{ marginBottom: '36px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(245, 158, 11, 0.15)', border: '1px solid rgba(245, 158, 11, 0.35)', padding: '6px 14px', borderRadius: '999px', marginBottom: '16px' }}>
+            <span style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '13px' }}>🥳 Playfun • Jeux de Soirée &amp; Société entre Amis</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '0', marginBottom: '14px', fontSize: 'clamp(1.9rem, 4.2vw, 2.85rem)', lineHeight: 1.25, fontWeight: 800 }}>
+            Playfun : L'Application Ultime de Soirée
+          </h1>
+
+          <div style={{ color: '#fbbf24', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '16px', letterSpacing: '0.02em' }}>
+            +35 jeux cultes en local ou en ligne avec vidéo, salons et thèmes IA !
+          </div>
+
+          <p style={{ color: '#cbd5e1', fontSize: '1.18rem', lineHeight: 1.65, maxWidth: '900px', margin: '0 0 28px 0' }}>
+            Transformez n’importe quel moment entre amis, en famille ou à distance en une soirée mémorable ! <strong style={{ color: '#ffffff' }}>Playfun (Jeu de Soirée)</strong> réunit plus de 35 jeux de société, de cartes, de bluff, de dessin et d'ambiance dans une seule application ultra-complète, jouable aussi bien autour d'une table (sur un seul téléphone) qu'en multijoueur en ligne avec chat vidéo et vocal intégré.
+          </p>
+
+          {/* BADGES MODES DE JEU */}
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '22px' }}>
+            <span style={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '6px 14px', borderRadius: '999px', fontSize: '13px', fontWeight: 'bold' }}>
+              📱 Autour d'un seul téléphone
+            </span>
+            <span style={{ backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '6px 14px', borderRadius: '999px', fontSize: '13px', fontWeight: 'bold' }}>
+              🌐 Multijoueur en ligne
+            </span>
+            <span style={{ backgroundColor: 'rgba(236, 72, 153, 0.15)', color: '#f472b6', border: '1px solid rgba(236, 72, 153, 0.3)', padding: '6px 14px', borderRadius: '999px', fontSize: '13px', fontWeight: 'bold' }}>
+              📹 Visio &amp; Vocal LiveKit
+            </span>
+            <span style={{ backgroundColor: 'rgba(139, 92, 246, 0.15)', color: '#a78bfa', border: '1px solid rgba(139, 92, 246, 0.3)', padding: '6px 14px', borderRadius: '999px', fontSize: '13px', fontWeight: 'bold' }}>
+              ✨ Générateur de thèmes IA
+            </span>
+          </div>
+
+          {/* BOUTONS TELECHARGEMENT STORES */}
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '22px' }}>
+
+            {/* Bouton Google Play */}
+            <button
+              type="button"
+              onClick={() => handleStoreClick('Google Play')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                backgroundColor: '#050811',
+                color: '#ffffff',
+                padding: '12px 24px',
+                borderRadius: '14px',
+                border: '1px solid #475569',
+                cursor: 'pointer',
+                textAlign: 'left',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f59e0b'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <path d="M3.609 1.814L13.793 12 3.61 22.185A2.32 2.32 0 0 1 3 20.573V3.427c0-.623.23-1.192.609-1.613z" fill="#00C1A6" />
+                <path d="M17.202 8.59L13.793 12l3.41 3.41 3.865-2.222c.907-.521.907-1.854 0-2.376L17.202 8.59z" fill="#FFD100" />
+                <path d="M3.609 1.814L13.793 12l3.409-3.41-11.41-6.559c-.569-.327-1.22-.327-1.792.007l6.009 6.009z" fill="#00A0FF" />
+                <path d="M13.793 12L3.609 22.186c.572.334 1.223.334 1.792.007l11.41-6.559-3.018-3.634z" fill="#FF3333" />
+              </svg>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Disponible sur</div>
+                <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>Google Play</div>
+              </div>
+            </button>
+
+            {/* Bouton Apple App Store */}
+            <button
+              type="button"
+              onClick={() => handleStoreClick("l'App Store")}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                backgroundColor: '#050811',
+                color: '#ffffff',
+                padding: '12px 24px',
+                borderRadius: '14px',
+                border: '1px solid #475569',
+                cursor: 'pointer',
+                textAlign: 'left',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f59e0b'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.05-.52 2.67-1.27z" />
+              </svg>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Télécharger dans l'</div>
+                <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>App Store</div>
+              </div>
+            </button>
+
+          </div>
+
+          {storeNotice && (
+            <div style={{ backgroundColor: 'rgba(245, 158, 11, 0.15)', border: '1px solid rgba(245, 158, 11, 0.4)', borderRadius: '10px', padding: '12px 18px', color: '#fde68a', fontSize: '14px', maxWidth: '640px', marginBottom: '20px' }}>
+              ℹ️ {storeNotice}
+            </div>
+          )}
+        </div>
+
+        {/* SECTION 1 : LE CATALOGUE GÉANT DE +35 JEUX */}
+        <div style={{
+          backgroundColor: '#1e293b',
+          borderRadius: '20px',
+          padding: '32px',
+          border: '1px solid rgba(245, 158, 11, 0.35)',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+          marginBottom: '36px',
+        }}>
+          <h2 style={{ color: '#ffffff', marginTop: 0, marginBottom: '8px', fontSize: '1.6rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>🎮</span> Un Catalogue Géant de +35 Jeux Inclus
+          </h2>
+          <p style={{ color: '#cbd5e1', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: '22px' }}>
+            Explorez les 5 grandes catégories pour animer vos apéros, vos soirées étudiantes ou vos week-ends en famille :
+          </p>
+
+          {/* Onglets de sélection de catégorie */}
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px' }}>
+            {gameCategories.map((cat, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setSelectedCategory(idx)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '8px 16px',
+                  borderRadius: '999px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                  backgroundColor: selectedCategory === idx ? cat.color : '#0f172a',
+                  color: selectedCategory === idx ? '#ffffff' : '#94a3b8',
+                  transition: 'all 0.2s ease',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: selectedCategory === idx ? cat.color : '#334155'
+                }}
+              >
+                <span>{cat.icon}</span>
+                <span>{cat.name}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Contenu de la catégorie sélectionnée */}
+          <div style={{
+            backgroundColor: '#0f172a',
+            padding: '26px',
+            borderRadius: '16px',
+            border: `1px solid ${gameCategories[selectedCategory].color}40`,
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+              <span style={{ fontSize: '32px' }}>{gameCategories[selectedCategory].icon}</span>
+              <div>
+                <h3 style={{ color: gameCategories[selectedCategory].color, margin: 0, fontSize: '1.35rem' }}>
+                  {gameCategories[selectedCategory].name}
+                </h3>
+                <div style={{ color: '#94a3b8', fontSize: '0.92rem' }}>{gameCategories[selectedCategory].desc}</div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '18px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
+              {gameCategories[selectedCategory].games.map((game, gIdx) => (
+                <div key={gIdx} style={{
+                  backgroundColor: '#1e293b',
+                  padding: '14px 18px',
+                  borderRadius: '10px',
+                  border: '1px solid #334155',
+                  color: '#ffffff',
+                  fontSize: '0.96rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px'
+                }}>
+                  <span style={{ color: gameCategories[selectedCategory].color }}>✦</span>
+                  <span>{game}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 2 : FONCTIONNALITÉS EXCLUSIVES */}
+        <div style={{ marginBottom: '36px' }}>
+          <h2 style={{ color: 'white', marginBottom: '10px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>✨</span> Fonctionnalités Exclusives
+          </h2>
+          <p style={{ color: '#94a3b8', margin: '0 0 22px 0', fontSize: '1.05rem' }}>
+            Une expérience connectée pensée pour maximiser les rires et supprimer toutes les contraintes techniques :
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+            {exclusiveFeatures.map((feat, idx) => (
+              <div key={idx} style={{ backgroundColor: '#1e293b', borderRadius: '16px', padding: '24px', border: '1px solid #334155', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ fontSize: '32px' }}>{feat.icon}</div>
+                <h3 style={{ color: '#fbbf24', margin: 0, fontSize: '1.2rem' }}>{feat.title}</h3>
+                <p style={{ color: '#cbd5e1', margin: 0, fontSize: '0.94rem', lineHeight: 1.6 }}>{feat.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* SECTION 3 : NIVEAUX DE DIFFICULTÉ ET AMBIANCE */}
+        <div style={{
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '20px',
+          padding: '30px',
+          marginBottom: '36px'
+        }}>
+          <h2 style={{ color: '#ffffff', marginTop: 0, marginBottom: '12px', fontSize: '1.45rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>🎯</span> Modes de Difficulté Adaptés à Tous les Publics
+          </h2>
+          <p style={{ color: '#cbd5e1', marginBottom: '20px', fontSize: '1.02rem', lineHeight: 1.65 }}>
+            Choisissez en un clic l'intensité des questions et des gages selon les joueurs présents :
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+            <div style={{ backgroundColor: '#1e293b', padding: '18px', borderRadius: '12px', border: '1px solid rgba(34, 197, 94, 0.4)' }}>
+              <div style={{ color: '#22c55e', fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '6px' }}>🟢 Mode Soft</div>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
+                Parfait pour jouer en famille ou avec des plus jeunes. Questions bienveillantes, gages légers et culture pop.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', padding: '18px', borderRadius: '12px', border: '1px solid rgba(245, 158, 11, 0.4)' }}>
+              <div style={{ color: '#fbbf24', fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '6px' }}>🟡 Mode Hard</div>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
+                Pour les soirées entre amis où tout le monde se connaît bien. Révélations croustillantes et débats enflammés.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', padding: '18px', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.4)' }}>
+              <div style={{ color: '#ef4444', fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '6px' }}>🔴 Mode Hardcore (16+)</div>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
+                Humour noir, second degré piquant et vérités sans filtre. Réservé aux joueurs majeurs ou avertis.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION DOCUMENTS LÉGAUX ET CONFIDENTIALITÉ */}
+        <div style={{
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '18px',
+          padding: '26px 30px',
+          marginBottom: '40px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '20px',
+        }}>
+          <div>
+            <h3 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1.2rem' }}>
+              🛡️ Protection des Données, Visio &amp; Modération UGC
+            </h3>
+            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem', maxWidth: '600px' }}>
+              Consultez nos documents juridiques rédigés sur mesure pour Playfun en conformité avec le RGPD (flux vidéo non enregistrés, suppression instantanée des photos Photo Roulette) et les exigences Apple App Store / Google Play.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <Link to="/playfun/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#f59e0b', color: '#ffffff' }}>
+              Politique de Confidentialité
+            </Link>
+            <Link to="/playfun/terms" style={{ ...btnOutlineStyle, borderColor: '#f59e0b', color: '#f59e0b' }}>
+              Conditions Générales (CGU / EULA)
+            </Link>
+          </div>
+        </div>
+
+        {/* SECTION FOOTER DE L'APPLI */}
+        <div style={{
+          borderTop: '1px solid #334155',
+          paddingTop: '24px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '14px',
+          color: '#94a3b8',
+          fontSize: '13px'
+        }}>
+          <div>
+            Application <strong style={{ color: '#ffffff' }}>Playfun</strong> (Jeu de Soirée) • Édité par Parrel Studio
+          </div>
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <a href="mailto:support.parrel@gmail.com" style={{ color: '#fbbf24', textDecoration: 'none' }}>
+              Assistance : support.parrel@gmail.com
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 🔒 PAGE : POLITIQUE DE CONFIDENTIALITÉ — PLAYFUN (/playfun/privacy)
+// ==========================================
+function PlayfunPrivacyPolicyPage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/playfun" style={{ color: '#f59e0b', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à Playfun
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#f59e0b', color: 'white' }}>Playfun</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#22c55e', border: '1px solid rgba(34, 197, 94, 0.3)' }}>Conformité RGPD &amp; Flux Multimédia</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Politique de Confidentialité — Jeu de Soirée / Playfun
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            Dernière mise à jour : 14 octobre 2026 • Application : Playfun (Jeu de Soirée) • Éditeur : Parrel
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> Jeu de Soirée / Playfun</div>
+            <div><strong style={{ color: '#ffffff' }}>Éditeur :</strong> Parrel (Corentin Parrel, France)</div>
+            <div><strong style={{ color: '#ffffff' }}>URL officielle HTTPS :</strong> <a href="https://parrel.vercel.app/playfun/privacy" style={{ color: '#fbbf24', textDecoration: 'none' }}>https://parrel.vercel.app/playfun/privacy</a></div>
+            <div><strong style={{ color: '#ffffff' }}>Contact DPO / Support :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#fbbf24', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
+          </div>
+
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
+            La présente Politique de Confidentialité détaille la manière dont <strong>Parrel</strong> (« nous ») collecte, utilise et protège vos données personnelles au sein de l'application <strong>Jeu de Soirée / Playfun</strong>.
+          </p>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+
+            {/* 1. Données Collectées */}
+            <section>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>1. Données Collectées</h2>
+              <p style={{ marginBottom: '10px' }}>
+                Dans le cadre du fonctionnement de l'Application, nous collectons uniquement les données strictement nécessaires :
+              </p>
+              <ol style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Données de compte et d'authentification :</strong> Identifiant unique (UID Firebase), adresse e-mail (si connexion par e-mail / Google / Apple) et pseudonyme choisi par l'Utilisateur.
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Données de progression et sociales :</strong> Niveau, points d'expérience (XP), pièces virtuelles, badges débloqués, statistiques de jeu, liste d'amis et historique de thèmes IA enregistrés.
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Données multimédias temporaires (avec votre permission explicite) :</strong>
+                  <ul style={{ margin: '6px 0 6px 20px', color: '#94a3b8' }}>
+                    <li><strong style={{ color: '#ffffff' }}>Caméra et Microphone :</strong> Utilisés uniquement lorsque vous activez volontairement l'audio ou la vidéo dans une partie ou un salon. Les flux sont transmis en direct (via LiveKit) et <span style={{ color: '#22c55e', fontWeight: 'bold' }}>ne sont jamais enregistrés sur nos serveurs</span>.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Galerie Photos (Jeu Photo Roulette) :</strong> Lorsque vous participez à une partie de Photo Roulette, seules les photos que vous sélectionnez sont téléversées temporairement dans un dossier dédié à la partie (via Supabase Storage). <span style={{ color: '#22c55e', fontWeight: 'bold' }}>Ces photos sont automatiquement et définitivement supprimées dès la fin de la partie</span> ou le retour au salon.</li>
+                    <li><strong style={{ color: '#ffffff' }}>Capteurs de mouvement (Accéléromètre/Gyroscope) :</strong> Utilisés localement sur votre appareil pour détecter l'inclinaison du téléphone dans le jeu « Devine Tête ».</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Notifications Push :</strong> Jeton Firebase Cloud Messaging (FCM) pour vous envoyer des invitations de jeu ou des demandes d'amis.
+                </li>
+              </ol>
+            </section>
+
+            {/* 2. Finalités du Traitement */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>2. Finalités du Traitement</h2>
+              <p style={{ marginBottom: '10px' }}>Vos données sont utilisées exclusivement pour :</p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Assurer le fonctionnement du multijoueur en temps réel, du matchmaking et de la sauvegarde de votre progression ;</li>
+                <li>Permettre la communication audio/vidéo et le système d'amis / invitations ;</li>
+                <li>Générer des listes de mots personnalisées via notre prestataire d'IA ;</li>
+                <li>Garantir la sécurité des parties et prévenir la triche ou les abus.</li>
+              </ul>
+            </section>
+
+            {/* 3. Sous-traitants et Services Tiers */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>3. Sous-traitants et Services Tiers</h2>
+              <p style={{ marginBottom: '12px' }}>
+                Nous ne vendons jamais vos données à des tiers. Nous nous appuyons sur des infrastructures sécurisées conformes aux standards internationaux :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Google Firebase (Authentication, Firestore, Realtime Database, Cloud Functions, FCM) :</strong> Hébergement des comptes, états de parties et notifications.</li>
+                <li><strong style={{ color: '#ffffff' }}>Supabase Storage :</strong> Hébergement éphémère des images de jeu (supprimées en fin de partie).</li>
+                <li><strong style={{ color: '#ffffff' }}>LiveKit Cloud :</strong> Routage chiffré des flux audio et vidéo en temps réel.</li>
+                <li><strong style={{ color: '#ffffff' }}>SiliconFlow (Modèle Qwen) :</strong> Traitement des instructions textuelles (« prompts ») pour la génération de mots par IA (aucune donnée personnelle n'est transmise au modèle).</li>
+              </ul>
+            </section>
+
+            {/* 4. Durée de Conservation et Suppression Automatique */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>4. Durée de Conservation et Suppression Automatique</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Photos de jeu :</strong> Supprimées immédiatement à la clôture de la partie.</li>
+                <li><strong style={{ color: '#ffffff' }}>Salons et Parties terminées :</strong> Nettoyés et purgés automatiquement de nos serveurs toutes les 24 à 48 heures.</li>
+                <li><strong style={{ color: '#ffffff' }}>Compte Utilisateur :</strong> Conservé tant que votre compte est actif. Vous pouvez demander la suppression totale de votre compte et de vos données à tout moment depuis l'Application ou par e-mail.</li>
+              </ul>
+            </section>
+
+            {/* 5. Vos Droits (RGPD) */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>5. Vos Droits (RGPD)</h2>
+              <p style={{ margin: '0 0 10px 0' }}>
+                Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation et de portabilité de vos données.
+              </p>
+              <p style={{ margin: 0 }}>
+                Pour exercer vos droits ou demander la suppression de votre compte, contactez-nous à : <a href="mailto:support.parrel@gmail.com" style={{ color: '#fbbf24', textDecoration: 'none' }}>support.parrel@gmail.com</a>.
+              </p>
+            </section>
+
+          </div>
+
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/playfun/terms" style={{ ...btnPrimaryStyle, backgroundColor: '#f59e0b' }}>
+              Voir les Conditions Générales (CGU / EULA) →
+            </Link>
+            <Link to="/" style={btnOutlineStyle}>
+              Retour à l’accueil
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 📜 PAGE : CONDITIONS GÉNÉRALES & EULA — PLAYFUN (/playfun/terms)
+// ==========================================
+function PlayfunTermsOfServicePage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/playfun" style={{ color: '#f59e0b', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à Playfun
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#f59e0b', color: 'white' }}>Playfun</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>Contrat EULA &amp; CGU</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Conditions Générales d’Utilisation et Contrat de Licence d'Utilisateur Final (CLUF / EULA) — Playfun
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            Dernière mise à jour : 14 octobre 2026 • Application : Jeu de Soirée / Playfun • Éditeur : Parrel
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> Jeu de Soirée / Playfun</div>
+            <div><strong style={{ color: '#ffffff' }}>Éditeur :</strong> Parrel (Corentin Parrel, France)</div>
+            <div><strong style={{ color: '#ffffff' }}>URL officielle HTTPS :</strong> <a href="https://parrel.vercel.app/playfun/terms" style={{ color: '#fbbf24', textDecoration: 'none' }}>https://parrel.vercel.app/playfun/terms</a></div>
+            <div><strong style={{ color: '#ffffff' }}>EULA Standard Apple :</strong> <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer" style={{ color: '#fde68a', textDecoration: 'underline' }}>Apple Licensed Application End User License Agreement</a></div>
+            <div><strong style={{ color: '#ffffff' }}>Contact Support :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#fbbf24', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
+          </div>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+
+            {/* 1. Objet et Acceptation */}
+            <section>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                1. Objet et Acceptation
+              </h2>
+              <p style={{ margin: '0 0 10px 0' }}>
+                Les présentes Conditions Générales d’Utilisation et Contrat de Licence d’Utilisateur Final (ci-après « CGU / EULA ») régissent l'accès et l'utilisation de l'application mobile <strong>Jeu de Soirée / Playfun</strong> (ci-après « l'Application »), éditée par <strong>Parrel</strong> (Corentin Parrel, résidant en France, contact : support.parrel@gmail.com).
+              </p>
+              <p style={{ margin: 0 }}>
+                En créant un compte ou en utilisant l'Application, l'Utilisateur reconnaît avoir lu, compris et accepté sans réserve les présentes CGU / EULA. Si vous n'acceptez pas ces conditions, vous ne devez pas utiliser l'Application.
+              </p>
+            </section>
+
+            {/* 2. Licence d'Utilisation (EULA) */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                2. Licence d'Utilisation (EULA)
+              </h2>
+              <p style={{ margin: 0 }}>
+                L'Éditeur concède à l'Utilisateur une licence personnelle, non exclusive, non transférable et révocable d'utiliser l'Application sur tout appareil compatible dont il est propriétaire ou qu'il contrôle, uniquement pour un usage privé et non commercial. Toute rétro-ingénierie, décompilation, modification ou exploitation commerciale du code source est strictement interdite.
+              </p>
+            </section>
+
+            {/* 3. Accès, Âge Minimum et Niveaux de Difficulté */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                3. Accès, Âge Minimum et Niveaux de Difficulté
+              </h2>
+              <p style={{ margin: 0 }}>
+                L'Application propose différents modes de difficulté (« Soft », « Hard », « Hardcore »). Certains contenus (notamment le mode « Hardcore » ou certains jeux d'ambiance) comportent de l'humour adulte ou second degré. L'utilisation de ces modes est réservée aux personnes majeures ou âgées d'au moins 16 ans. L'Utilisateur s'engage à choisir un mode adapté aux participants présents.
+              </p>
+            </section>
+
+            {/* 4. Contenus Générés par les Utilisateurs (UGC) et Modération */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                4. Contenus Générés par les Utilisateurs (UGC) et Modération (Exigence App Store / Play Store)
+              </h2>
+              <p style={{ marginBottom: '10px' }}>
+                L'Application permet aux Utilisateurs d'interagir via :
+              </p>
+              <ul style={{ margin: '0 0 14px 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Des messages texte (chat de salon et de partie) ;</li>
+                <li>Des réponses textuelles, anecdotes et dessins en jeu (Pictionary, Gribouillis, Cadavre Exquis) ;</li>
+                <li>Des photos partagées volontairement depuis leur galerie (mode Photo Roulette) ;</li>
+                <li>Des flux audio et vidéo en temps réel.</li>
+              </ul>
+              <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.35)', padding: '16px', borderRadius: '12px', marginBottom: '14px' }}>
+                <strong style={{ color: '#f87171' }}>Politique de Tolérance Zéro :</strong>
+                <p style={{ margin: '8px 0 0 0', color: '#fecaca', fontSize: '0.94rem' }}>
+                  L'Utilisateur est seul responsable des contenus qu'il diffuse. Il est strictement interdit de publier, dessiner, partager ou diffuser tout contenu diffamatoire, injurieux, harcelant, raciste, xénophobe, homophobe, pornographique, sexuellement explicite, violant le droit à l'image ou la vie privée d'autrui (notamment dans Photo Roulette) ou encourageant des actes illégaux.
+                </p>
+              </div>
+              <p style={{ margin: 0 }}>
+                En cas de violation, l'Éditeur se réserve le droit de suspendre ou supprimer définitivement le compte de l'Utilisateur, sans préavis ni remboursement. Des outils de signalement et de blocage sont mis à disposition des joueurs dans chaque salon.
+              </p>
+            </section>
+
+            {/* 5. Intelligence Artificielle (IA) */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                5. Intelligence Artificielle (IA)
+              </h2>
+              <p style={{ margin: 0 }}>
+                Certaines fonctionnalités permettent de générer des mots ou des thèmes via un modèle d'intelligence artificielle tiers. L'Utilisateur s'interdit de soumettre des instructions (« prompts ») contraires à l'ordre public ou aux présentes CGU.
+              </p>
+            </section>
+
+            {/* 6. Monnaie Virtuelle, XP et Abonnement VIP Premium */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                6. Monnaie Virtuelle, XP et Abonnement VIP Premium
+              </h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Pièces et XP :</strong> Les pièces virtuelles, niveaux et badges acquis dans l'Application n'ont aucune valeur monétaire réelle et ne peuvent faire l'objet d'aucun échange ou remboursement en devise réelle.</li>
+                <li><strong style={{ color: '#ffffff' }}>Abonnement VIP Premium :</strong> L'Application propose un abonnement optionnel débloquant des avantages (parties illimitées, génération IA, salons vidéo illimités). Les paiements et renouvellements sont gérés directement par les plateformes d'achat (Google Play Store ou Apple App Store) selon leurs propres conditions. L'Utilisateur peut gérer ou résilier son abonnement à tout moment depuis les paramètres de son compte Store.</li>
+              </ul>
+            </section>
+
+            {/* 7. Responsabilité et Disponibilité */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                7. Responsabilité et Disponibilité
+              </h2>
+              <p style={{ margin: 0 }}>
+                L'Application est fournie « en l'état ». L'Éditeur s'efforce d'assurer la disponibilité des serveurs mais ne saurait être tenu responsable des interruptions de réseau, pertes de connexion ou dommages indirects liés à l'utilisation de l'Application (y compris lors de la réalisation de défis physiques proposés dans des jeux comme Action ou Vérité ou La Patate Chaude, que les joueurs sont toujours libres de refuser).
+              </p>
+            </section>
+
+            {/* 8. Droit Applicable et Litiges */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                8. Droit Applicable et Litiges
+              </h2>
+              <p style={{ margin: 0 }}>
+                Les présentes CGU / EULA sont soumises au droit français. En cas de litige, une solution amiable sera recherchée avant toute action devant les tribunaux compétents.
+              </p>
+            </section>
+
+            {/* 9. Dispositions Spécifiques Apple App Store EULA */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#f59e0b', fontSize: '1.25rem', marginBottom: '12px' }}>
+                9. Mentions Obligatoires Apple (EULA App Store)
+              </h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Parties au Contrat :</strong> Le présent contrat (EULA) est conclu exclusivement entre vous et Parrel, et non avec Apple Inc. Parrel est seul responsable de l'Application Playfun et de son contenu.</li>
+                <li><strong style={{ color: '#ffffff' }}>Portée de la Licence :</strong> La licence concédée pour Playfun est limitée à une licence non transférable d'utilisation sur tout appareil de marque Apple (iPhone, iPad) que vous possédez ou contrôlez.</li>
+                <li><strong style={{ color: '#ffffff' }}>Maintenance et Assistance :</strong> Parrel est seul responsable de la fourniture des services de maintenance et d'assistance relatifs à Playfun. Apple n'a aucune obligation de maintenance ou d'assistance.</li>
+                <li><strong style={{ color: '#ffffff' }}>Garantie :</strong> En cas de défaut de conformité de Playfun avec toute garantie légale applicable, vous pouvez en informer Apple, qui pourra rembourser le prix d'achat payé sur l'App Store. Dans toute la mesure permise par le droit applicable, Apple n'aura aucune autre obligation de garantie.</li>
+                <li><strong style={{ color: '#ffffff' }}>Tiers Bénéficiaire Apple :</strong> Vous reconnaissez et acceptez qu'Apple et ses filiales sont des tiers bénéficiaires des présentes CGU / EULA et qu'Apple a le droit de faire appliquer ces conditions à votre encontre.</li>
+              </ul>
+            </section>
+
+          </div>
+
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/playfun/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#f59e0b' }}>
+              Voir la Politique de Confidentialité →
+            </Link>
+            <Link to="/" style={btnOutlineStyle}>
+              Retour à l’accueil
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
 // 🔒 PAGE : POLITIQUE DE CONFIDENTIALITÉ — ECONAV / WALKMONEY
 // ==========================================
 function WalkMoneyPrivacyPolicyPage() {
@@ -3205,15 +3956,15 @@ const legalApps = {
     label: 'GeoHunt (Radar de Survie GPS & Récompenses)',
     color: '#ef4444'
   },
+  playfun: {
+    name: 'Playfun',
+    label: 'Playfun (Jeux de Soirée & Société)',
+    color: '#f59e0b'
+  },
   projetcalo: {
     name: 'ProjetCalo',
     label: 'ProjetCalo',
     color: '#38bdf8'
-  },
-  playfun: {
-    name: 'Playfun',
-    label: 'Playfun',
-    color: '#f59e0b'
   },
 };
 
@@ -3233,6 +3984,11 @@ function LegalPage({ type }) {
   // Si l'application demandée est GeoHunt, afficher les documents juridiques officiels complets
   if (appSlug === 'geohunt') {
     return type === 'privacy' ? <GeoHuntPrivacyPolicyPage /> : <GeoHuntTermsOfServicePage />;
+  }
+
+  // Si l'application demandée est Playfun, afficher les documents juridiques officiels complets
+  if (appSlug === 'playfun') {
+    return type === 'privacy' ? <PlayfunPrivacyPolicyPage /> : <PlayfunTermsOfServicePage />;
   }
 
   // Si l'application demandée est WalkMoney ou EcoNav, afficher les documents juridiques officiels complets
@@ -3309,10 +4065,10 @@ function LegalIndexPage({ type }) {
               <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
                 <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
+                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'playfun' ? '/playfun/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
                     Confidentialité
                   </Link>
-                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
+                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'playfun' ? '/playfun/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
                     Conditions d’utilisation
                   </Link>
                 </div>
@@ -4183,6 +4939,7 @@ function App() {
         <Route path="/quizbot" element={<QuizBotPage />} />
         <Route path="/quizqi" element={<QuizBotPage />} />
         <Route path="/geohunt" element={<GeoHuntPage />} />
+        <Route path="/playfun" element={<PlayfunPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
         <Route path="/daytalia/privacy" element={<PrivacyPolicyPage />} />
@@ -4204,6 +4961,11 @@ function App() {
         <Route path="/geohunt/eula" element={<GeoHuntTermsOfServicePage />} />
         <Route path="/geohunt/politique-de-confidentialite" element={<GeoHuntPrivacyPolicyPage />} />
         <Route path="/geohunt/conditions-dutilisation" element={<GeoHuntTermsOfServicePage />} />
+        <Route path="/playfun/privacy" element={<PlayfunPrivacyPolicyPage />} />
+        <Route path="/playfun/terms" element={<PlayfunTermsOfServicePage />} />
+        <Route path="/playfun/eula" element={<PlayfunTermsOfServicePage />} />
+        <Route path="/playfun/politique-de-confidentialite" element={<PlayfunPrivacyPolicyPage />} />
+        <Route path="/playfun/conditions-dutilisation" element={<PlayfunTermsOfServicePage />} />
         <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
         <Route path="/legal/conditions-dutilisation" element={<LegalIndexPage type="terms" />} />
         <Route path="/pro/auth" element={<Navigate to="/walkmoney/auth" replace />} />
