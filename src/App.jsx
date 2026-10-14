@@ -125,6 +125,17 @@ function Home({ user }) {
             </Link>
           </div>
 
+          <div className="app-card" style={{ border: '1px solid #ef4444' }}>
+            <h3 style={{ color: '#ef4444' }}>GeoHunt</h3>
+            <span className="tag" style={{ backgroundColor: '#ef4444', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Radar GPS &amp; Survie Multijoueur</span>
+            <p style={{ marginTop: '15px', marginBottom: '20px' }}>
+              Traquez, survivez et gagnez de l'argent réel ! Jeu multijoueur basé sur votre position GPS en temps réel. Serez-vous le prédateur ou la proie ?
+            </p>
+            <Link to="/geohunt" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#ef4444' }}>
+              Ouvrir GeoHunt
+            </Link>
+          </div>
+
           <div className="app-card">
             <h3>ProjetCalo</h3>
             <p>Nutrition et fitness personnalisés via IA.</p>
@@ -1936,6 +1947,814 @@ function QuizBotTermsOfServicePage() {
 }
 
 // ==========================================
+// 📍 GEOHUNT - PRÉSENTATION MARKETING & APP SHOWCASE
+// ==========================================
+function GeoHuntPage() {
+  const [storeNotice, setStoreNotice] = useState('');
+  const [activeRole, setActiveRole] = useState('predator');
+
+  const handleStoreClick = (storeName) => {
+    setStoreNotice(`GeoHunt sera prochainement disponible en téléchargement direct sur ${storeName}. Préparez votre équipement et restez à l'affût !`);
+    setTimeout(() => setStoreNotice(''), 5000);
+  };
+
+  const tacticalPowers = [
+    {
+      icon: '🚀',
+      title: 'Fusée Sonique',
+      range: 'Portée 30 km',
+      desc: 'Frappez un joueur ciblé jusqu\'à 30 km de distance pour perturber ses radars et lui dérober son trésor à distance.',
+      color: '#ef4444'
+    },
+    {
+      icon: '👻',
+      title: 'Fantôme & Discrétion',
+      range: 'Invisibilité Totale',
+      desc: 'Disparaissez totalement du radar adverse. Parfait pour échapper à une meute de chasseurs ou tendre une embuscade sournoise.',
+      color: '#8b5cf6'
+    },
+    {
+      icon: '🛡️',
+      title: 'Boucliers & Couteaux',
+      range: 'Défense & Assaut',
+      desc: 'Activez un bouclier électromagnétique pour bloquer les vols de pièces ou équipez des couteaux tactiques pour défier les Boss Mondiaux.',
+      color: '#06b6d4'
+    }
+  ];
+
+  const keyFeatures = [
+    {
+      icon: '🗺️',
+      title: 'Radar GPS & Brouillard de Guerre',
+      desc: 'Carte vectorielle en temps réel avec brouillard de guerre pour protéger la vie privée des joueurs inactifs et maximiser le suspense.'
+    },
+    {
+      icon: '📳',
+      title: 'Mode Arrière-plan & Alertes Poche',
+      desc: 'Soyez alerté par vibration et avertissement sonore si un danger ou un lapin approche, même quand votre smartphone est au fond de votre poche !'
+    },
+    {
+      icon: '🕹️',
+      title: 'Joystick Virtuel à Domicile',
+      desc: 'Jouez confortablement depuis chez vous grâce au joystick intégré (accessible via pièces récoltées ou abonnement Premium).'
+    },
+    {
+      icon: '💬',
+      title: 'Messagerie & Système d\'Escouade',
+      desc: 'Communiquez en direct avec vos coéquipiers, planifiez des embuscades collectives et suivez vos alliés en temps réel.'
+    },
+    {
+      icon: '🚗',
+      title: 'Mode Conduite Anti-Triche',
+      desc: 'La sécurité avant tout : blocage automatique du jeu au-dessus de 20 km/h pour prévenir l\'usage au volant.'
+    },
+    {
+      icon: '💶',
+      title: 'Retraits Réels Sécurisés PayPal',
+      desc: 'Convertissez 1000 pièces d\'or contre 5€ réels sur PayPal, avec validation biométrique locale (FaceID / TouchID).'
+    }
+  ];
+
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
+
+        {/* Navigation retour */}
+        <div style={{ marginBottom: '20px' }}>
+          <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
+            ← Retour aux applications Parrel
+          </Link>
+        </div>
+
+        {/* HERO SECTION MARKETING */}
+        <div style={{ marginBottom: '36px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.35)', padding: '6px 14px', borderRadius: '999px', marginBottom: '16px' }}>
+            <span style={{ color: '#ef4444', fontWeight: 'bold', fontSize: '13px' }}>🔴 GeoHunt • Le Radar de Survie GPS &amp; Récompenses Réelles</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '0', marginBottom: '14px', fontSize: 'clamp(1.9rem, 4.2vw, 2.85rem)', lineHeight: 1.25, fontWeight: 800 }}>
+            GeoHunt : Le Radar de Survie
+          </h1>
+
+          <div style={{ color: '#f87171', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '16px', letterSpacing: '0.02em' }}>
+            Traquez, survivez et gagnez de l'argent réel !
+          </div>
+
+          <p style={{ color: '#cbd5e1', fontSize: '1.18rem', lineHeight: 1.65, maxWidth: '880px', margin: '0 0 28px 0' }}>
+            Votre ville devient votre terrain de jeu. GeoHunt est un jeu multijoueur de survie et de traque basé sur votre position GPS en temps réel. <strong style={{ color: '#ffffff' }}>Serez-vous le prédateur ou la proie ?</strong>
+          </p>
+
+          {/* BOUTONS TELECHARGEMENT STORES */}
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '22px' }}>
+
+            {/* Bouton Google Play */}
+            <button
+              type="button"
+              onClick={() => handleStoreClick('Google Play')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                backgroundColor: '#050811',
+                color: '#ffffff',
+                padding: '12px 24px',
+                borderRadius: '14px',
+                border: '1px solid #475569',
+                cursor: 'pointer',
+                textAlign: 'left',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#ef4444'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <path d="M3.609 1.814L13.793 12 3.61 22.185A2.32 2.32 0 0 1 3 20.573V3.427c0-.623.23-1.192.609-1.613z" fill="#00C1A6" />
+                <path d="M17.202 8.59L13.793 12l3.41 3.41 3.865-2.222c.907-.521.907-1.854 0-2.376L17.202 8.59z" fill="#FFD100" />
+                <path d="M3.609 1.814L13.793 12l3.409-3.41-11.41-6.559c-.569-.327-1.22-.327-1.792.007l6.009 6.009z" fill="#00A0FF" />
+                <path d="M13.793 12L3.609 22.186c.572.334 1.223.334 1.792.007l11.41-6.559-3.018-3.634z" fill="#FF3333" />
+              </svg>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Disponible sur</div>
+                <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>Google Play</div>
+              </div>
+            </button>
+
+            {/* Bouton Apple App Store */}
+            <button
+              type="button"
+              onClick={() => handleStoreClick("l'App Store")}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                backgroundColor: '#050811',
+                color: '#ffffff',
+                padding: '12px 24px',
+                borderRadius: '14px',
+                border: '1px solid #475569',
+                cursor: 'pointer',
+                textAlign: 'left',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#ef4444'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#475569'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.05-.52 2.67-1.27z" />
+              </svg>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8' }}>Télécharger dans l'</div>
+                <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>App Store</div>
+              </div>
+            </button>
+
+            {/* Pill statut récompenses */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              backgroundColor: 'rgba(16, 185, 129, 0.12)',
+              border: '1px solid rgba(16, 185, 129, 0.35)',
+              padding: '12px 18px',
+              borderRadius: '14px',
+              color: '#34d399',
+              fontWeight: 'bold',
+              fontSize: '14px'
+            }}>
+              <span>💶</span> 1000 Pièces d'or = 5€ PayPal
+            </div>
+
+          </div>
+
+          {storeNotice && (
+            <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: '10px', padding: '12px 18px', color: '#fecaca', fontSize: '14px', maxWidth: '640px', marginBottom: '20px' }}>
+              ℹ️ {storeNotice}
+            </div>
+          )}
+        </div>
+
+        {/* SECTION 1 : CHASSEUR OU LAPIN ? */}
+        <div style={{
+          backgroundColor: '#1e293b',
+          borderRadius: '20px',
+          padding: '32px',
+          border: '1px solid rgba(239, 68, 68, 0.35)',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+          marginBottom: '36px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
+            <h2 style={{ color: '#ffffff', margin: 0, fontSize: '1.6rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span>🔴</span> CHASSEUR OU LAPIN ? <span>🟢</span>
+            </h2>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={() => setActiveRole('predator')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '999px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                  backgroundColor: activeRole === 'predator' ? '#ef4444' : '#334155',
+                  color: 'white',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                🔴 Rôle Chasseur
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveRole('prey')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '999px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                  backgroundColor: activeRole === 'prey' ? '#10b981' : '#334155',
+                  color: 'white',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                🟢 Rôle Lapin
+              </button>
+            </div>
+          </div>
+
+          <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '24px' }}>
+            Activez votre radar GPS et choisissez votre destin. Approchez-vous à moins de <strong style={{ color: '#ffffff' }}>5 mètres</strong> d'un joueur "Lapin" pour lui voler ses pièces d'or. Mais attention, le Lapin peut fuir, utiliser des boucliers ou se cacher dans des abris !
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+            
+            <div style={{
+              backgroundColor: activeRole === 'predator' ? 'rgba(239, 68, 68, 0.12)' : '#0f172a',
+              padding: '24px',
+              borderRadius: '16px',
+              border: activeRole === 'predator' ? '2px solid #ef4444' : '1px solid #334155',
+              transition: 'all 0.3s ease'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                <span style={{ fontSize: '28px' }}>🎯</span>
+                <h3 style={{ color: '#ef4444', margin: 0, fontSize: '1.25rem' }}>Le Prédateur (Chasseur)</h3>
+              </div>
+              <p style={{ color: '#94a3b8', fontSize: '0.98rem', lineHeight: 1.6, margin: '0 0 12px 0' }}>
+                Guettez les signaux faibles sur votre radar. Rapprochez-vous en silence. Une fois dans le cercle de contact (5 mètres), lancez l'attaque pour siphonner le butin adverse.
+              </p>
+              <ul style={{ margin: 0, paddingLeft: '18px', color: '#cbd5e1', fontSize: '0.92rem', lineHeight: 1.7 }}>
+                <li>Pistage en temps réel par balises GPS</li>
+                <li>Vol instantané des pièces d'or à moins de 5m</li>
+                <li>Armes tactiques pour briser les boucliers</li>
+              </ul>
+            </div>
+
+            <div style={{
+              backgroundColor: activeRole === 'prey' ? 'rgba(16, 185, 129, 0.12)' : '#0f172a',
+              padding: '24px',
+              borderRadius: '16px',
+              border: activeRole === 'prey' ? '2px solid #10b981' : '1px solid #334155',
+              transition: 'all 0.3s ease'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                <span style={{ fontSize: '28px' }}>🐇</span>
+                <h3 style={{ color: '#10b981', margin: 0, fontSize: '1.25rem' }}>La Proie (Lapin)</h3>
+              </div>
+              <p style={{ color: '#94a3b8', fontSize: '0.98rem', lineHeight: 1.6, margin: '0 0 12px 0' }}>
+                Votre trésor attire toutes les convoitises. Exploitez les rues, le dénivelé et les bâtiments réels de votre quartier pour rompre la ligne de mire et protéger vos gains.
+              </p>
+              <ul style={{ margin: 0, paddingLeft: '18px', color: '#cbd5e1', fontSize: '0.92rem', lineHeight: 1.7 }}>
+                <li>Abris sécurisés répertoriés sur la carte réelle</li>
+                <li>Déploiement de boucliers énergétiques anti-vol</li>
+                <li>Multiplicateurs de pièces pour chaque minute de survie</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        {/* SECTION 2 : DES POUVOIRS DEVASTATEURS */}
+        <div style={{ marginBottom: '36px' }}>
+          <h2 style={{ color: 'white', marginBottom: '10px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>⚡</span> DES POUVOIRS DÉVASTATEURS
+          </h2>
+          <p style={{ color: '#94a3b8', margin: '0 0 22px 0', fontSize: '1.05rem' }}>
+            Utilisez les pièces récoltées pour acheter des pouvoirs tactiques et renverser le cours de chaque traque :
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+            {tacticalPowers.map((power, idx) => (
+              <div key={idx} style={{ backgroundColor: '#1e293b', borderRadius: '16px', padding: '24px', border: '1px solid #334155', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ fontSize: '32px' }}>{power.icon}</div>
+                  <span style={{ fontSize: '12px', padding: '4px 10px', borderRadius: '999px', backgroundColor: 'rgba(255,255,255,0.06)', color: power.color, border: `1px solid ${power.color}40`, fontWeight: 'bold' }}>
+                    {power.range}
+                  </span>
+                </div>
+                <h3 style={{ color: power.color, margin: 0, fontSize: '1.25rem' }}>{power.title}</h3>
+                <p style={{ color: '#cbd5e1', margin: 0, fontSize: '0.96rem', lineHeight: 1.65 }}>{power.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* SECTION 3 : CLANS, TRAÎTRES ET ALLIANCES */}
+        <div style={{
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '20px',
+          padding: '32px',
+          marginBottom: '36px'
+        }}>
+          <h2 style={{ color: '#f59e0b', marginTop: 0, marginBottom: '12px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>🛡️</span> CLANS, TRAÎTRES ET ALLIANCES
+          </h2>
+          <p style={{ color: '#cbd5e1', marginBottom: '22px', fontSize: '1.08rem', lineHeight: 1.7 }}>
+            Créez un Clan, placez un <strong style={{ color: '#ffffff' }}>Coffre-fort</strong> sur la carte réelle et déposez-y votre butin collectif. Protégez-le avec un code PIN secret. Mais méfiez-vous... vos propres alliés peuvent vous trahir pour vider le coffre ! Mettez des primes sur la tête des traîtres pour que l'ensemble de la communauté se lance à leurs trousses.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '18px' }}>
+            <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>🏦</div>
+              <h4 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1rem' }}>Coffres-Forts Géolocalisés</h4>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.6 }}>
+                Ancrez un coffre réel à un endroit stratégique de votre ville et sécurisez-le par un code PIN.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>🗡️</div>
+              <h4 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1rem' }}>Trahison &amp; Vol Interne</h4>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.6 }}>
+                Vos coéquipiers peuvent dérober le magot. La confiance est votre ressource la plus précieuse.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '14px', border: '1px solid #334155' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>📜</div>
+              <h4 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1rem' }}>Primes Mondiales (Bounties)</h4>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.6 }}>
+                Mettez à prix la tête d'un traître pour transformer tous les chasseurs de la région en ses pires ennemis.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 4 : UN MONDE VIVANT (BOTS IA) & GAGNEZ DE L'ARGENT */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '36px' }}>
+
+          {/* BOTS IA TURING-APEX */}
+          <div style={{
+            backgroundColor: '#1e293b',
+            borderRadius: '20px',
+            padding: '30px',
+            border: '1px solid rgba(139, 92, 246, 0.35)',
+            background: 'linear-gradient(135deg, rgba(30, 41, 59, 1) 0%, rgba(46, 16, 101, 0.4) 100%)'
+          }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(139, 92, 246, 0.15)', border: '1px solid rgba(139, 92, 246, 0.4)', padding: '5px 12px', borderRadius: '999px', marginBottom: '14px' }}>
+              <span style={{ color: '#c084fc', fontWeight: 'bold', fontSize: '12px' }}>🤖 MOTEUR IA TURING-APEX</span>
+            </div>
+            <h3 style={{ color: '#ffffff', marginTop: 0, marginBottom: '12px', fontSize: '1.4rem' }}>
+              Un Monde Vivant, Même en Solo
+            </h3>
+            <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: 1.65, margin: 0 }}>
+              Même si vous êtes le seul joueur actif dans votre quartier, l'Intelligence Artificielle <strong style={{ color: '#ffffff' }}>Turing-Apex</strong> de GeoHunt peuple la carte de bots intelligents, de World Bosses épiques et de caisses de butin (Airdrops) à pirater en temps réel.
+            </p>
+          </div>
+
+          {/* GAGNEZ DE L'ARGENT RÉEL PAYPAL */}
+          <div style={{
+            backgroundColor: '#1e293b',
+            borderRadius: '20px',
+            padding: '30px',
+            border: '1px solid rgba(16, 185, 129, 0.4)',
+            background: 'linear-gradient(135deg, rgba(30, 41, 59, 1) 0%, rgba(6, 78, 59, 0.4) 100%)'
+          }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.4)', padding: '5px 12px', borderRadius: '999px', marginBottom: '14px' }}>
+              <span style={{ color: '#34d399', fontWeight: 'bold', fontSize: '12px' }}>💶 CASH-OUT PAYPAL DIRECT</span>
+            </div>
+            <h3 style={{ color: '#ffffff', marginTop: 0, marginBottom: '12px', fontSize: '1.4rem' }}>
+              Gagnez de l'Argent Réel
+            </h3>
+            <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: 1.65, margin: 0 }}>
+              Vos pièces ont une vraie valeur ! Amassez <strong style={{ color: '#34d399' }}>1000 pièces d'or</strong> dans le jeu et échangez-les directement contre <strong style={{ color: '#34d399' }}>5€ transférés sur votre compte PayPal</strong>. Retraits sécurisés avec validation biométrique (FaceID / TouchID).
+            </p>
+          </div>
+
+        </div>
+
+        {/* SECTION 5 : FONCTIONNALITÉS CLÉS */}
+        <div style={{ marginBottom: '36px' }}>
+          <h2 style={{ color: 'white', marginBottom: '14px', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>📱</span> Fonctionnalités clés
+          </h2>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '18px' }}>
+            {keyFeatures.map((feat, idx) => (
+              <div key={idx} style={{ backgroundColor: '#1e293b', borderRadius: '16px', padding: '22px', border: '1px solid #334155' }}>
+                <div style={{ fontSize: '28px', marginBottom: '10px' }}>{feat.icon}</div>
+                <h3 style={{ color: '#ef4444', margin: '0 0 8px 0', fontSize: '1.15rem' }}>{feat.title}</h3>
+                <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.94rem', lineHeight: 1.6 }}>{feat.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CALL TO ACTION NOTE */}
+        <div style={{
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '16px',
+          padding: '22px 28px',
+          marginBottom: '36px',
+          textAlign: 'center'
+        }}>
+          <div style={{ fontSize: '1.15rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '8px' }}>
+            Téléchargez GeoHunt, rejoignez la traque et devenez le maître de votre ville !
+          </div>
+          <div style={{ color: '#94a3b8', fontSize: '13px' }}>
+            (Note : GeoHunt nécessite une connexion Internet active et l'accès à votre position GPS précise).
+          </div>
+        </div>
+
+        {/* SECTION DOCUMENTS LÉGAUX ET CONFIDENTIALITÉ */}
+        <div style={{
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '18px',
+          padding: '26px 30px',
+          marginBottom: '40px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '20px',
+        }}>
+          <div>
+            <h3 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1.2rem' }}>
+              🛡️ Transparence, Géolocalisation &amp; Protection des Données
+            </h3>
+            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem', maxWidth: '600px' }}>
+              Consultez nos documents juridiques rédigés sur mesure pour GeoHunt en conformité avec le RGPD, l'Apple App Store et Google Play.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <Link to="/geohunt/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#ef4444', color: '#ffffff' }}>
+              Politique de Confidentialité
+            </Link>
+            <Link to="/geohunt/terms" style={{ ...btnOutlineStyle, borderColor: '#ef4444', color: '#ef4444' }}>
+              Conditions Générales (CGU / EULA)
+            </Link>
+          </div>
+        </div>
+
+        {/* SECTION FOOTER DE L'APPLI */}
+        <div style={{
+          borderTop: '1px solid #334155',
+          paddingTop: '24px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '14px',
+          color: '#94a3b8',
+          fontSize: '13px'
+        }}>
+          <div>
+            Application <strong style={{ color: '#ffffff' }}>GeoHunt</strong> (bundle <code style={{ color: '#f87171' }}>com.parrel.geohunt</code>) • Parrel Studio
+          </div>
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <a href="mailto:support.parrel@gmail.com" style={{ color: '#ef4444', textDecoration: 'none' }}>
+              Assistance : support.parrel@gmail.com
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 🔒 PAGE : POLITIQUE DE CONFIDENTIALITÉ — GEOHUNT (/geohunt/privacy)
+// ==========================================
+function GeoHuntPrivacyPolicyPage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/geohunt" style={{ color: '#ef4444', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à GeoHunt
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#ef4444', color: 'white' }}>GeoHunt</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#22c55e', border: '1px solid rgba(34, 197, 94, 0.3)' }}>Conformité RGPD &amp; Géolocalisation</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Politique de Confidentialité — GeoHunt
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            Dernière mise à jour : 14 Octobre 2024 • Application : GeoHunt • Bundle ID : com.parrel.geohunt
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> GeoHunt : Le Radar de Survie</div>
+            <div><strong style={{ color: '#ffffff' }}>Éditeur / Développeur :</strong> Parrel Studio</div>
+            <div><strong style={{ color: '#ffffff' }}>URL officielle HTTPS :</strong> <a href="https://parrel.vercel.app/geohunt/privacy" style={{ color: '#ef4444', textDecoration: 'none' }}>https://parrel.vercel.app/geohunt/privacy</a></div>
+            <div><strong style={{ color: '#ffffff' }}>Contact DPO / Support :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#ef4444', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
+          </div>
+
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
+            Bienvenue sur GeoHunt. La protection de vos données personnelles est notre priorité. Cette politique explique comment nous collectons, utilisons et protégeons vos informations.
+          </p>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+
+            {/* 1. Données collectées */}
+            <section>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>1. Données collectées</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Données de localisation GPS (Crucial) :</strong> GeoHunt est un jeu basé sur la localisation. Nous collectons votre position précise en temps réel (au premier plan) et en arrière-plan (si vous activez le mode Radar) pour permettre les mécaniques de jeu (calcul des distances, rencontres, apparition de coffres).
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Informations de compte :</strong> Adresse e-mail, pseudonyme, mot de passe (crypté via Firebase Auth).
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Données de jeu :</strong> Historique de vos matchs, pièces virtuelles, statistiques de jeu, appartenance à un clan.
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Données financières :</strong> Votre adresse e-mail PayPal (uniquement lorsque vous demandez un retrait d'argent). Nous ne stockons aucune carte bancaire.
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Données de l'appareil :</strong> Identifiants publicitaires, adresses IP, tokens de notifications Push (FCM), et vérification d'intégrité de l'appareil (Firebase App Check).
+                </li>
+              </ul>
+            </section>
+
+            {/* 2. Utilisation des données */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>2. Utilisation des données</h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Fournir et synchroniser l'expérience multijoueur en temps réel.</li>
+                <li>Gérer le système de récompenses et les transferts PayPal.</li>
+                <li>Vous envoyer des notifications Push (attaques imminentes, invitations).</li>
+                <li>Lutter contre la triche (Spoofing GPS) via des algorithmes de sécurité et le Mode Conduite.</li>
+              </ul>
+            </section>
+
+            {/* 3. Partage des données */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>3. Partage des données</h2>
+              <p style={{ marginBottom: '12px' }}>
+                Vos données ne sont jamais vendues. Elles sont partagées uniquement avec nos prestataires techniques pour le fonctionnement du jeu :
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Google / Firebase :</strong> Hébergement de la base de données, authentification, notifications Push (FCM) et intégrité App Check.</li>
+                <li><strong style={{ color: '#ffffff' }}>RevenueCat :</strong> Gestion de vos abonnements Premium (Apple / Google).</li>
+                <li><strong style={{ color: '#ffffff' }}>PayPal :</strong> Uniquement votre e-mail lors du paiement de vos gains.</li>
+              </ul>
+            </section>
+
+            {/* 4. Sécurité et Biométrie */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>4. Sécurité et Biométrie</h2>
+              <p style={{ margin: 0 }}>
+                La position exacte des joueurs inactifs est volontairement brouillée (Fog of War) pour des raisons de confidentialité et de sécurité physique. Les demandes de retrait PayPal sont protégées par l'authentification biométrique locale de votre téléphone (FaceID/TouchID) que l'application ne stocke pas.
+              </p>
+            </section>
+
+            {/* 5. Conservation et Suppression */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>5. Conservation et Suppression</h2>
+              <p style={{ margin: 0 }}>
+                Vous pouvez demander la suppression complète de votre compte, de vos messages et de vos données GPS directement depuis les paramètres de l'application ou en nous contactant à : <a href="mailto:support.parrel@gmail.com" style={{ color: '#ef4444', textDecoration: 'none' }}>support.parrel@gmail.com</a>.
+              </p>
+            </section>
+
+          </div>
+
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/geohunt/terms" style={{ ...btnPrimaryStyle, backgroundColor: '#ef4444' }}>
+              Voir les Conditions Générales (CGU / EULA) →
+            </Link>
+            <Link to="/" style={btnOutlineStyle}>
+              Retour à l’accueil
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 📜 PAGE : CONDITIONS GÉNÉRALES & EULA — GEOHUNT (/geohunt/terms)
+// ==========================================
+function GeoHuntTermsOfServicePage() {
+  return (
+    <div style={pageStyle}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
+            <Link to="/geohunt" style={{ color: '#ef4444', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
+              ← Retour à GeoHunt
+            </Link>
+            <span style={{ color: '#475569' }}>•</span>
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
+            <span className="badge" style={{ backgroundColor: '#ef4444', color: 'white' }}>GeoHunt</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>Contrat EULA &amp; CGU</span>
+          </div>
+
+          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
+            Conditions Générales d’Utilisation et Contrat de Licence d'Utilisateur Final (CGU / EULA) — GeoHunt
+          </h1>
+          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
+            Dernière mise à jour : 14 Octobre 2024 • Application : GeoHunt • Bundle ID : com.parrel.geohunt
+          </div>
+        </div>
+
+        {/* Contenu textuel officiel */}
+        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
+
+          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> GeoHunt : Le Radar de Survie</div>
+            <div><strong style={{ color: '#ffffff' }}>Éditeur :</strong> Parrel Studio</div>
+            <div><strong style={{ color: '#ffffff' }}>Bundle ID :</strong> <code>com.parrel.geohunt</code></div>
+            <div><strong style={{ color: '#ffffff' }}>URL officielle HTTPS :</strong> <a href="https://parrel.vercel.app/geohunt/terms" style={{ color: '#ef4444', textDecoration: 'none' }}>https://parrel.vercel.app/geohunt/terms</a></div>
+            <div><strong style={{ color: '#ffffff' }}>EULA Standard Apple :</strong> <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer" style={{ color: '#f87171', textDecoration: 'underline' }}>Apple Licensed Application End User License Agreement</a></div>
+            <div><strong style={{ color: '#ffffff' }}>Contact Support :</strong> <a href="mailto:support.parrel@gmail.com" style={{ color: '#ef4444', textDecoration: 'none' }}>support.parrel@gmail.com</a></div>
+          </div>
+
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
+            Veuillez lire attentivement ces conditions avant d'utiliser GeoHunt. En créant un compte, vous acceptez ce contrat.
+          </p>
+
+          <div style={{ display: 'grid', gap: '28px' }}>
+
+            {/* 1. Avertissements de Sécurité */}
+            <section>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>
+                1. Avertissements de Sécurité (TRÈS IMPORTANT)
+              </h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Environnement Réel :</strong> GeoHunt se joue dans le monde réel. Vous devez toujours être attentif à votre environnement. Ne jouez pas en conduisant un véhicule (le jeu intègre un blocage automatique au-dessus de 20 km/h).
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Propriété privée :</strong> Vous ne devez en aucun cas pénétrer sur des propriétés privées, des zones dangereuses ou restreintes pour attraper un joueur ou ouvrir un coffre virtuel.
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Décharge de responsabilité :</strong> Le développeur de GeoHunt décline toute responsabilité en cas d'accident, de blessure, de dommage matériel (smartphone cassé) ou d'infraction à la loi commise par l'utilisateur lors de l'utilisation de l'application.
+                </li>
+              </ul>
+            </section>
+
+            {/* 2. Monnaie Virtuelle et Retraits PayPal */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>
+                2. Monnaie Virtuelle (Pièces) et Retraits PayPal
+              </h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Valeur :</strong> Les "Pièces" gagnées dans le jeu sont une monnaie virtuelle.
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Retrait réel :</strong> Le jeu propose d'échanger 1000 pièces contre 5€ via PayPal. Cette offre est soumise à la vérification manuelle de nos équipes pour lutter contre la triche.
+                </li>
+                <li>
+                  <strong style={{ color: '#ef4444' }}>Annulation :</strong> Toute triche détectée (utilisation de Fake GPS, spoofing, exploitation de bugs, bots tiers) entraînera le bannissement du compte et l'annulation immédiate des gains, sans compensation.
+                </li>
+                <li>
+                  <strong style={{ color: '#ffffff' }}>Bots IA Turing-Apex :</strong> Les entités gérées par l'IA (Bots) font partie intégrante du jeu et peuvent légitimement voler vos pièces virtuelles. Aucun remboursement de pièces ne sera effectué suite à une action de l'IA.
+                </li>
+              </ul>
+            </section>
+
+            {/* 3. Abonnements Premium */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>
+                3. Abonnements Premium (In-App Purchases)
+              </h2>
+              <p style={{ marginBottom: '10px' }}>
+                GeoHunt propose des abonnements "Premium" débloquant des avantages en jeu (Joystick gratuit, multiplicateur de pièces).
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Les paiements sont traités par les magasins d'applications (App Store / Google Play) via RevenueCat.</li>
+                <li>L'abonnement se renouvelle automatiquement sauf annulation 24h avant la fin de la période en cours depuis les paramètres de votre OS.</li>
+              </ul>
+            </section>
+
+            {/* 4. Comportement des joueurs et Modération */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>
+                4. Comportement des joueurs et Modération
+              </h2>
+              <p style={{ marginBottom: '10px' }}>
+                GeoHunt inclut un système de messagerie, de clans et de "Titres".
+              </p>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li>Tout comportement abusif, harcèlement, menace physique réelle, ou contenu inapproprié dans le chat entraînera un bannissement permanent.</li>
+                <li>Un système de signalement est disponible pour dénoncer les messages toxiques. Les signalements sont traités sous 24h par notre équipe.</li>
+              </ul>
+            </section>
+
+            {/* 5. Propriété Intellectuelle */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>
+                5. Propriété Intellectuelle
+              </h2>
+              <p style={{ margin: 0 }}>
+                L'application, ses codes (incluant le moteur de bots Turing-Apex), son design et ses éléments graphiques (avatars) appartiennent exclusivement au développeur de GeoHunt. Vous bénéficiez d'une licence personnelle, non transférable et révocable d'utilisation de l'application.
+              </p>
+            </section>
+
+            {/* 6. Modification du service */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>
+                6. Modification du service
+              </h2>
+              <p style={{ margin: 0 }}>
+                Le développeur se réserve le droit de modifier les mécaniques de jeu, l'équilibrage des armes, le coût des pouvoirs, ou le taux de conversion Pièces/Euros à tout moment pour préserver l'économie du jeu.
+              </p>
+            </section>
+
+            {/* 7. Contact */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>
+                7. Contact
+              </h2>
+              <p style={{ margin: 0 }}>
+                Pour tout litige, signalement ou problème technique, contactez : <a href="mailto:support.parrel@gmail.com" style={{ color: '#ef4444', textDecoration: 'none' }}>support.parrel@gmail.com</a>.
+              </p>
+            </section>
+
+            {/* Avertissement Juridique */}
+            <section style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155' }}>
+              <div style={{ color: '#f59e0b', fontWeight: 'bold', marginBottom: '6px' }}>⚠️ Avertissement Juridique</div>
+              <p style={{ margin: 0, fontSize: '0.92rem', color: '#94a3b8' }}>
+                Ces textes sont rédigés sur la base de la logique métier du code source de GeoHunt. Il est recommandé de les faire relire par un conseiller juridique pour s'assurer de leur totale conformité avec les lois de votre juridiction (ex: RGPD en Europe, lois sur les jeux d'argent/récompenses).
+              </p>
+            </section>
+
+            {/* 8. Dispositions Spécifiques Apple App Store EULA */}
+            <section style={{ borderTop: '1px solid #334155', paddingTop: '24px' }}>
+              <h2 style={{ color: '#ef4444', fontSize: '1.25rem', marginBottom: '12px' }}>
+                8. Dispositions Spécifiques et Mentions Obligatoires Apple (EULA App Store)
+              </h2>
+              <ul style={{ margin: '0 0 0 20px', color: '#cbd5e1', lineHeight: 1.8 }}>
+                <li><strong style={{ color: '#ffffff' }}>Parties au Contrat :</strong> Le présent contrat (EULA) est conclu exclusivement entre vous et Parrel Studio, et non avec Apple Inc. Parrel Studio est seul responsable de l'Application GeoHunt et de son contenu.</li>
+                <li><strong style={{ color: '#ffffff' }}>Portée de la Licence :</strong> La licence concédée pour GeoHunt est limitée à une licence non transférable d'utilisation sur tout appareil de marque Apple (iPhone, iPad) que vous possédez ou contrôlez.</li>
+                <li><strong style={{ color: '#ffffff' }}>Maintenance et Assistance :</strong> Parrel Studio est seul responsable de la fourniture des services de maintenance et d'assistance relatifs à GeoHunt. Apple n'a aucune obligation de maintenance ou d'assistance pour GeoHunt.</li>
+                <li><strong style={{ color: '#ffffff' }}>Garantie :</strong> En cas de défaut de conformité de GeoHunt avec toute garantie légale applicable, vous pouvez en informer Apple, qui pourra rembourser le prix d'achat éventuel payé sur l'App Store. Dans toute la mesure permise par le droit applicable, Apple n'aura aucune autre obligation de garantie.</li>
+                <li><strong style={{ color: '#ffffff' }}>Tiers Bénéficiaire Apple :</strong> Vous reconnaissez et acceptez qu'Apple et ses filiales sont des tiers bénéficiaires des présentes CGU / EULA et qu'Apple a le droit de faire appliquer ces conditions à votre encontre.</li>
+              </ul>
+            </section>
+
+          </div>
+
+          <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: '1px solid #334155', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <Link to="/geohunt/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#ef4444' }}>
+              Voir la Politique de Confidentialité →
+            </Link>
+            <Link to="/" style={btnOutlineStyle}>
+              Retour à l’accueil
+            </Link>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
 // 🔒 PAGE : POLITIQUE DE CONFIDENTIALITÉ — ECONAV / WALKMONEY
 // ==========================================
 function WalkMoneyPrivacyPolicyPage() {
@@ -2381,6 +3200,11 @@ const legalApps = {
     label: 'QuizBot (QuizQI)',
     color: '#8b5cf6'
   },
+  geohunt: {
+    name: 'GeoHunt',
+    label: 'GeoHunt (Radar de Survie GPS & Récompenses)',
+    color: '#ef4444'
+  },
   projetcalo: {
     name: 'ProjetCalo',
     label: 'ProjetCalo',
@@ -2404,6 +3228,11 @@ function LegalPage({ type }) {
   // Si l'application demandée est QuizBot ou QuizQI, afficher les documents juridiques officiels complets
   if (appSlug === 'quizbot' || appSlug === 'quizqi') {
     return type === 'privacy' ? <QuizBotPrivacyPolicyPage /> : <QuizBotTermsOfServicePage />;
+  }
+
+  // Si l'application demandée est GeoHunt, afficher les documents juridiques officiels complets
+  if (appSlug === 'geohunt') {
+    return type === 'privacy' ? <GeoHuntPrivacyPolicyPage /> : <GeoHuntTermsOfServicePage />;
   }
 
   // Si l'application demandée est WalkMoney ou EcoNav, afficher les documents juridiques officiels complets
@@ -2480,10 +3309,10 @@ function LegalIndexPage({ type }) {
               <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
                 <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
+                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
                     Confidentialité
                   </Link>
-                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
+                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
                     Conditions d’utilisation
                   </Link>
                 </div>
@@ -3353,6 +4182,7 @@ function App() {
         <Route path="/daytalia" element={<DaytaliaPage />} />
         <Route path="/quizbot" element={<QuizBotPage />} />
         <Route path="/quizqi" element={<QuizBotPage />} />
+        <Route path="/geohunt" element={<GeoHuntPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
         <Route path="/daytalia/privacy" element={<PrivacyPolicyPage />} />
@@ -3369,6 +4199,11 @@ function App() {
         <Route path="/quizqi/eula" element={<QuizBotTermsOfServicePage />} />
         <Route path="/quizqi/politique-de-confidentialite" element={<QuizBotPrivacyPolicyPage />} />
         <Route path="/quizqi/conditions-dutilisation" element={<QuizBotTermsOfServicePage />} />
+        <Route path="/geohunt/privacy" element={<GeoHuntPrivacyPolicyPage />} />
+        <Route path="/geohunt/terms" element={<GeoHuntTermsOfServicePage />} />
+        <Route path="/geohunt/eula" element={<GeoHuntTermsOfServicePage />} />
+        <Route path="/geohunt/politique-de-confidentialite" element={<GeoHuntPrivacyPolicyPage />} />
+        <Route path="/geohunt/conditions-dutilisation" element={<GeoHuntTermsOfServicePage />} />
         <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
         <Route path="/legal/conditions-dutilisation" element={<LegalIndexPage type="terms" />} />
         <Route path="/pro/auth" element={<Navigate to="/walkmoney/auth" replace />} />
