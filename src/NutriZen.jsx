@@ -53,7 +53,7 @@ const btnOutlineStyle = {
 };
 
 // ==========================================
-// 📄 CONTENUS BRUTS MARKDOWN (POUR COPIE FACILE)
+// 📄 CONTENUS BRUTS MARKDOWN
 // ==========================================
 export const NUTRIZEN_RAW_CGU = `# Conditions Générales d’Utilisation (CGU) – Application NutriZen
 **Dernière mise à jour : 25 octobre 2026**
@@ -136,24 +136,6 @@ L'APPLICATION EST FOURNIE « EN L'ÉTAT ». NUTRIZEN DÉCLINE TOUTE RESPONSABILI
 
 ### 5. Droit Applicable
 Le présent contrat est régi par le droit français. Tout litige relatif à son interprétation sera soumis aux tribunaux compétents.`;
-
-export const NUTRIZEN_RAW_ALL = `4. Textes Juridiques Complets (À copier sur votre site web)
-Voici les trois documents légaux rédigés sur mesure pour NutriZen, conformes aux exigences du RGPD et des App Store / Play Store.
-
---------------------------------------------------------------------------------
-DOCUMENT 1 : CONDITIONS GÉNÉRALES D'UTILISATION (CGU)
---------------------------------------------------------------------------------
-${NUTRIZEN_RAW_CGU}
-
---------------------------------------------------------------------------------
-DOCUMENT 2 : POLITIQUE DE CONFIDENTIALITÉ (RGPD & Privacy Policy)
---------------------------------------------------------------------------------
-${NUTRIZEN_RAW_PRIVACY}
-
---------------------------------------------------------------------------------
-DOCUMENT 3 : CONTRAT DE LICENCE UTILISATEUR FINAL (CLUF / EULA)
---------------------------------------------------------------------------------
-${NUTRIZEN_RAW_EULA}`;
 
 // ==========================================
 // 🌟 1. SHOWCASE NUTRIZEN (PAGE D'ACCUEIL /nutrizen)
@@ -350,10 +332,6 @@ export function NutriZenPage() {
                 <div style={{ fontSize: '17px', fontWeight: 'bold', color: '#ffffff', lineHeight: 1.2 }}>App Store</div>
               </div>
             </button>
-
-            <Link to="/nutrizen/legal" style={{ ...btnPrimaryStyle, padding: '14px 22px', fontSize: '15px' }}>
-              📜 Textes Juridiques Complets
-            </Link>
           </div>
 
           {storeNotice && (
@@ -449,45 +427,33 @@ export function NutriZenPage() {
           </div>
         </div>
 
-        {/* BANNIÈRE DOCUMENTS JURIDIQUES COMPLETS */}
+        {/* SECTION DOCUMENTS LÉGAUX ET CONFIDENTIALITÉ (CONFORME PLAYFUN) */}
         <div style={{
-          backgroundColor: '#1e293b',
-          borderRadius: '20px',
-          padding: '30px',
-          border: '1px solid #10b981',
-          boxShadow: '0 10px 30px rgba(16, 185, 129, 0.15)',
+          backgroundColor: '#0f172a',
+          border: '1px solid #334155',
+          borderRadius: '18px',
+          padding: '26px 30px',
+          marginBottom: '40px',
           display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
           justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
           gap: '20px',
-          marginBottom: '36px'
         }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-              <span className="badge" style={{ backgroundColor: '#10b981', color: '#0f172a', fontWeight: 'bold' }}>Conformité 100% Légale</span>
-              <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8' }}>RGPD • Apple • Google</span>
-            </div>
-            <h3 style={{ color: 'white', margin: '4px 0 8px 0', fontSize: '1.4rem' }}>
-              Documents Juridiques Complets NutriZen
+            <h3 style={{ color: 'white', margin: '0 0 6px 0', fontSize: '1.2rem' }}>
+              🛡️ Protection des Données Santé, CGU &amp; Modération UGC
             </h3>
-            <p style={{ color: '#94a3b8', margin: 0, fontSize: '14px', maxWidth: '600px', lineHeight: 1.6 }}>
-              Retrouvez les trois documents rédigés sur mesure pour NutriZen (CGU avec Avertissement Médical, Politique RGPD Santé, et CLUF / EULA avec Tolérance Zéro UGC).
+            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem', maxWidth: '600px' }}>
+              Consultez nos documents juridiques rédigés sur mesure pour NutriZen en conformité avec le RGPD (données de santé chiffrées, aucune vente de données) et les exigences Apple App Store / Google Play.
             </p>
           </div>
-
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            <Link to="/nutrizen/legal" style={{ ...btnPrimaryStyle, padding: '12px 20px' }}>
-              📋 Page 4. Textes Juridiques (Tous)
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <Link to="/nutrizen/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#10b981', color: '#ffffff' }}>
+              Politique de Confidentialité
             </Link>
-            <Link to="/nutrizen/privacy" style={{ ...btnOutlineStyle, padding: '12px 18px' }}>
-              🔒 Confidentialité
-            </Link>
-            <Link to="/nutrizen/terms" style={{ ...btnOutlineStyle, padding: '12px 18px' }}>
-              📜 CGU &amp; Disclaimer
-            </Link>
-            <Link to="/nutrizen/eula" style={{ ...btnOutlineStyle, padding: '12px 18px' }}>
-              📑 CLUF / EULA
+            <Link to="/nutrizen/terms" style={{ ...btnOutlineStyle, borderColor: '#10b981', color: '#10b981' }}>
+              Conditions Générales (CGU / EULA)
             </Link>
           </div>
         </div>
@@ -510,390 +476,7 @@ export function NutriZenPage() {
 }
 
 // ==========================================
-// 📜 2. PAGE : 4. TEXTES JURIDIQUES COMPLETS (À COPIER SUR VOTRE SITE WEB)
-// ==========================================
-export function NutriZenLegalDocsPage() {
-  const [selectedDoc, setSelectedDoc] = useState('all');
-  const [copiedId, setCopiedId] = useState('');
-
-  const copyToClipboard = (text, docId) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(docId);
-    setTimeout(() => setCopiedId(''), 3000);
-  };
-
-  return (
-    <div style={pageStyle}>
-      <div style={{ maxWidth: '980px', margin: '0 auto' }}>
-
-        {/* Navigation & Retour */}
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '20px' }}>
-          <Link to="/nutrizen" style={{ color: '#10b981', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 'bold' }}>
-            ← Retour à NutriZen
-          </Link>
-          <span style={{ color: '#475569' }}>•</span>
-          <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
-            Accueil Parrel
-          </Link>
-        </div>
-
-        {/* En-tête Page 4 */}
-        <div style={{ marginBottom: '28px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '12px' }}>
-            <span className="badge" style={{ backgroundColor: '#10b981', color: '#0f172a', fontWeight: 'bold' }}>NutriZen Legal</span>
-            <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>App Store &amp; Play Store Ready</span>
-            <span className="badge" style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', border: '1px solid rgba(34, 197, 94, 0.3)' }}>RGPD Art. 9 Données Santé</span>
-          </div>
-
-          <h1 style={{ color: 'white', marginTop: '6px', marginBottom: '12px', fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', lineHeight: 1.25 }}>
-            4. Textes Juridiques Complets (À copier sur votre site web)
-          </h1>
-          <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: 1.6, margin: '0 0 16px 0' }}>
-            Voici les trois documents légaux rédigés sur mesure pour NutriZen, conformes aux exigences du RGPD et des App Store / Play Store.
-          </p>
-
-          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', fontSize: '14px', display: 'grid', gap: '6px' }}>
-            <div><strong style={{ color: 'white' }}>Application :</strong> NutriZen (Suivi métabolique, Jeûne, Fitness &amp; IA)</div>
-            <div><strong style={{ color: 'white' }}>Éditeur :</strong> Équipe NutriZen (contact : contact@nutrizen.app)</div>
-            <div><strong style={{ color: 'white' }}>DPO / Confidentialité :</strong> privacy@nutrizen.app</div>
-            <div><strong style={{ color: 'white' }}>URLs Web d'intégration :</strong> <code style={{ color: '#34d399' }}>/nutrizen/privacy</code>, <code style={{ color: '#34d399' }}>/nutrizen/terms</code>, <code style={{ color: '#34d399' }}>/nutrizen/eula</code></div>
-          </div>
-        </div>
-
-        {/* BARRE D'ONGLETS ET BOUTONS COPIER */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '24px' }}>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => setSelectedDoc('all')}
-              style={{
-                padding: '8px 16px',
-                borderRadius: '8px',
-                border: 'none',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                fontSize: '13px',
-                backgroundColor: selectedDoc === 'all' ? '#10b981' : '#1e293b',
-                color: selectedDoc === 'all' ? '#0f172a' : '#cbd5e1'
-              }}
-            >
-              📑 Tous les documents
-            </button>
-            <button
-              onClick={() => setSelectedDoc('cgu')}
-              style={{
-                padding: '8px 16px',
-                borderRadius: '8px',
-                border: 'none',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                fontSize: '13px',
-                backgroundColor: selectedDoc === 'cgu' ? '#10b981' : '#1e293b',
-                color: selectedDoc === 'cgu' ? '#0f172a' : '#cbd5e1'
-              }}
-            >
-              1. CGU
-            </button>
-            <button
-              onClick={() => setSelectedDoc('privacy')}
-              style={{
-                padding: '8px 16px',
-                borderRadius: '8px',
-                border: 'none',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                fontSize: '13px',
-                backgroundColor: selectedDoc === 'privacy' ? '#10b981' : '#1e293b',
-                color: selectedDoc === 'privacy' ? '#0f172a' : '#cbd5e1'
-              }}
-            >
-              2. Confidentialité (RGPD)
-            </button>
-            <button
-              onClick={() => setSelectedDoc('eula')}
-              style={{
-                padding: '8px 16px',
-                borderRadius: '8px',
-                border: 'none',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                fontSize: '13px',
-                backgroundColor: selectedDoc === 'eula' ? '#10b981' : '#1e293b',
-                color: selectedDoc === 'eula' ? '#0f172a' : '#cbd5e1'
-              }}
-            >
-              3. CLUF / EULA
-            </button>
-          </div>
-
-          <button
-            onClick={() => {
-              const textToCopy = selectedDoc === 'cgu' ? NUTRIZEN_RAW_CGU : selectedDoc === 'privacy' ? NUTRIZEN_RAW_PRIVACY : selectedDoc === 'eula' ? NUTRIZEN_RAW_EULA : NUTRIZEN_RAW_ALL;
-              copyToClipboard(textToCopy, 'current');
-            }}
-            style={{
-              ...btnPrimaryStyle,
-              backgroundColor: copiedId === 'current' ? '#22c55e' : '#10b981',
-              color: '#0f172a'
-            }}
-          >
-            {copiedId === 'current' ? '✅ Copié avec succès !' : '📋 Copier le Markdown'}
-          </button>
-        </div>
-
-        {/* CONTENU : DOCUMENT 1 - CONDITIONS GÉNÉRALES D'UTILISATION */}
-        {(selectedDoc === 'all' || selectedDoc === 'cgu') && (
-          <div style={{ ...cardStyle, marginBottom: '32px', borderColor: '#334155' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '16px', borderBottom: '1px solid #334155', paddingBottom: '14px' }}>
-              <div>
-                <span className="badge" style={{ backgroundColor: '#10b981', color: '#0f172a', fontWeight: 'bold' }}>DOCUMENT 1</span>
-                <h2 style={{ color: 'white', margin: '8px 0 2px 0', fontSize: '1.45rem' }}>
-                  CONDITIONS GÉNÉRALES D'UTILISATION (CGU)
-                </h2>
-                <div style={{ color: '#94a3b8', fontSize: '13px' }}>Application NutriZen • Dernière mise à jour : 25 octobre 2026</div>
-              </div>
-              <button
-                onClick={() => copyToClipboard(NUTRIZEN_RAW_CGU, 'cgu')}
-                style={{ ...btnOutlineStyle, padding: '6px 14px', fontSize: '12px' }}
-              >
-                {copiedId === 'cgu' ? '✅ Copié !' : '📋 Copier CGU'}
-              </button>
-            </div>
-
-            <div style={{ color: '#e2e8f0', lineHeight: 1.8, fontSize: '15px', display: 'grid', gap: '20px' }}>
-              <section>
-                <h3 style={{ color: '#34d399', fontSize: '1.15rem', marginBottom: '8px' }}>1. Objet et Présentation du Service</h3>
-                <p style={{ margin: 0 }}>
-                  Les présentes Conditions Générales d’Utilisation (ci-après les « CGU ») régissent l’utilisation de l’application mobile « NutriZen » (ci-après l’« Application »). NutriZen est un outil d’accompagnement bien-être, de calcul nutritionnel, de planification de repas assistée par intelligence artificielle et de suivi d'activité physique.
-                </p>
-              </section>
-
-              {/* DISCLAIMER MÉDICAL MIS EN EXERGUE */}
-              <section style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: '12px', padding: '18px' }}>
-                <h3 style={{ color: '#f87171', fontSize: '1.15rem', marginTop: 0, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span>⚠️</span> 2. Avertissement Médical et Santé (Disclaimer Majeur)
-                </h3>
-                <p style={{ margin: '0 0 10px 0', fontWeight: 'bold', color: '#fee2e2' }}>
-                  L'UTILISATEUR RECONNAÎT ET ACCEPTE EXPRESSÉMENT QUE NUTRIZEN N'EST PAS UN DISPOSITIF MÉDICAL ET NE DISPENSE AUCUN AVIS MÉDICAL, DIAGNOSTIC OU TRAITEMENT.
-                </p>
-                <p style={{ margin: 0, color: '#fecaca', fontSize: '14px' }}>
-                  Les estimations caloriques, les projections de poids, les programmes de jeûne intermittent et les analyses générées par l'Intelligence Artificielle sont fournis à titre exclusivement informatif et indicatif. Vous devez impérativement consulter un médecin ou un diététicien qualifié avant de commencer tout jeûne prolongé (&gt;16h), régime hypocalorique ou nouveau programme sportif. En cas de malaise, étourdissement ou problème de santé, rompez immédiatement le jeûne et consultez les services d'urgence.
-                </p>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#34d399', fontSize: '1.15rem', marginBottom: '8px' }}>3. Accès, Inscription et Sécurité du Compte</h3>
-                <p style={{ margin: 0 }}>
-                  L'accès à l'Application nécessite la création d'un compte. L'Utilisateur garantit que les informations transmises (âge, poids, taille, sexe) sont véridiques et à jour. L'utilisation de l'Application est réservée aux personnes âgées d'au moins 16 ans (ou disposant du consentement d'un représentant légal).
-                </p>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#34d399', fontSize: '1.15rem', marginBottom: '8px' }}>4. Abonnements et Achats Intégrés (NutriZen VIP / Premium)</h3>
-                <ul style={{ margin: 0, paddingLeft: '20px' }}>
-                  <li><strong>Facturation :</strong> Les fonctionnalités Premium sont souscrites sous forme d'abonnements à renouvellement automatique via l'App Store (Apple) ou Google Play (Google).</li>
-                  <li><strong>Renouvellement automatique :</strong> Le paiement est débité à confirmation de l'achat. L'abonnement se renouvelle automatiquement sauf désactivation au moins 24 heures avant la fin de la période en cours dans les paramètres de votre compte Apple ou Google.</li>
-                  <li><strong>Restauration :</strong> L'Utilisateur peut à tout moment restaurer ses achats sur un nouvel appareil via le bouton dédié dans l'Application.</li>
-                </ul>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#34d399', fontSize: '1.15rem', marginBottom: '8px' }}>5. Règles de Conduite et Fonctions Sociales (UGC)</h3>
-                <p style={{ marginBottom: '8px' }}>L'Application propose des fonctions sociales (duels, partages, classements). Sont strictement interdits :</p>
-                <ul style={{ margin: '0 0 10px 20px' }}>
-                  <li>Les propos diffamatoires, haineux, violents, pornographiques ou harcelants.</li>
-                  <li>La publication de photos à caractère dénudé ou inapproprié dans la galerie de progression.</li>
-                </ul>
-                <div style={{ color: '#f87171', fontWeight: 'bold', fontSize: '14px' }}>
-                  Tout manquement entraînera la suspension immédiate et irrévocable du compte utilisateur sans préavis ni remboursement.
-                </div>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#34d399', fontSize: '1.15rem', marginBottom: '8px' }}>6. Propriété Intellectuelle</h3>
-                <p style={{ margin: 0 }}>
-                  Tous les contenus, logos, algorithmes, interfaces graphiques et marques intégrés dans NutriZen sont la propriété exclusive de l'éditeur de l'Application.
-                </p>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#34d399', fontSize: '1.15rem', marginBottom: '8px' }}>7. Résiliation et Suppression de Compte</h3>
-                <p style={{ margin: 0 }}>
-                  L'Utilisateur dispose de la faculté de supprimer son compte et toutes les données associées à tout moment directement depuis l'Application.
-                </p>
-              </section>
-            </div>
-          </div>
-        )}
-
-        {/* CONTENU : DOCUMENT 2 - POLITIQUE DE CONFIDENTIALITÉ */}
-        {(selectedDoc === 'all' || selectedDoc === 'privacy') && (
-          <div style={{ ...cardStyle, marginBottom: '32px', borderColor: '#334155' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '16px', borderBottom: '1px solid #334155', paddingBottom: '14px' }}>
-              <div>
-                <span className="badge" style={{ backgroundColor: '#06b6d4', color: '#0f172a', fontWeight: 'bold' }}>DOCUMENT 2</span>
-                <h2 style={{ color: 'white', margin: '8px 0 2px 0', fontSize: '1.45rem' }}>
-                  POLITIQUE DE CONFIDENTIALITÉ (RGPD &amp; Privacy Policy)
-                </h2>
-                <div style={{ color: '#94a3b8', fontSize: '13px' }}>Application NutriZen • Dernière mise à jour : 25 octobre 2026</div>
-              </div>
-              <button
-                onClick={() => copyToClipboard(NUTRIZEN_RAW_PRIVACY, 'privacy')}
-                style={{ ...btnOutlineStyle, padding: '6px 14px', fontSize: '12px' }}
-              >
-                {copiedId === 'privacy' ? '✅ Copié !' : '📋 Copier RGPD'}
-              </button>
-            </div>
-
-            <p style={{ color: '#cbd5e1', fontSize: '15px', lineHeight: 1.7, marginBottom: '20px' }}>
-              La protection de vos données personnelles et de santé est au cœur de nos engagements. La présente Politique décrit comment NutriZen traite vos données conformément au Règlement Général sur la Protection des Données (RGPD) et aux réglementations locales.
-            </p>
-
-            <div style={{ color: '#e2e8f0', lineHeight: 1.8, fontSize: '15px', display: 'grid', gap: '20px' }}>
-              <section>
-                <h3 style={{ color: '#22d3ee', fontSize: '1.15rem', marginBottom: '8px' }}>1. Responsable de Traitement</h3>
-                <p style={{ margin: 0 }}>
-                  L'Application NutriZen est éditée par l'équipe NutriZen (contact : <a href="mailto:contact@nutrizen.app" style={{ color: '#38bdf8', textDecoration: 'none' }}>contact@nutrizen.app</a>).
-                </p>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#22d3ee', fontSize: '1.15rem', marginBottom: '8px' }}>2. Données collectées et Finalités</h3>
-                <p style={{ marginBottom: '10px' }}>Nous collectons et traitons les données suivantes :</p>
-                <ol style={{ margin: 0, paddingLeft: '20px', display: 'grid', gap: '10px' }}>
-                  <li>
-                    <strong>Données d'identité et de compte :</strong> E-mail, prénom, nom, pays, mot de passe chiffré (Authentification et gestion de profil).
-                  </li>
-                  <li style={{ backgroundColor: 'rgba(6, 182, 212, 0.08)', padding: '8px 12px', borderRadius: '8px', borderLeft: '3px solid #06b6d4' }}>
-                    <strong style={{ color: '#38bdf8' }}>Données morphologiques et de bien-être (Données Sensibles - Art. 9 RGPD) :</strong> Poids, taille, âge, masse grasse, historique de pesée, objectifs caloriques, consommations d'eau et sessions de jeûne. (Traitées uniquement avec votre consentement explicite recueilli à l'inscription).
-                  </li>
-                  <li>
-                    <strong>Données de santé et d'activité (HealthKit / Google Connect) :</strong> Nombre de pas, calories actives dépensées. Ces données sont utilisées exclusivement pour synchroniser votre journal de bord. <span style={{ color: '#22c55e', fontWeight: 'bold' }}>ELLES NE SONT JAMAIS VENDUES NI UTILISÉES À DES FINS PUBLICITAIRES.</span>
-                  </li>
-                  <li>
-                    <strong>Photos de repas et scan de codes-barres :</strong> Utilisées pour l'analyse visuelle des portions et la détection d'ingrédients.
-                  </li>
-                  <li>
-                    <strong>Données techniques et d'identifiant :</strong> Jetons FCM pour les notifications, identifiant utilisateur anonymisé.
-                  </li>
-                </ol>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#22d3ee', fontSize: '1.15rem', marginBottom: '8px' }}>3. Sous-traitants et Transferts de Données</h3>
-                <p style={{ marginBottom: '8px' }}>NutriZen s'appuie sur des partenaires techniques certifiés :</p>
-                <ul style={{ margin: 0, paddingLeft: '20px' }}>
-                  <li><strong>Google Firebase (Cloud Firestore, Auth, Functions) :</strong> Hébergement sécurisé des données.</li>
-                  <li><strong>RevenueCat :</strong> Gestion chiffrée des abonnements intégrés.</li>
-                  <li><strong>Fournisseurs d'IA (Qwen / Cloud Functions) :</strong> Les invites d'analyse de repas sont transmises de manière anonymisée sans aucune donnée nominative directe.</li>
-                  <li><strong>Open Food Facts &amp; USDA :</strong> Consultation de bases de données nutritionnelles publiques.</li>
-                </ul>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#22d3ee', fontSize: '1.15rem', marginBottom: '8px' }}>4. Durée de Conservation</h3>
-                <p style={{ margin: 0 }}>
-                  Les données sont conservées tant que votre compte reste actif. Si vous n'utilisez pas l'application pendant 24 mois consécutifs, vos données sont automatiquement purgées.
-                </p>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#22d3ee', fontSize: '1.15rem', marginBottom: '8px' }}>5. Vos Droits (Accès, Rectification, Suppression)</h3>
-                <p style={{ margin: 0 }}>
-                  Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, de portabilité et d'effacement de vos données. Vous pouvez supprimer l'intégralité de votre compte et de vos données historiques directement depuis l'écran « Mon Profil » de l'Application ou en écrivant à : <a href="mailto:privacy@nutrizen.app" style={{ color: '#38bdf8', textDecoration: 'none' }}>privacy@nutrizen.app</a>.
-                </p>
-              </section>
-            </div>
-          </div>
-        )}
-
-        {/* CONTENU : DOCUMENT 3 - CONTRAT DE LICENCE UTILISATEUR FINAL (CLUF / EULA) */}
-        {(selectedDoc === 'all' || selectedDoc === 'eula') && (
-          <div style={{ ...cardStyle, marginBottom: '32px', borderColor: '#334155' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '16px', borderBottom: '1px solid #334155', paddingBottom: '14px' }}>
-              <div>
-                <span className="badge" style={{ backgroundColor: '#8b5cf6', color: 'white', fontWeight: 'bold' }}>DOCUMENT 3</span>
-                <h2 style={{ color: 'white', margin: '8px 0 2px 0', fontSize: '1.45rem' }}>
-                  CONTRAT DE LICENCE UTILISATEUR FINAL (CLUF / EULA)
-                </h2>
-                <div style={{ color: '#94a3b8', fontSize: '13px' }}>Application NutriZen • Dernière mise à jour : 25 octobre 2026</div>
-              </div>
-              <button
-                onClick={() => copyToClipboard(NUTRIZEN_RAW_EULA, 'eula')}
-                style={{ ...btnOutlineStyle, padding: '6px 14px', fontSize: '12px' }}
-              >
-                {copiedId === 'eula' ? '✅ Copié !' : '📋 Copier CLUF'}
-              </button>
-            </div>
-
-            <p style={{ color: '#cbd5e1', fontSize: '15px', lineHeight: 1.7, marginBottom: '20px' }}>
-              Le présent Contrat de Licence d'Utilisateur Final (« CLUF ») est conclu entre vous (« Utilisateur ») et NutriZen.
-            </p>
-
-            <div style={{ color: '#e2e8f0', lineHeight: 1.8, fontSize: '15px', display: 'grid', gap: '20px' }}>
-              <section>
-                <h3 style={{ color: '#a78bfa', fontSize: '1.15rem', marginBottom: '8px' }}>1. Concession de Licence</h3>
-                <p style={{ margin: 0 }}>
-                  NutriZen vous concède une licence révocable, non exclusive, non transférable et limitée d'installation et d'utilisation de l'Application sur vos appareils personnels, dans le strict respect des règles des plateformes d'Apple (App Store Terms of Service) et de Google (Google Play Terms of Service).
-                </p>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#a78bfa', fontSize: '1.15rem', marginBottom: '8px' }}>2. Restriction d'Usage</h3>
-                <p style={{ marginBottom: '8px' }}>Vous acceptez de ne pas :</p>
-                <ul style={{ margin: 0, paddingLeft: '20px' }}>
-                  <li>Décompiler, désosser ou tenter d'extraire le code source de l'Application.</li>
-                  <li>Utiliser l'Application pour concevoir un service concurrent ou copier ses algorithmes d'IA.</li>
-                  <li>Utiliser les fonctionnalités sociales pour usurper une identité, harceler ou diffuser du contenu préjudiciable.</li>
-                </ul>
-              </section>
-
-              {/* UGC & TOLERANCE ZERO */}
-              <section style={{ backgroundColor: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.4)', borderRadius: '12px', padding: '18px' }}>
-                <h3 style={{ color: '#c084fc', fontSize: '1.15rem', marginTop: 0, marginBottom: '8px' }}>
-                  3. Contenu Généré par l'Utilisateur (UGC) et Tolérance Zéro
-                </h3>
-                <p style={{ margin: '0 0 10px 0' }}>
-                  L'Application intègre des fonctionnalités communautaires (photos de progression corporelle, pseudonymes, défis d'amis). L'Utilisateur s'engage à ne publier aucun contenu à caractère pornographique, insultant, diffamatoire ou illicite.
-                </p>
-                <div style={{ backgroundColor: '#0f172a', padding: '12px 16px', borderRadius: '8px', borderLeft: '4px solid #ef4444', color: '#fca5a5', fontWeight: 'bold' }}>
-                  NutriZen applique une politique de TOLÉRANCE ZÉRO envers les contenus abusifs. Tout contenu signalé sera modéré et retiré sous 24 heures, et l'auteur banni de manière permanente.
-                </div>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#a78bfa', fontSize: '1.15rem', marginBottom: '8px' }}>4. Exclusion de Garantie et Limitation de Responsabilité</h3>
-                <p style={{ margin: 0 }}>
-                  L'APPLICATION EST FOURNIE « EN L'ÉTAT ». NUTRIZEN DÉCLINE TOUTE RESPONSABILITÉ QUANT AUX DOMMAGES DIRECTS OU INDIRECTS, BLESSURES OU DÉFAILLANCES DE SANTÉ POUVANT RÉSULTER DE L'UTILISATION DES PROGRAMMES NUTRITIONNELS OU DE JEÛNE PROPOSÉS.
-                </p>
-              </section>
-
-              <section>
-                <h3 style={{ color: '#a78bfa', fontSize: '1.15rem', marginBottom: '8px' }}>5. Droit Applicable</h3>
-                <p style={{ margin: 0 }}>
-                  Le présent contrat est régi par le droit français. Tout litige relatif à son interprétation sera soumis aux tribunaux compétents.
-                </p>
-              </section>
-            </div>
-          </div>
-        )}
-
-        {/* BOUTON RETOUR ET ACTIONS */}
-        <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginTop: '24px' }}>
-          <Link to="/nutrizen" style={btnPrimaryStyle}>
-            🥑 Découvrir l'Application NutriZen
-          </Link>
-          <Link to="/" style={btnOutlineStyle}>
-            Accueil Parrel Studio
-          </Link>
-        </div>
-
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
-// 🔒 3. PAGE SPÉCIFIQUE : CONFIDENTIALITÉ RGPD (/nutrizen/privacy)
+// 🔒 2. PAGE : POLITIQUE DE CONFIDENTIALITÉ — NUTRIZEN (/nutrizen/privacy)
 // ==========================================
 export function NutriZenPrivacyPolicyPage() {
   return (
@@ -905,8 +488,8 @@ export function NutriZenPrivacyPolicyPage() {
               ← Retour à NutriZen
             </Link>
             <span style={{ color: '#475569' }}>•</span>
-            <Link to="/nutrizen/legal" style={{ color: '#38bdf8', textDecoration: 'none', fontSize: '14px' }}>
-              Tous les Textes Juridiques (Page 4)
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
             </Link>
           </div>
 
@@ -979,6 +562,16 @@ export function NutriZenPrivacyPolicyPage() {
               </p>
             </section>
           </div>
+
+          {/* BOUTONS NAVIGATION BAS DE PAGE */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '32px', borderTop: '1px solid #334155', paddingTop: '20px' }}>
+            <Link to="/nutrizen/privacy" style={{ ...btnPrimaryStyle, backgroundColor: '#10b981', color: '#ffffff' }}>
+              Politique de Confidentialité
+            </Link>
+            <Link to="/nutrizen/terms" style={{ ...btnOutlineStyle, borderColor: '#10b981', color: '#10b981' }}>
+              Conditions Générales (CGU / EULA)
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -986,7 +579,7 @@ export function NutriZenPrivacyPolicyPage() {
 }
 
 // ==========================================
-// 📜 4. PAGE SPÉCIFIQUE : CONDITIONS GÉNÉRALES & CGU (/nutrizen/terms)
+// 📜 3. PAGE : CONDITIONS GÉNÉRALES (CGU / EULA) — NUTRIZEN (/nutrizen/terms)
 // ==========================================
 export function NutriZenTermsOfServicePage() {
   return (
@@ -998,18 +591,18 @@ export function NutriZenTermsOfServicePage() {
               ← Retour à NutriZen
             </Link>
             <span style={{ color: '#475569' }}>•</span>
-            <Link to="/nutrizen/legal" style={{ color: '#38bdf8', textDecoration: 'none', fontSize: '14px' }}>
-              Tous les Textes Juridiques (Page 4)
+            <Link to="/" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '14px' }}>
+              Accueil Parrel
             </Link>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
             <span className="badge" style={{ backgroundColor: '#10b981', color: '#0f172a', fontWeight: 'bold' }}>NutriZen</span>
-            <span className="badge" style={{ backgroundColor: 'rgba(239, 68, 68, 0.15)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.3)' }}>Avertissement Médical Majeur</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>Contrat EULA &amp; CGU</span>
           </div>
 
           <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
-            Conditions Générales d’Utilisation (CGU) – NutriZen
+            Conditions Générales d’Utilisation et Contrat de Licence d'Utilisateur Final (CLUF / EULA) — NutriZen
           </h1>
           <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
             Dernière mise à jour : 25 octobre 2026 • Application : NutriZen • Éditeur : Équipe NutriZen
@@ -1018,19 +611,23 @@ export function NutriZenTermsOfServicePage() {
 
         <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
           <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
-            <div><strong style={{ color: '#ffffff' }}>Application :</strong> NutriZen</div>
+            <div><strong style={{ color: '#ffffff' }}>Application :</strong> NutriZen (Suivi métabolique, Jeûne &amp; Fitness IA)</div>
             <div><strong style={{ color: '#ffffff' }}>Contact :</strong> <a href="mailto:contact@nutrizen.app" style={{ color: '#34d399', textDecoration: 'none' }}>contact@nutrizen.app</a></div>
             <div><strong style={{ color: '#ffffff' }}>URL HTTPS officielle :</strong> <a href="https://parrel.vercel.app/nutrizen/terms" style={{ color: '#34d399', textDecoration: 'none' }}>https://parrel.vercel.app/nutrizen/terms</a></div>
+            <div><strong style={{ color: '#ffffff' }}>EULA Standard Apple :</strong> <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer" style={{ color: '#6ee7b7', textDecoration: 'underline' }}>Apple Licensed Application End User License Agreement</a></div>
           </div>
 
           <div style={{ display: 'grid', gap: '26px' }}>
+
+            {/* 1. Objet et Présentation */}
             <section>
               <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>1. Objet et Présentation du Service</h2>
               <p style={{ margin: 0 }}>
-                Les présentes Conditions Générales d’Utilisation (ci-après les « CGU ») régissent l’utilisation de l’application mobile « NutriZen » (ci-après l’« Application »). NutriZen est un outil d’accompagnement bien-être, de calcul nutritionnel, de planification de repas assistée par intelligence artificielle et de suivi d'activité physique.
+                Les présentes Conditions Générales d’Utilisation et Contrat de Licence d’Utilisateur Final (ci-après les « CGU / EULA ») régissent l’utilisation de l’application mobile « NutriZen » (ci-après l’« Application »). NutriZen est un outil d’accompagnement bien-être, de calcul nutritionnel, de planification de repas assistée par intelligence artificielle et de suivi d'activité physique.
               </p>
             </section>
 
+            {/* 2. Disclaimer Médical */}
             <section style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: '12px', padding: '18px' }}>
               <h2 style={{ color: '#f87171', fontSize: '1.25rem', marginTop: 0, marginBottom: '8px' }}>
                 ⚠️ 2. Avertissement Médical et Santé (Disclaimer Majeur)
@@ -1043,106 +640,17 @@ export function NutriZenTermsOfServicePage() {
               </p>
             </section>
 
+            {/* 3. Concession de Licence EULA */}
             <section>
-              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>3. Accès, Inscription et Sécurité du Compte</h2>
-              <p style={{ margin: 0 }}>
-                L'accès à l'Application nécessite la création d'un compte. L'Utilisateur garantit que les informations transmises (âge, poids, taille, sexe) sont véridiques et à jour. L'utilisation de l'Application est réservée aux personnes âgées d'au moins 16 ans (ou disposant du consentement d'un représentant légal).
-              </p>
-            </section>
-
-            <section>
-              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>4. Abonnements et Achats Intégrés (NutriZen VIP / Premium)</h2>
-              <ul style={{ margin: 0, paddingLeft: '20px' }}>
-                <li><strong>Facturation :</strong> Les fonctionnalités Premium sont souscrites sous forme d'abonnements à renouvellement automatique via l'App Store (Apple) ou Google Play (Google).</li>
-                <li><strong>Renouvellement automatique :</strong> Le paiement est débité à confirmation de l'achat. L'abonnement se renouvelle automatiquement sauf désactivation au moins 24 heures avant la fin de la période en cours dans les paramètres de votre compte Apple ou Google.</li>
-                <li><strong>Restauration :</strong> L'Utilisateur peut à tout moment restaurer ses achats sur un nouvel appareil via le bouton dédié dans l'Application.</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>5. Règles de Conduite et Fonctions Sociales (UGC)</h2>
-              <p style={{ marginBottom: '8px' }}>L'Application propose des fonctions sociales (duels, partages, classements). Sont strictement interdits :</p>
-              <ul style={{ margin: '0 0 10px 20px' }}>
-                <li>Les propos diffamatoires, haineux, violents, pornographiques ou harcelants.</li>
-                <li>La publication de photos à caractère dénudé ou inapproprié dans la galerie de progression.</li>
-              </ul>
-              <div style={{ color: '#f87171', fontWeight: 'bold', fontSize: '14px' }}>
-                Tout manquement entraînera la suspension immédiate et irrévocable du compte utilisateur sans préavis ni remboursement.
-              </div>
-            </section>
-
-            <section>
-              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>6. Propriété Intellectuelle</h2>
-              <p style={{ margin: 0 }}>
-                Tous les contenus, logos, algorithmes, interfaces graphiques et marques intégrés dans NutriZen sont la propriété exclusive de l'éditeur de l'Application.
-              </p>
-            </section>
-
-            <section>
-              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>7. Résiliation et Suppression de Compte</h2>
-              <p style={{ margin: 0 }}>
-                L'Utilisateur dispose de la faculté de supprimer son compte et toutes les données associées à tout moment directement depuis l'Application.
-              </p>
-            </section>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
-// 📑 5. PAGE SPÉCIFIQUE : CLUF / EULA (/nutrizen/eula)
-// ==========================================
-export function NutriZenEulaPage() {
-  return (
-    <div style={pageStyle}>
-      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '24px' }}>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '14px' }}>
-            <Link to="/nutrizen" style={{ color: '#10b981', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
-              ← Retour à NutriZen
-            </Link>
-            <span style={{ color: '#475569' }}>•</span>
-            <Link to="/nutrizen/legal" style={{ color: '#38bdf8', textDecoration: 'none', fontSize: '14px' }}>
-              Tous les Textes Juridiques (Page 4)
-            </Link>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
-            <span className="badge" style={{ backgroundColor: '#8b5cf6', color: 'white', fontWeight: 'bold' }}>NutriZen</span>
-            <span className="badge" style={{ backgroundColor: 'rgba(139, 92, 246, 0.15)', color: '#c084fc', border: '1px solid rgba(139, 92, 246, 0.3)' }}>CLUF / EULA • Tolérance Zéro UGC</span>
-          </div>
-
-          <h1 style={{ color: 'white', marginTop: '10px', marginBottom: '8px', fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1.25 }}>
-            Contrat de Licence d'Utilisateur Final (CLUF / EULA) – NutriZen
-          </h1>
-          <div style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 'bold' }}>
-            Dernière mise à jour : 25 octobre 2026 • Application : NutriZen • Éditeur : Équipe NutriZen
-          </div>
-        </div>
-
-        <div style={{ backgroundColor: '#1e293b', padding: '32px', borderRadius: '20px', border: '1px solid #334155', lineHeight: 1.75, color: '#e2e8f0' }}>
-          <div style={{ backgroundColor: '#0f172a', padding: '16px 20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '24px', fontSize: '14px', display: 'grid', gap: '6px' }}>
-            <div><strong style={{ color: '#ffffff' }}>Application :</strong> NutriZen</div>
-            <div><strong style={{ color: '#ffffff' }}>Contact :</strong> <a href="mailto:contact@nutrizen.app" style={{ color: '#34d399', textDecoration: 'none' }}>contact@nutrizen.app</a></div>
-            <div><strong style={{ color: '#ffffff' }}>URL HTTPS officielle :</strong> <a href="https://parrel.vercel.app/nutrizen/eula" style={{ color: '#34d399', textDecoration: 'none' }}>https://parrel.vercel.app/nutrizen/eula</a></div>
-          </div>
-
-          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', marginBottom: '28px', borderBottom: '1px solid #334155', paddingBottom: '20px' }}>
-            Le présent Contrat de Licence d'Utilisateur Final (« CLUF ») est conclu entre vous (« Utilisateur ») et NutriZen.
-          </p>
-
-          <div style={{ display: 'grid', gap: '26px' }}>
-            <section>
-              <h2 style={{ color: '#a78bfa', fontSize: '1.25rem', marginBottom: '10px' }}>1. Concession de Licence</h2>
+              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>3. Concession de Licence (CLUF / EULA)</h2>
               <p style={{ margin: 0 }}>
                 NutriZen vous concède une licence révocable, non exclusive, non transférable et limitée d'installation et d'utilisation de l'Application sur vos appareils personnels, dans le strict respect des règles des plateformes d'Apple (App Store Terms of Service) et de Google (Google Play Terms of Service).
               </p>
             </section>
 
+            {/* 4. Restriction d'Usage */}
             <section>
-              <h2 style={{ color: '#a78bfa', fontSize: '1.25rem', marginBottom: '10px' }}>2. Restriction d'Usage</h2>
+              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>4. Restriction d'Usage</h2>
               <p style={{ marginBottom: '8px' }}>Vous acceptez de ne pas :</p>
               <ul style={{ margin: 0, paddingLeft: '20px' }}>
                 <li>Décompiler, désosser ou tenter d'extraire le code source de l'Application.</li>
@@ -1151,9 +659,28 @@ export function NutriZenEulaPage() {
               </ul>
             </section>
 
-            <section style={{ backgroundColor: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.4)', borderRadius: '12px', padding: '18px' }}>
-              <h2 style={{ color: '#c084fc', fontSize: '1.25rem', marginTop: 0, marginBottom: '8px' }}>
-                3. Contenu Généré par l'Utilisateur (UGC) et Tolérance Zéro
+            {/* 5. Accès et Inscription */}
+            <section>
+              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>5. Accès, Inscription et Sécurité du Compte</h2>
+              <p style={{ margin: 0 }}>
+                L'accès à l'Application nécessite la création d'un compte. L'Utilisateur garantit que les informations transmises (âge, poids, taille, sexe) sont véridiques et à jour. L'utilisation de l'Application est réservée aux personnes âgées d'au moins 16 ans (ou disposant du consentement d'un représentant légal).
+              </p>
+            </section>
+
+            {/* 6. Abonnements et Achats Intégrés */}
+            <section>
+              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>6. Abonnements et Achats Intégrés (NutriZen VIP / Premium)</h2>
+              <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                <li><strong>Facturation :</strong> Les fonctionnalités Premium sont souscrites sous forme d'abonnements à renouvellement automatique via l'App Store (Apple) ou Google Play (Google).</li>
+                <li><strong>Renouvellement automatique :</strong> Le paiement est débité à confirmation de l'achat. L'abonnement se renouvelle automatiquement sauf désactivation au moins 24 heures avant la fin de la période en cours dans les paramètres de votre compte Apple ou Google.</li>
+                <li><strong>Restauration :</strong> L'Utilisateur peut à tout moment restaurer ses achats sur un nouvel appareil via le bouton dédié dans l'Application.</li>
+              </ul>
+            </section>
+
+            {/* 7. Contenu UGC et Tolérance Zéro */}
+            <section style={{ backgroundColor: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '12px', padding: '18px' }}>
+              <h2 style={{ color: '#34d399', fontSize: '1.25rem', marginTop: 0, marginBottom: '8px' }}>
+                7. Contenu Généré par l'Utilisateur (UGC) et Tolérance Zéro
               </h2>
               <p style={{ margin: '0 0 10px 0' }}>
                 L'Application intègre des fonctionnalités communautaires (photos de progression corporelle, pseudonymes, défis d'amis). L'Utilisateur s'engage à ne publier aucun contenu à caractère pornographique, insultant, diffamatoire ou illicite.
@@ -1163,22 +690,49 @@ export function NutriZenEulaPage() {
               </div>
             </section>
 
+            {/* 8. Propriété Intellectuelle */}
             <section>
-              <h2 style={{ color: '#a78bfa', fontSize: '1.25rem', marginBottom: '10px' }}>4. Exclusion de Garantie et Limitation de Responsabilité</h2>
+              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>8. Propriété Intellectuelle</h2>
+              <p style={{ margin: 0 }}>
+                Tous les contenus, logos, algorithmes, interfaces graphiques et marques intégrés dans NutriZen sont la propriété exclusive de l'éditeur de l'Application.
+              </p>
+            </section>
+
+            {/* 9. Exclusion de Garantie et Limitation de Responsabilité */}
+            <section>
+              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>9. Exclusion de Garantie et Limitation de Responsabilité</h2>
               <p style={{ margin: 0 }}>
                 L'APPLICATION EST FOURNIE « EN L'ÉTAT ». NUTRIZEN DÉCLINE TOUTE RESPONSABILITÉ QUANT AUX DOMMAGES DIRECTS OU INDIRECTS, BLESSURES OU DÉFAILLANCES DE SANTÉ POUVANT RÉSULTER DE L'UTILISATION DES PROGRAMMES NUTRITIONNELS OU DE JEÛNE PROPOSÉS.
               </p>
             </section>
 
+            {/* 10. Résiliation et Droit Applicable */}
             <section>
-              <h2 style={{ color: '#a78bfa', fontSize: '1.25rem', marginBottom: '10px' }}>5. Droit Applicable</h2>
+              <h2 style={{ color: '#10b981', fontSize: '1.25rem', marginBottom: '10px' }}>10. Résiliation et Droit Applicable</h2>
+              <p style={{ margin: '0 0 8px 0' }}>
+                L'Utilisateur dispose de la faculté de supprimer son compte et toutes les données associées à tout moment directement depuis l'Application.
+              </p>
               <p style={{ margin: 0 }}>
                 Le présent contrat est régi par le droit français. Tout litige relatif à son interprétation sera soumis aux tribunaux compétents.
               </p>
             </section>
+          </div>
+
+          {/* BOUTONS NAVIGATION BAS DE PAGE */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '32px', borderTop: '1px solid #334155', paddingTop: '20px' }}>
+            <Link to="/nutrizen/privacy" style={{ ...btnOutlineStyle, borderColor: '#10b981', color: '#10b981' }}>
+              Politique de Confidentialité
+            </Link>
+            <Link to="/nutrizen/terms" style={{ ...btnPrimaryStyle, backgroundColor: '#10b981', color: '#ffffff' }}>
+              Conditions Générales (CGU / EULA)
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+// Export pour compatibilité des routes
+export const NutriZenEulaPage = NutriZenTermsOfServicePage;
+export const NutriZenLegalDocsPage = NutriZenTermsOfServicePage;

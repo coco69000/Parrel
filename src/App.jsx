@@ -160,14 +160,9 @@ function Home({ user }) {
             <p style={{ marginTop: '15px', marginBottom: '20px' }}>
               Multi-saisie par Vision IA &amp; code-barres Open Food Facts, jeûne intermittent avec minuteur métabolique, coach sportif IA synchronisé Apple Health / Google Fit et duels équitables entre amis.
             </p>
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              <Link to="/nutrizen" style={{ ...btnPrimaryStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '150px', backgroundColor: '#10b981' }}>
-                Ouvrir NutriZen
-              </Link>
-              <Link to="/nutrizen/legal" style={{ ...btnOutlineStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '150px', borderColor: '#10b981', color: '#34d399' }}>
-                Textes Juridiques
-              </Link>
-            </div>
+            <Link to="/nutrizen" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#10b981' }}>
+              Ouvrir NutriZen
+            </Link>
           </div>
         </div>
       </section>
