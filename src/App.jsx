@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate, useParams, Outlet, useLocation } from 'react-router-dom';
 import './App.css';
+import {
+  NutriZenPage,
+  NutriZenLegalDocsPage,
+  NutriZenPrivacyPolicyPage,
+  NutriZenTermsOfServicePage,
+  NutriZenEulaPage
+} from './NutriZen';
 
 // --- IMPORTATIONS FIREBASE ---
 import { initializeApp } from "firebase/app";
@@ -147,9 +154,20 @@ function Home({ user }) {
             </Link>
           </div>
 
-          <div className="app-card">
-            <h3>ProjetCalo</h3>
-            <p>Nutrition et fitness personnalisés via IA.</p>
+          <div className="app-card" style={{ border: '1px solid #10b981' }}>
+            <h3 style={{ color: '#10b981' }}>NutriZen</h3>
+            <span className="tag" style={{ backgroundColor: '#10b981', color: '#0f172a', padding: '5px 10px', borderRadius: '5px', fontSize: '12px', fontWeight: 'bold' }}>Nutrition, Jeûne &amp; Fitness IA</span>
+            <p style={{ marginTop: '15px', marginBottom: '20px' }}>
+              Multi-saisie par Vision IA &amp; code-barres Open Food Facts, jeûne intermittent avec minuteur métabolique, coach sportif IA synchronisé Apple Health / Google Fit et duels équitables entre amis.
+            </p>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <Link to="/nutrizen" style={{ ...btnPrimaryStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '150px', backgroundColor: '#10b981' }}>
+                Ouvrir NutriZen
+              </Link>
+              <Link to="/nutrizen/legal" style={{ ...btnOutlineStyle, display: 'inline-block', textAlign: 'center', boxSizing: 'border-box', flex: 1, minWidth: '150px', borderColor: '#10b981', color: '#34d399' }}>
+                Textes Juridiques
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -2198,7 +2216,7 @@ function GeoHuntPage() {
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-            
+
             <div style={{
               backgroundColor: activeRole === 'predator' ? 'rgba(239, 68, 68, 0.12)' : '#0f172a',
               padding: '24px',
@@ -3961,10 +3979,15 @@ const legalApps = {
     label: 'Playfun (Jeux de Soirée & Société)',
     color: '#f59e0b'
   },
+  nutrizen: {
+    name: 'NutriZen',
+    label: 'NutriZen (Nutrition, Jeûne & Fitness IA)',
+    color: '#10b981'
+  },
   projetcalo: {
-    name: 'ProjetCalo',
-    label: 'ProjetCalo',
-    color: '#38bdf8'
+    name: 'NutriZen',
+    label: 'NutriZen (ex-ProjetCalo)',
+    color: '#10b981'
   },
 };
 
@@ -3994,6 +4017,11 @@ function LegalPage({ type }) {
   // Si l'application demandée est WalkMoney ou EcoNav, afficher les documents juridiques officiels complets
   if (appSlug === 'walkmoney' || appSlug === 'econav') {
     return type === 'privacy' ? <WalkMoneyPrivacyPolicyPage /> : <WalkMoneyTermsOfServicePage />;
+  }
+
+  // Si l'application demandée est NutriZen ou ProjetCalo, afficher les documents juridiques officiels complets
+  if (appSlug === 'nutrizen' || appSlug === 'projetcalo' || appSlug === 'calo') {
+    return type === 'privacy' ? <NutriZenPrivacyPolicyPage /> : <NutriZenTermsOfServicePage />;
   }
 
   const appInfo = legalApps[appSlug] || legalApps.walkmoney;
@@ -4065,10 +4093,10 @@ function LegalIndexPage({ type }) {
               <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
                 <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'playfun' ? '/playfun/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
+                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'playfun' ? '/playfun/privacy' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
                     Confidentialité
                   </Link>
-                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'playfun' ? '/playfun/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
+                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'playfun' ? '/playfun/terms' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
                     Conditions d’utilisation
                   </Link>
                 </div>
@@ -4966,6 +4994,26 @@ function App() {
         <Route path="/playfun/eula" element={<PlayfunTermsOfServicePage />} />
         <Route path="/playfun/politique-de-confidentialite" element={<PlayfunPrivacyPolicyPage />} />
         <Route path="/playfun/conditions-dutilisation" element={<PlayfunTermsOfServicePage />} />
+
+        {/* NUTRIZEN (ex-ProjetCalo) */}
+        <Route path="/nutrizen" element={<NutriZenPage />} />
+        <Route path="/projetcalo" element={<Navigate to="/nutrizen" replace />} />
+        <Route path="/calo" element={<Navigate to="/nutrizen" replace />} />
+        <Route path="/nutrizen/legal" element={<NutriZenLegalDocsPage />} />
+        <Route path="/nutrizen/privacy" element={<NutriZenPrivacyPolicyPage />} />
+        <Route path="/nutrizen/terms" element={<NutriZenTermsOfServicePage />} />
+        <Route path="/nutrizen/eula" element={<NutriZenEulaPage />} />
+        <Route path="/nutrizen/cgu" element={<NutriZenTermsOfServicePage />} />
+        <Route path="/nutrizen/politique-de-confidentialite" element={<NutriZenPrivacyPolicyPage />} />
+        <Route path="/nutrizen/conditions-dutilisation" element={<NutriZenTermsOfServicePage />} />
+        <Route path="/projetcalo/legal" element={<Navigate to="/nutrizen/legal" replace />} />
+        <Route path="/projetcalo/privacy" element={<NutriZenPrivacyPolicyPage />} />
+        <Route path="/projetcalo/terms" element={<NutriZenTermsOfServicePage />} />
+        <Route path="/projetcalo/eula" element={<NutriZenEulaPage />} />
+        <Route path="/projetcalo/cgu" element={<NutriZenTermsOfServicePage />} />
+        <Route path="/projetcalo/politique-de-confidentialite" element={<NutriZenPrivacyPolicyPage />} />
+        <Route path="/projetcalo/conditions-dutilisation" element={<NutriZenTermsOfServicePage />} />
+
         <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
         <Route path="/legal/conditions-dutilisation" element={<LegalIndexPage type="terms" />} />
         <Route path="/pro/auth" element={<Navigate to="/walkmoney/auth" replace />} />
