@@ -8,6 +8,13 @@ import {
   NutriZenTermsOfServicePage,
   NutriZenEulaPage
 } from './NutriZen';
+import {
+  WikiCardPage,
+  WikiCardLegalDocsPage,
+  WikiCardPrivacyPolicyPage,
+  WikiCardTermsOfServicePage,
+  WikiCardEulaPage
+} from './WikiCard';
 
 // --- IMPORTATIONS FIREBASE ---
 import { initializeApp } from "firebase/app";
@@ -162,6 +169,17 @@ function Home({ user }) {
             </p>
             <Link to="/nutrizen" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#10b981' }}>
               Ouvrir NutriZen
+            </Link>
+          </div>
+
+          <div className="app-card" style={{ border: '1px solid #6366f1' }}>
+            <h3 style={{ color: '#6366f1' }}>WikiCard</h3>
+            <span className="tag" style={{ backgroundColor: '#6366f1', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Wikipedia TCG &amp; Duels IA</span>
+            <p style={{ marginTop: '15px', marginBottom: '20px' }}>
+              Jeu de cartes à collectionner innovant où chaque carte est générée à partir d'un véritable article Wikipédia. Rareté dynamique par vues réelles, boosters 3D, combats de quiz IA et guildes.
+            </p>
+            <Link to="/wikicard" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#6366f1' }}>
+              Ouvrir WikiCard
             </Link>
           </div>
         </div>
@@ -3984,6 +4002,11 @@ const legalApps = {
     label: 'NutriZen (ex-ProjetCalo)',
     color: '#10b981'
   },
+  wikicard: {
+    name: 'WikiCard',
+    label: 'WikiCard (Wikipedia TCG & Duels IA)',
+    color: '#6366f1'
+  },
 };
 
 function LegalPage({ type }) {
@@ -4017,6 +4040,11 @@ function LegalPage({ type }) {
   // Si l'application demandée est NutriZen ou ProjetCalo, afficher les documents juridiques officiels complets
   if (appSlug === 'nutrizen' || appSlug === 'projetcalo' || appSlug === 'calo') {
     return type === 'privacy' ? <NutriZenPrivacyPolicyPage /> : <NutriZenTermsOfServicePage />;
+  }
+
+  // Si l'application demandée est WikiCard, afficher les documents juridiques officiels complets
+  if (appSlug === 'wikicard') {
+    return type === 'privacy' ? <WikiCardPrivacyPolicyPage /> : <WikiCardTermsOfServicePage />;
   }
 
   const appInfo = legalApps[appSlug] || legalApps.walkmoney;
@@ -4088,10 +4116,10 @@ function LegalIndexPage({ type }) {
               <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
                 <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'playfun' ? '/playfun/privacy' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
+                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'playfun' ? '/playfun/privacy' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : slug === 'wikicard' ? '/wikicard/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
                     Confidentialité
                   </Link>
-                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'playfun' ? '/playfun/terms' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
+                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'playfun' ? '/playfun/terms' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : slug === 'wikicard' ? '/wikicard/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
                     Conditions d’utilisation
                   </Link>
                 </div>
@@ -5008,6 +5036,16 @@ function App() {
         <Route path="/projetcalo/cgu" element={<NutriZenTermsOfServicePage />} />
         <Route path="/projetcalo/politique-de-confidentialite" element={<NutriZenPrivacyPolicyPage />} />
         <Route path="/projetcalo/conditions-dutilisation" element={<NutriZenTermsOfServicePage />} />
+
+        {/* WIKICARD (Wikipedia TCG) */}
+        <Route path="/wikicard" element={<WikiCardPage />} />
+        <Route path="/wikicard/legal" element={<WikiCardLegalDocsPage />} />
+        <Route path="/wikicard/privacy" element={<WikiCardPrivacyPolicyPage />} />
+        <Route path="/wikicard/terms" element={<WikiCardTermsOfServicePage />} />
+        <Route path="/wikicard/eula" element={<WikiCardEulaPage />} />
+        <Route path="/wikicard/cgu" element={<WikiCardTermsOfServicePage />} />
+        <Route path="/wikicard/politique-de-confidentialite" element={<WikiCardPrivacyPolicyPage />} />
+        <Route path="/wikicard/conditions-dutilisation" element={<WikiCardTermsOfServicePage />} />
 
         <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
         <Route path="/legal/conditions-dutilisation" element={<LegalIndexPage type="terms" />} />
