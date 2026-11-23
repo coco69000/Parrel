@@ -15,6 +15,13 @@ import {
   WikiCardTermsOfServicePage,
   WikiCardEulaPage
 } from './WikiCard';
+import {
+  WordBuildPage,
+  WordBuildLegalDocsPage,
+  WordBuildPrivacyPolicyPage,
+  WordBuildTermsOfServicePage,
+  WordBuildEulaPage
+} from './WordBuild';
 
 // --- IMPORTATIONS FIREBASE ---
 import { initializeApp } from "firebase/app";
@@ -180,6 +187,17 @@ function Home({ user }) {
             </p>
             <Link to="/wikicard" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#6366f1' }}>
               Ouvrir WikiCard
+            </Link>
+          </div>
+
+          <div className="app-card" style={{ border: '1px solid #0ea5e9' }}>
+            <h3 style={{ color: '#38bdf8' }}>WordBuild</h3>
+            <span className="tag" style={{ backgroundColor: '#0ea5e9', color: 'white', padding: '5px 10px', borderRadius: '5px', fontSize: '12px' }}>Simulation Géopolitique &amp; Vie IA</span>
+            <p style={{ marginTop: '15px', marginBottom: '20px' }}>
+              Monde bac à sable persistant où vous interagissez en langage naturel tout en alternant entre la gestion d'une nation entière sur un globe 3D (Président) et la vie quotidienne d'un habitant (Citoyen).
+            </p>
+            <Link to="/wordbuild" style={{ ...btnPrimaryStyle, display: 'inline-block', width: '100%', textAlign: 'center', boxSizing: 'border-box', backgroundColor: '#0ea5e9' }}>
+              Ouvrir WordBuild
             </Link>
           </div>
         </div>
@@ -4007,6 +4025,11 @@ const legalApps = {
     label: 'WikiCard (Wikipedia TCG & Duels IA)',
     color: '#6366f1'
   },
+  wordbuild: {
+    name: 'WordBuild',
+    label: 'WordBuild (Projet WorldBuildr • Simulation Géopolitique & Vie IA)',
+    color: '#0ea5e9'
+  },
 };
 
 function LegalPage({ type }) {
@@ -4045,6 +4068,11 @@ function LegalPage({ type }) {
   // Si l'application demandée est WikiCard, afficher les documents juridiques officiels complets
   if (appSlug === 'wikicard') {
     return type === 'privacy' ? <WikiCardPrivacyPolicyPage /> : <WikiCardTermsOfServicePage />;
+  }
+
+  // Si l'application demandée est WordBuild / WorldBuildr, afficher les documents juridiques officiels complets
+  if (appSlug === 'wordbuild' || appSlug === 'worldbuild' || appSlug === 'worldbuildr' || appSlug === 'geosim') {
+    return type === 'privacy' ? <WordBuildPrivacyPolicyPage /> : <WordBuildTermsOfServicePage />;
   }
 
   const appInfo = legalApps[appSlug] || legalApps.walkmoney;
@@ -4116,10 +4144,10 @@ function LegalIndexPage({ type }) {
               <div key={slug} className="app-card" style={{ backgroundColor: '#0f172a' }}>
                 <h3 style={{ color: appInfo.color, marginTop: 0 }}>{appInfo.label}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'playfun' ? '/playfun/privacy' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : slug === 'wikicard' ? '/wikicard/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
+                  <Link to={slug === 'daytalia' ? '/privacy' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/privacy' : slug === 'geohunt' ? '/geohunt/privacy' : slug === 'playfun' ? '/playfun/privacy' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/privacy' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/privacy' : slug === 'wikicard' ? '/wikicard/privacy' : slug === 'wordbuild' ? '/wordbuild/privacy' : `/${slug}/politique-de-confidentialite`} style={btnPrimaryStyle}>
                     Confidentialité
                   </Link>
-                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'playfun' ? '/playfun/terms' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : slug === 'wikicard' ? '/wikicard/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
+                  <Link to={slug === 'daytalia' ? '/terms' : slug === 'quizbot' || slug === 'quizqi' ? '/quizbot/terms' : slug === 'geohunt' ? '/geohunt/terms' : slug === 'playfun' ? '/playfun/terms' : slug === 'nutrizen' || slug === 'projetcalo' ? '/nutrizen/terms' : slug === 'walkmoney' || slug === 'econav' ? '/walkmoney/terms' : slug === 'wikicard' ? '/wikicard/terms' : slug === 'wordbuild' ? '/wordbuild/terms' : `/${slug}/conditions-dutilisation`} style={btnOutlineStyle}>
                     Conditions d’utilisation
                   </Link>
                 </div>
@@ -5046,6 +5074,39 @@ function App() {
         <Route path="/wikicard/cgu" element={<WikiCardTermsOfServicePage />} />
         <Route path="/wikicard/politique-de-confidentialite" element={<WikiCardPrivacyPolicyPage />} />
         <Route path="/wikicard/conditions-dutilisation" element={<WikiCardTermsOfServicePage />} />
+
+        {/* WORDBUILD (Projet WorldBuildr) */}
+        <Route path="/wordbuild" element={<WordBuildPage />} />
+        <Route path="/worldbuild" element={<WordBuildPage />} />
+        <Route path="/worldbuildr" element={<WordBuildPage />} />
+        <Route path="/geosim" element={<Navigate to="/wordbuild" replace />} />
+        <Route path="/wordbuild/legal" element={<WordBuildLegalDocsPage />} />
+        <Route path="/wordbuild/privacy" element={<WordBuildPrivacyPolicyPage />} />
+        <Route path="/wordbuild/terms" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/wordbuild/eula" element={<WordBuildEulaPage />} />
+        <Route path="/wordbuild/cgu" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/wordbuild/politique-de-confidentialite" element={<WordBuildPrivacyPolicyPage />} />
+        <Route path="/wordbuild/conditions-dutilisation" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/worldbuild/legal" element={<WordBuildLegalDocsPage />} />
+        <Route path="/worldbuild/privacy" element={<WordBuildPrivacyPolicyPage />} />
+        <Route path="/worldbuild/terms" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/worldbuild/eula" element={<WordBuildEulaPage />} />
+        <Route path="/worldbuild/cgu" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/worldbuild/politique-de-confidentialite" element={<WordBuildPrivacyPolicyPage />} />
+        <Route path="/worldbuild/conditions-dutilisation" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/worldbuildr/legal" element={<WordBuildLegalDocsPage />} />
+        <Route path="/worldbuildr/privacy" element={<WordBuildPrivacyPolicyPage />} />
+        <Route path="/worldbuildr/terms" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/worldbuildr/eula" element={<WordBuildEulaPage />} />
+        <Route path="/worldbuildr/cgu" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/worldbuildr/politique-de-confidentialite" element={<WordBuildPrivacyPolicyPage />} />
+        <Route path="/worldbuildr/conditions-dutilisation" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/geosim/privacy" element={<WordBuildPrivacyPolicyPage />} />
+        <Route path="/geosim/terms" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/geosim/eula" element={<WordBuildEulaPage />} />
+        <Route path="/geosim/cgu" element={<WordBuildTermsOfServicePage />} />
+        <Route path="/geosim/politique-de-confidentialite" element={<WordBuildPrivacyPolicyPage />} />
+        <Route path="/geosim/conditions-dutilisation" element={<WordBuildTermsOfServicePage />} />
 
         <Route path="/legal/politique-de-confidentialite" element={<LegalIndexPage type="privacy" />} />
         <Route path="/legal/conditions-dutilisation" element={<LegalIndexPage type="terms" />} />
