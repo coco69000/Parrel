@@ -62,8 +62,21 @@ exports.createStripeShop = functions.https.onCall(async (dataOrRequest, context)
         };
 
     } catch (error) {
-        console.error("❌ ERREUR CRITIQUE STRIPE :", error);
-        throw new functions.https.HttpsError('internal', error.message);
+        console.error("❌ ERREUR CRITIQUE STRIPE :", {
+            message: error.message,
+            type: error.type,
+            code: error.code,
+            statusCode: error.statusCode,
+            param: error.param,
+            raw: error.raw,
+        });
+        throw new functions.https.HttpsError('internal', error.message, {
+            stripeMessage: error.message,
+            type: error.type,
+            code: error.code,
+            statusCode: error.statusCode,
+            param: error.param,
+        });
     }
 });
 

@@ -4531,7 +4531,9 @@ function CheckoutForm({ user }) {
     setIsLoading(true);
     setErrorMsg('');
 
+    let currentStep = 'initialisation';
     try {
+      currentStep = 'stripe.createPaymentMethod';
       const cardElement = elements.getElement(CardElement);
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: 'card',
@@ -4540,6 +4542,7 @@ function CheckoutForm({ user }) {
 
       if (error) throw new Error(error.message);
 
+      currentStep = 'httpsCallable(createStripeShop)';
       const createStripeShopFunc = httpsCallable(functions, 'createStripeShop');
       const result = await createStripeShopFunc({
         paymentMethodId: paymentMethod.id,
@@ -4554,6 +4557,7 @@ function CheckoutForm({ user }) {
       let lat = 48.8566;
       let lng = 2.3522;
       try {
+        currentStep = 'nominatim.geocode';
         const nomRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`);
         const nomData = await nomRes.json();
         if (nomData && nomData.length > 0) {
@@ -4564,6 +4568,7 @@ function CheckoutForm({ user }) {
         console.warn("Erreur Nominatim:", err);
       }
 
+      currentStep = 'firestore.addDoc(stores)';
       await addDoc(collection(db, "stores"), {
         name: storeName,
         address: address,
@@ -4596,8 +4601,24 @@ function CheckoutForm({ user }) {
       navigate('/walkmoney/dashboard');
 
     } catch (err) {
-      console.error(err);
-      setErrorMsg(err.message || "Une erreur est survenue lors de la création.");
+      const errorDetails = {
+        step: currentStep,
+        name: err?.name,
+        code: err?.code,
+        message: err?.message,
+        details: err?.details,
+        customData: err?.customData,
+        stack: err?.stack,
+      };
+      console.error(`❌ Erreur création magasin à l'étape [${currentStep}] :`, errorDetails, err);
+
+      const parts = [
+        `Étape : ${currentStep}`,
+        err?.code ? `Code : ${err.code}` : null,
+        `Message : ${err?.message || "Une erreur est survenue lors de la création."}`,
+        err?.details ? `Détails : ${typeof err.details === 'string' ? err.details : JSON.stringify(err.details)}` : null,
+      ].filter(Boolean);
+      setErrorMsg(parts.join(' | '));
     }
     setIsLoading(false);
   };
